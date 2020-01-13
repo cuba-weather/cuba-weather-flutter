@@ -1,14 +1,18 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 
-void main() => runApp(MyApp());
+import 'package:cuba_weather_dart/cuba_weather_dart.dart';
 
-class MyApp extends StatelessWidget {
+void main() => runApp(App());
+
+class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Cuba Weather',
       theme: ThemeData(primarySwatch: Colors.blue),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: MyHomePage(title: 'Cuba Weather'),
     );
   }
 }
@@ -18,15 +22,32 @@ class MyHomePage extends StatefulWidget {
   final String title;
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  MyHomePageState createState() => MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+class MyHomePageState extends State<MyHomePage> {
+  final _cubaWeather = CubaWeather();
+  final _textEditingController = TextEditingController();
+  String _text;
 
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
+  void _search() {
+    log('Searching...');
+    _cubaWeather.get(_textEditingController.text, suggestion: true).then((weather) {
+      setState(() {
+        _text = weather.toString();
+        log(_text);
+      });
+    }).catchError((error) {
+      setState(() {
+        if (error is InvalidLocationException) {
+          _text = error.message;
+        } else if (error is BadRequestException) {
+          _text = error.message;
+        } else {
+          _text = error.toString();
+        }
+        log(_text);
+      });
     });
   }
 
@@ -38,15 +59,15 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text('You have pushed the button this many times:'),
-            Text('$_counter', style: Theme.of(context).textTheme.display1),
+            Text(_text ?? ''),
+            TextField(controller: _textEditingController),
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
+        onPressed: _search,
+        tooltip: 'Search',
+        child: Icon(Icons.search),
       ),
     );
   }
