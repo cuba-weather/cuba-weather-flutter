@@ -3,6 +3,9 @@ import 'dart:developer';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:url_launcher/url_launcher.dart';
+
 import 'package:cuba_weather_dart/cuba_weather_dart.dart';
 
 class App extends StatelessWidget {
@@ -34,20 +37,25 @@ class MyHomePageState extends State<MyHomePage> {
   WeatherModel _weather;
 
   MyHomePageState() {
-    _value = _locations[0];
-    _cubaWeather.get(_value).then((weather) {
+    _start();
+  }
+
+  void _start() async {
+    var prefs = await SharedPreferences.getInstance();
+    _value = prefs.getString('location') ?? _locations[0];
+    try {
+      _weather = await _cubaWeather.get(_value);
       setState(() {
         _error = false;
         _loading = false;
-        _weather = weather;
       });
-    }).catchError((error) {
-      log(error);
+    } catch (e) {
+      log(e);
       setState(() {
         _error = true;
         _loading = false;
       });
-    });
+    }
   }
 
   Widget _buildCard(String key, String value, {double fondSize = 14}) {
@@ -86,26 +94,7 @@ class MyHomePageState extends State<MyHomePage> {
                       child: Text(value),
                     );
                   }).toList(),
-                  onChanged: (newValue) async {
-                    setState(() {
-                      _value = newValue;
-                      _loading = true;
-                      _error = false;
-                    });
-                    try {
-                      _weather = await _cubaWeather.get(_value);
-                      setState(() {
-                        _error = false;
-                        _loading = false;
-                      });
-                    } catch (e) {
-                      log(e);
-                      setState(() {
-                        _error = true;
-                        _loading = false;
-                      });
-                    }
-                  },
+                  onChanged: _onChangeDropdownButton,
                 ),
               ),
             ),
@@ -154,10 +143,126 @@ class MyHomePageState extends State<MyHomePage> {
     );
   }
 
+  Widget _buildAppBar(BuildContext context) {
+    return AppBar(
+      title: Text(widget.title),
+      actions: <Widget>[
+        IconButton(
+          icon: Icon(Icons.info_outline),
+          onPressed: () {
+            _showInformation(context);
+          },
+        ),
+      ],
+    );
+  }
+
+  void _showInformation(BuildContext context) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text("Información"),
+            content: SingleChildScrollView(
+              child: ListBody(
+                children: <Widget>[
+                  Container(
+                    margin: EdgeInsets.only(bottom: 20),
+                    child: Text('La información del clima mostrada en esta '
+                        'aplicación proviene del sitio web redcuba.cu que solo '
+                        'se puede hacer desde la red nacional cubana.'),
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(bottom: 10),
+                    child: Text('Esta aplicación es software libre, cualquier '
+                        'ayuda es bienvenida. Para ver el código fuente, '
+                        'contribuir o interactuar con la comunidad de Cuba'
+                        ' Weather puede utilizar el siguiente botón.'),
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(bottom: 10),
+                    child: RaisedButton(
+                      child: Container(
+                        margin: EdgeInsets.all(10),
+                        child: Text('Repositorio en GitHub',
+                            textAlign: TextAlign.center),
+                      ),
+                      onPressed: () async {
+                        const url = 'https://github.com/leynier/cuba-weather-flutter';
+                        if (await canLaunch(url)) {
+                          await launch(url);
+                        } else {
+                          throw 'Could not launch $url';
+                        }
+                      },
+                    ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(bottom: 10),
+                    child: Text('Para visitar el sitio web oficial del '
+                        'desarrollador de esta aplicacíon puede utilizar el '
+                        'siguiente botón.'),
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(bottom: 0),
+                    child: RaisedButton(
+                      child: Container(
+                        margin: EdgeInsets.all(10),
+                        child: Text('Sitio Web del Desarrollador',
+                            textAlign: TextAlign.center),
+                      ),
+                      onPressed: () async {
+                        const url = 'https://leynier.github.io';
+                        if (await canLaunch(url)) {
+                          await launch(url);
+                        } else {
+                          throw 'Could not launch $url';
+                        }
+                      },
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            actions: [
+              FlatButton(
+                child: Text("Cerrar"),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        });
+  }
+
+  void _onChangeDropdownButton(newValue) async {
+    setState(() {
+      _value = newValue;
+      _loading = true;
+      _error = false;
+    });
+    var prefs = await SharedPreferences.getInstance();
+    await prefs.setString('location', _value);
+    try {
+      _weather = await _cubaWeather.get(_value);
+      setState(() {
+        _error = false;
+        _loading = false;
+      });
+    } catch (e) {
+      log(e);
+      setState(() {
+        _error = true;
+        _loading = false;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(widget.title)),
+      appBar: _buildAppBar(context),
       body: _buildBody(),
     );
   }
