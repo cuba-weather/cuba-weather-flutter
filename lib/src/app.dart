@@ -143,6 +143,20 @@ class MyHomePageState extends State<MyHomePage> {
     );
   }
 
+  Widget _buildAppBar(BuildContext context) {
+    return AppBar(
+      title: Text(widget.title),
+      actions: <Widget>[
+        IconButton(
+          icon: Icon(Icons.info_outline),
+          onPressed: () {
+            _showInformation(context);
+          },
+        ),
+      ],
+    );
+  }
+
   void _showInformation(BuildContext context) {
     showDialog(
         context: context,
