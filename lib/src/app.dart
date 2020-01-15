@@ -3,6 +3,8 @@ import 'dart:developer';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import 'package:shared_preferences/shared_preferences.dart';
+
 import 'package:cuba_weather_dart/cuba_weather_dart.dart';
 
 class App extends StatelessWidget {
@@ -34,20 +36,25 @@ class MyHomePageState extends State<MyHomePage> {
   WeatherModel _weather;
 
   MyHomePageState() {
-    _value = _locations[0];
-    _cubaWeather.get(_value).then((weather) {
+    _start();
+  }
+
+  void _start() async {
+    var prefs = await SharedPreferences.getInstance();
+    _value = prefs.getString('location') ?? _locations[0];
+    try {
+      _weather = await _cubaWeather.get(_value);
       setState(() {
         _error = false;
         _loading = false;
-        _weather = weather;
       });
-    }).catchError((error) {
-      log(error);
+    } catch (e) {
+      log(e);
       setState(() {
         _error = true;
         _loading = false;
       });
-    });
+    }
   }
 
   Widget _buildCard(String key, String value, {double fondSize = 14}) {
@@ -141,6 +148,8 @@ class MyHomePageState extends State<MyHomePage> {
       _loading = true;
       _error = false;
     });
+    var prefs = await SharedPreferences.getInstance();
+    await prefs.setString('location', _value);
     try {
       _weather = await _cubaWeather.get(_value);
       setState(() {
