@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'package:cuba_weather_dart/cuba_weather_dart.dart';
 
@@ -140,6 +141,85 @@ class MyHomePageState extends State<MyHomePage> {
         ),
       ],
     );
+  }
+
+  void _showInformation(BuildContext context) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text("Información"),
+            content: SingleChildScrollView(
+              child: ListBody(
+                children: <Widget>[
+                  Container(
+                    margin: EdgeInsets.only(bottom: 20),
+                    child: Text('La información del clima mostrada en esta '
+                        'aplicación proviene del sitio web redcuba.cu que solo '
+                        'se puede hacer desde la red nacional cubana.'),
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(bottom: 10),
+                    child: Text('Esta aplicación es software libre, cualquier '
+                        'ayuda es bienvenida. Para ver el código fuente, '
+                        'contribuir o interactuar con la comunidad de Cuba'
+                        ' Weather puede utilizar el siguiente botón.'),
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(bottom: 10),
+                    child: RaisedButton(
+                      child: Container(
+                        margin: EdgeInsets.all(10),
+                        child: Text('Repositorio en GitHub',
+                            textAlign: TextAlign.center),
+                      ),
+                      onPressed: () async {
+                        const url = 'https://github.com/leynier/cuba-weather-flutter';
+                        if (await canLaunch(url)) {
+                          await launch(url);
+                        } else {
+                          throw 'Could not launch $url';
+                        }
+                      },
+                    ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(bottom: 10),
+                    child: Text('Para visitar el sitio web oficial del '
+                        'desarrollador de esta aplicacíon puede utilizar el '
+                        'siguiente botón.'),
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(bottom: 0),
+                    child: RaisedButton(
+                      child: Container(
+                        margin: EdgeInsets.all(10),
+                        child: Text('Sitio Web del Desarrollador',
+                            textAlign: TextAlign.center),
+                      ),
+                      onPressed: () async {
+                        const url = 'https://leynier.github.io';
+                        if (await canLaunch(url)) {
+                          await launch(url);
+                        } else {
+                          throw 'Could not launch $url';
+                        }
+                      },
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            actions: [
+              FlatButton(
+                child: Text("Cerrar"),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        });
   }
 
   void _onChangeDropdownButton(newValue) async {
