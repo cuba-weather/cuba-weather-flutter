@@ -86,26 +86,7 @@ class MyHomePageState extends State<MyHomePage> {
                       child: Text(value),
                     );
                   }).toList(),
-                  onChanged: (newValue) async {
-                    setState(() {
-                      _value = newValue;
-                      _loading = true;
-                      _error = false;
-                    });
-                    try {
-                      _weather = await _cubaWeather.get(_value);
-                      setState(() {
-                        _error = false;
-                        _loading = false;
-                      });
-                    } catch (e) {
-                      log(e);
-                      setState(() {
-                        _error = true;
-                        _loading = false;
-                      });
-                    }
-                  },
+                  onChanged: _onChangeDropdownButton,
                 ),
               ),
             ),
@@ -152,6 +133,27 @@ class MyHomePageState extends State<MyHomePage> {
         ),
       ],
     );
+  }
+
+  void _onChangeDropdownButton(newValue) async {
+    setState(() {
+      _value = newValue;
+      _loading = true;
+      _error = false;
+    });
+    try {
+      _weather = await _cubaWeather.get(_value);
+      setState(() {
+        _error = false;
+        _loading = false;
+      });
+    } catch (e) {
+      log(e);
+      setState(() {
+        _error = true;
+        _loading = false;
+      });
+    }
   }
 
   @override
