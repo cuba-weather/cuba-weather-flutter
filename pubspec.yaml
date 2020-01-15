@@ -27,6 +27,7 @@ dependencies:
   equatable: ^1.0.0
   cuba_weather_dart: ^1.2.1
   shared_preferences: ^0.5.6
+  url_launcher: ^5.4.1
 
 dev_dependencies:
 
