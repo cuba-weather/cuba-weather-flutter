@@ -2,6 +2,8 @@ import 'dart:developer';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/date_symbol_data_local.dart';
+import 'package:intl/intl.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -31,6 +33,7 @@ class MyHomePage extends StatefulWidget {
 class MyHomePageState extends State<MyHomePage> {
   final CubaWeather _cubaWeather = CubaWeather();
   final List<String> _locations = locations..sort();
+  DateFormat _dateFormat;
   bool _error = false;
   bool _loading = true;
   String _value;
@@ -41,8 +44,20 @@ class MyHomePageState extends State<MyHomePage> {
   }
 
   void _start() async {
-    var prefs = await SharedPreferences.getInstance();
-    _value = prefs.getString('location') ?? _locations[0];
+    try {
+      await initializeDateFormatting('es');
+      _dateFormat = DateFormat.jm('es').add_yMMMMEEEEd();
+    } catch (e) {
+      log(e);
+      _dateFormat = DateFormat.jm().add_yMMMMEEEEd();
+    }
+    try {
+      var prefs = await SharedPreferences.getInstance();
+      _value = prefs.getString('location') ?? _locations[0];
+    } catch (e) {
+      log(e);
+      _value = _locations[0];
+    }
     try {
       _weather = await _cubaWeather.get(_value);
       setState(() {
@@ -124,7 +139,7 @@ class MyHomePageState extends State<MyHomePage> {
         _buildCard('Humedad: ', '${_weather.humidity}%'),
         _buildCard('Presión: ', '${_weather.pressure} hpa'),
         _buildCard('Vientos: ', '${_weather.windstring}'),
-        _buildCard('Fecha: ', '${_weather.dt.date}'),
+        _buildCard('Fecha: ', '${_dateFormat.format(_weather.dt.date)}'),
         Image.network(_weather.iconWeather),
       ],
     );
@@ -188,7 +203,8 @@ class MyHomePageState extends State<MyHomePage> {
                             textAlign: TextAlign.center),
                       ),
                       onPressed: () async {
-                        const url = 'https://github.com/leynier/cuba-weather-flutter';
+                        const url =
+                            'https://github.com/leynier/cuba-weather-flutter';
                         if (await canLaunch(url)) {
                           await launch(url);
                         } else {
@@ -242,8 +258,12 @@ class MyHomePageState extends State<MyHomePage> {
       _loading = true;
       _error = false;
     });
-    var prefs = await SharedPreferences.getInstance();
-    await prefs.setString('location', _value);
+    try {
+      var prefs = await SharedPreferences.getInstance();
+      await prefs.setString('location', _value);
+    } catch (e) {
+      log(e);
+    }
     try {
       _weather = await _cubaWeather.get(_value);
       setState(() {
