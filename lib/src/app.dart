@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 
+import 'package:autocomplete_textfield/autocomplete_textfield.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -32,11 +33,12 @@ class MyHomePage extends StatefulWidget {
 
 class MyHomePageState extends State<MyHomePage> {
   final CubaWeather _cubaWeather = CubaWeather();
+  final GlobalKey<AutoCompleteTextFieldState<String>> key = new GlobalKey();
   final List<String> _locations = locations..sort();
+  final TextEditingController _textController = TextEditingController();
   DateFormat _dateFormat;
   bool _error = false;
   bool _loading = true;
-  String _value;
   WeatherModel _weather;
 
   MyHomePageState() {
@@ -44,6 +46,7 @@ class MyHomePageState extends State<MyHomePage> {
   }
 
   void _start() async {
+    String _value;
     try {
       await initializeDateFormatting('es');
       _dateFormat = DateFormat.jm('es').add_yMMMMEEEEd();
@@ -58,6 +61,9 @@ class MyHomePageState extends State<MyHomePage> {
       log(e);
       _value = _locations[0];
     }
+    setState(() {
+      _textController.text = _value;
+    });
     try {
       _weather = await _cubaWeather.get(_value);
       setState(() {
@@ -98,18 +104,14 @@ class MyHomePageState extends State<MyHomePage> {
             child: Card(
               child: Padding(
                 padding: EdgeInsets.symmetric(vertical: 5, horizontal: 20),
-                child: DropdownButton<String>(
-                  isExpanded: true,
-                  value: _value,
-                  icon: Icon(Icons.arrow_drop_down),
-                  items:
-                      _locations.map<DropdownMenuItem<String>>((String value) {
-                    return DropdownMenuItem<String>(
-                      value: value,
-                      child: Text(value),
-                    );
-                  }).toList(),
-                  onChanged: _onChangeDropdownButton,
+                child: SimpleAutoCompleteTextField(
+                  key: key,
+                  controller: _textController,
+                  suggestions: _locations,
+                  clearOnSubmit: false,
+                  textSubmitted: (text) => setState(() {
+                    _submit(text);
+                  }),
                 ),
               ),
             ),
@@ -252,23 +254,24 @@ class MyHomePageState extends State<MyHomePage> {
         });
   }
 
-  void _onChangeDropdownButton(newValue) async {
+  void _submit(value) async {
     setState(() {
-      _value = newValue;
       _loading = true;
       _error = false;
     });
     try {
       var prefs = await SharedPreferences.getInstance();
-      await prefs.setString('location', _value);
+      await prefs.setString('location', value);
     } catch (e) {
       log(e);
     }
     try {
-      _weather = await _cubaWeather.get(_value);
+      log(value);
+      _weather = await _cubaWeather.get(value);
       setState(() {
         _error = false;
         _loading = false;
+        _textController.text = _weather.cityName;
       });
     } catch (e) {
       log(e);
