@@ -39,6 +39,27 @@ class CombinedWeatherWidget extends StatelessWidget {
             ),
           ),
         ),
+        Container(
+          margin: EdgeInsets.only(top: 50),
+          child: Center(
+            child: Text(
+              'Viento:',
+              style: TextStyle(
+                fontWeight: FontWeight.w300,
+                color: Colors.white,
+              ),
+            ),
+          ),
+        ),
+        Center(
+          child: Text(
+            weather.windstring,
+            style: TextStyle(
+              fontWeight: FontWeight.w200,
+              color: Colors.white,
+            ),
+          ),
+        ),
       ],
     );
   }
