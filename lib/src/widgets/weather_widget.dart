@@ -80,8 +80,25 @@ class _WeatherWidgetState extends State<WeatherWidget> {
           child: BlocBuilder<WeatherBloc, WeatherState>(
             builder: (context, state) {
               if (state is WeatherEmpty) {
-                return Center(
-                    child: Text('Por favor, seleccione una localización.'));
+                return GradientContainerWidget(
+                  color: Colors.blue,
+                  child: Center(
+                    child: Container(
+                      margin: EdgeInsets.all(20),
+                      padding: EdgeInsets.only(bottom: 200),
+                      child: Text(
+                        'Por favor, seleccione una localización presionando '
+                        'sobre el ícono de una lupa en la parte superior '
+                        'derecha de la pantalla.',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ),
+                );
               }
               if (state is WeatherLoading) {
                 return GradientContainerWidget(
