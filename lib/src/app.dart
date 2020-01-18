@@ -34,7 +34,7 @@ class MyHomePage extends StatefulWidget {
 class MyHomePageState extends State<MyHomePage> {
   final CubaWeather _cubaWeather = CubaWeather();
   final GlobalKey<AutoCompleteTextFieldState<String>> key = new GlobalKey();
-  final List<String> _locations = locations..sort();
+  final List<String> _locations = List<String>();
   final TextEditingController _textController = TextEditingController();
   DateFormat _dateFormat;
   bool _error = false;
@@ -46,6 +46,10 @@ class MyHomePageState extends State<MyHomePage> {
   }
 
   void _start() async {
+    for (var item in locations) {
+      _locations.add(item);
+    }
+    _locations.sort();
     String _value;
     try {
       await initializeDateFormatting('es');
@@ -65,7 +69,7 @@ class MyHomePageState extends State<MyHomePage> {
       _textController.text = _value;
     });
     try {
-      _weather = await _cubaWeather.get(_value);
+      _weather = await _cubaWeather.get(_value, suggestion: true);
       setState(() {
         _error = false;
         _loading = false;
@@ -266,8 +270,7 @@ class MyHomePageState extends State<MyHomePage> {
       log(e);
     }
     try {
-      log(value);
-      _weather = await _cubaWeather.get(value);
+      _weather = await _cubaWeather.get(value, suggestion: true);
       setState(() {
         _error = false;
         _loading = false;
