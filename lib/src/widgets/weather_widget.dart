@@ -39,8 +39,7 @@ class _WeatherWidgetState extends State<WeatherWidget> {
     try {
       var prefs = await SharedPreferences.getInstance();
       _value = prefs.getString('location');
-      BlocProvider.of<WeatherBloc>(context)
-          .add(FetchWeather(location: _value));
+      BlocProvider.of<WeatherBloc>(context).add(FetchWeather(location: _value));
     } catch (e) {
       log(e);
     }
@@ -58,7 +57,8 @@ class _WeatherWidgetState extends State<WeatherWidget> {
               final location = await Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => LocationSelectionWidget(),
+                  builder: (context) =>
+                      LocationSelectionWidget(locations: this.locations),
                 ),
               );
               if (location != null) {
@@ -80,7 +80,8 @@ class _WeatherWidgetState extends State<WeatherWidget> {
           child: BlocBuilder<WeatherBloc, WeatherState>(
             builder: (context, state) {
               if (state is WeatherEmpty) {
-                return Center(child: Text('Por favor, seleccione una localización.'));
+                return Center(
+                    child: Text('Por favor, seleccione una localización.'));
               }
               if (state is WeatherLoading) {
                 return Center(child: CircularProgressIndicator());
