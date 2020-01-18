@@ -66,7 +66,27 @@ class _WeatherWidgetState extends State<WeatherWidget> {
                     .add(FetchWeather(location: location));
               }
             },
-          )
+          ),
+          PopupMenuButton<int>(
+            onSelected: (i) {
+              if (i == 0) {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => InformationWidget(),
+                  ),
+                );
+              }
+            },
+            itemBuilder: (BuildContext context) {
+              return [
+                PopupMenuItem<int>(
+                  value: 0,
+                  child: Text('Información'),
+                ),
+              ];
+            },
+          ),
         ],
       ),
       body: Center(
