@@ -1,7 +1,10 @@
+import 'dart:developer';
+
 import 'package:meta/meta.dart';
 import 'package:bloc/bloc.dart';
 
 import 'package:cuba_weather_dart/cuba_weather_dart.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:cuba_weather/src/blocs/blocs.dart';
 
@@ -17,6 +20,12 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
   Stream<WeatherState> mapEventToState(WeatherEvent event) async* {
     if (event is FetchWeather) {
       yield WeatherLoading();
+      try {
+        var prefs = await SharedPreferences.getInstance();
+        await prefs.setString('location', event.location);
+      } catch (e) {
+        log(e);
+      }
       try {
         final weather = await api.get(event.location, suggestion: true);
         yield WeatherLoaded(weather: weather);

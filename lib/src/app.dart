@@ -9,9 +9,11 @@ import 'package:cuba_weather/src/widgets/widgets.dart';
 
 class App extends StatelessWidget {
   final CubaWeather api;
+  final List<String> locations;
 
-  App({Key key, @required this.api})
+  App({Key key, @required this.api, @required this.locations})
       : assert(api != null),
+        assert(locations != null),
         super(key: key);
 
   @override
@@ -21,7 +23,7 @@ class App extends StatelessWidget {
       theme: ThemeData(primaryColor: Colors.blue),
       home: BlocProvider(
         create: (context) => WeatherBloc(api: api),
-        child: WeatherWidget(),
+        child: WeatherWidget(locations: this.locations),
       ),
     );
   }

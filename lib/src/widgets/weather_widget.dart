@@ -1,24 +1,49 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:cuba_weather/src/blocs/blocs.dart';
 import 'package:cuba_weather/src/widgets/widgets.dart';
 
 class WeatherWidget extends StatefulWidget {
+  final List<String> locations;
+
+  WeatherWidget({Key key, @required this.locations})
+      : assert(locations != null),
+        super(key: key);
+
   @override
-  State<WeatherWidget> createState() => _WeatherWidgetState();
+  State<WeatherWidget> createState() =>
+      _WeatherWidgetState(locations: this.locations);
 }
 
 class _WeatherWidgetState extends State<WeatherWidget> {
+  final List<String> locations;
   Completer<void> _refreshCompleter;
+
+  _WeatherWidgetState({@required this.locations}) : assert(locations != null);
 
   @override
   void initState() {
     super.initState();
     _refreshCompleter = Completer<void>();
+    start();
+  }
+
+  void start() async {
+    String _value;
+    try {
+      var prefs = await SharedPreferences.getInstance();
+      _value = prefs.getString('location');
+      BlocProvider.of<WeatherBloc>(context)
+          .add(FetchWeather(location: _value));
+    } catch (e) {
+      log(e);
+    }
   }
 
   @override
@@ -55,7 +80,7 @@ class _WeatherWidgetState extends State<WeatherWidget> {
           child: BlocBuilder<WeatherBloc, WeatherState>(
             builder: (context, state) {
               if (state is WeatherEmpty) {
-                return Center(child: Text('Please Select a Location'));
+                return Center(child: Text('Por favor, seleccione una localización.'));
               }
               if (state is WeatherLoading) {
                 return Center(child: CircularProgressIndicator());

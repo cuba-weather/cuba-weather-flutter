@@ -9,7 +9,12 @@ import 'package:cuba_weather/src/app.dart';
 
 void main() {
   BlocSupervisor.delegate = SimpleBlocDelegate();
-  runApp(App(api: CubaWeather()));
+  final _locations = List<String>();
+  for (var item in locations) {
+    _locations.add(item);
+  }
+  _locations.sort();
+  runApp(App(api: CubaWeather(), locations: _locations));
 }
 
 class SimpleBlocDelegate extends BlocDelegate {
