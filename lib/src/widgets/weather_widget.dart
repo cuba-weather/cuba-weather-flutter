@@ -84,7 +84,14 @@ class _WeatherWidgetState extends State<WeatherWidget> {
                     child: Text('Por favor, seleccione una localización.'));
               }
               if (state is WeatherLoading) {
-                return Center(child: CircularProgressIndicator());
+                return GradientContainerWidget(
+                  color: Colors.blue,
+                  child: Center(
+                    child: CircularProgressIndicator(
+                      backgroundColor: Colors.white,
+                    ),
+                  ),
+                );
               }
               if (state is WeatherLoaded) {
                 final weather = state.weather;
