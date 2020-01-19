@@ -3,8 +3,6 @@ import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'package:getflutter/components/button/gf_button.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:package_info/package_info.dart';
 
 import 'package:cuba_weather/src/widgets/widgets.dart';
