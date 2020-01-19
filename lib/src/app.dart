@@ -9,10 +9,15 @@ import 'package:cuba_weather/src/widgets/widgets.dart';
 
 class App extends StatelessWidget {
   final CubaWeather api;
+  final String initialLocation;
   final List<String> locations;
 
-  App({Key key, @required this.api, @required this.locations})
-      : assert(api != null),
+  App({
+    Key key,
+    @required this.api,
+    @required this.locations,
+    @required this.initialLocation,
+  })  : assert(api != null),
         assert(locations != null),
         super(key: key);
 
@@ -23,7 +28,10 @@ class App extends StatelessWidget {
       theme: ThemeData(primaryColor: Colors.blue),
       home: BlocProvider(
         create: (context) => WeatherBloc(api: api),
-        child: WeatherWidget(locations: this.locations),
+        child: WeatherWidget(
+          locations: this.locations,
+          initialLocation: this.initialLocation,
+        ),
       ),
     );
   }

@@ -1,47 +1,48 @@
 import 'dart:async';
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:cuba_weather/src/blocs/blocs.dart';
 import 'package:cuba_weather/src/widgets/widgets.dart';
 
 class WeatherWidget extends StatefulWidget {
+  final String initialLocation;
   final List<String> locations;
 
-  WeatherWidget({Key key, @required this.locations})
-      : assert(locations != null),
+  WeatherWidget({
+    Key key,
+    @required this.locations,
+    @required this.initialLocation,
+  })  : assert(locations != null),
         super(key: key);
 
   @override
-  State<WeatherWidget> createState() =>
-      _WeatherWidgetState(locations: this.locations);
+  State<WeatherWidget> createState() => _WeatherWidgetState(
+        locations: this.locations,
+        initialLocation: this.initialLocation,
+      );
 }
 
 class _WeatherWidgetState extends State<WeatherWidget> {
+  final String initialLocation;
   final List<String> locations;
   Completer<void> _refreshCompleter;
 
-  _WeatherWidgetState({@required this.locations}) : assert(locations != null);
+  _WeatherWidgetState({
+    @required this.locations,
+    @required this.initialLocation,
+  }) : assert(locations != null);
 
   @override
   void initState() {
     super.initState();
     _refreshCompleter = Completer<void>();
-    start();
-  }
-
-  void start() async {
-    String _value;
-    try {
-      var prefs = await SharedPreferences.getInstance();
-      _value = prefs.getString('location');
-      BlocProvider.of<WeatherBloc>(context).add(FetchWeather(location: _value));
-    } catch (e) {
-      log(e);
+    if (this.initialLocation != null) {
+      BlocProvider.of<WeatherBloc>(context).add(FetchWeather(
+        location: this.initialLocation,
+      ));
     }
   }
 
@@ -57,13 +58,15 @@ class _WeatherWidgetState extends State<WeatherWidget> {
               final location = await Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) =>
-                      LocationSelectionWidget(locations: this.locations),
+                  builder: (context) => LocationSelectionWidget(
+                    locations: this.locations,
+                  ),
                 ),
               );
               if (location != null) {
-                BlocProvider.of<WeatherBloc>(context)
-                    .add(FetchWeather(location: location));
+                BlocProvider.of<WeatherBloc>(context).add(FetchWeather(
+                  location: location,
+                ));
               }
             },
           ),
@@ -167,10 +170,26 @@ class _WeatherWidgetState extends State<WeatherWidget> {
                   ),
                 );
               }
-              return Text(
-                'Something went wrong!',
-                style: TextStyle(color: Colors.red),
-              );
+              if (state is WeatherError) {
+                return GradientContainerWidget(
+                  color: Colors.blue,
+                  child: Center(
+                    child: Container(
+                      margin: EdgeInsets.all(20),
+                      padding: EdgeInsets.only(bottom: 200),
+                      child: Text(
+                        'Error: ${state.errorMessage}',
+                        style: TextStyle(
+                          color: Colors.red,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ),
+                );
+              }
+              return null;
             },
           ),
         ),
