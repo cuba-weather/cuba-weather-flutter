@@ -1,9 +1,12 @@
+import 'dart:developer';
 import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import 'package:getflutter/components/button/gf_button.dart';
 import 'package:package_info/package_info.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'package:cuba_weather/src/widgets/widgets.dart';
 
@@ -75,24 +78,58 @@ class InformationWidgetState extends State<InformationWidget> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  Center(
-                    child: Text(
-                      'Dudas, problemas o comentarios a:',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
+                  Container(
+                    margin: EdgeInsets.symmetric(vertical: 5, horizontal: 30),
+                    child: Center(
+                      child: Text(
+                        'Para dudas, problemas o sugerencias puede:',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        textAlign: TextAlign.center,
                       ),
-                      textAlign: TextAlign.center,
                     ),
                   ),
-                  Center(
-                    child: Text(
-                      'leynier41@gmail.com',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.normal,
-                      ),
-                      textAlign: TextAlign.center,
+                  Container(
+                    margin: EdgeInsets.symmetric(vertical: 5, horizontal: 20),
+                    child: GFButton(
+                      text: 'Escribir correo al desarrollador',
+                      textColor: Colors.white,
+                      color: Colors.white,
+                      size: GFSize.large,
+                      shape: GFButtonShape.pills,
+                      type: GFType.outline2x,
+                      fullWidthButton: true,
+                      onPressed: () async {
+                        const url = 'mailto:leynier41@gmail.com';
+                        if (await canLaunch(url)) {
+                          await launch(url);
+                        } else {
+                          log('Could not launch $url');
+                        }
+                      },
+                    ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.symmetric(vertical: 5, horizontal: 20),
+                    child: GFButton(
+                      text: 'Visitar repositorio en GitHub',
+                      textColor: Colors.white,
+                      color: Colors.white,
+                      size: GFSize.large,
+                      shape: GFButtonShape.pills,
+                      type: GFType.outline2x,
+                      fullWidthButton: true,
+                      onPressed: () async {
+                        const url =
+                            'https://github.com/leynier/cuba-weather-flutter';
+                        if (await canLaunch(url)) {
+                          await launch(url);
+                        } else {
+                          log('Could not launch $url');
+                        }
+                      },
                     ),
                   ),
                 ],
