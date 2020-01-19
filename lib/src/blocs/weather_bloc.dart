@@ -24,20 +24,22 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
         var prefs = await SharedPreferences.getInstance();
         await prefs.setString('location', event.location);
       } catch (e) {
-        log(e);
+        log(e.toString());
       }
       try {
         final weather = await api.get(event.location, suggestion: true);
         yield WeatherLoaded(weather: weather);
-      } catch (_) {
-        yield WeatherError();
+      } catch (e) {
+        log(e.toString());
+        yield WeatherError(errorMessage: e.toString());
       }
     }
     if (event is RefreshWeather) {
       try {
         final weather = await api.get(event.location);
         yield WeatherLoaded(weather: weather);
-      } catch (_) {
+      } catch (e) {
+        log(e.toString());
         yield state;
       }
     }
