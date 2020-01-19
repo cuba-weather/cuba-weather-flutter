@@ -64,29 +64,6 @@ class _LocationSelectionWidgetState extends State<LocationSelectionWidget> {
           ],
         ),
       ),
-//      body: Form(
-//        child: Row(
-//          children: [
-//            Expanded(
-//              child: Padding(
-//                padding: EdgeInsets.only(left: 10.0),
-//                child: TextFormField(
-//                  controller: _textController,
-//                  decoration: InputDecoration(
-//                    labelText: 'Localización',
-//                  ),
-//                ),
-//              ),
-//            ),
-//            IconButton(
-//              icon: Icon(Icons.search),
-//              onPressed: () {
-//                Navigator.pop(context, _textController.text);
-//              },
-//            )
-//          ],
-//        ),
-//      ),
     );
   }
 }
