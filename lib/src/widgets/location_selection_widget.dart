@@ -29,6 +29,26 @@ class _LocationSelectionWidgetState extends State<LocationSelectionWidget> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Seleccionar localización'),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.format_list_bulleted),
+            onPressed: () async {
+              final location = await Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => LocationList(
+                    locations: this.locations,
+                  ),
+                ),
+              );
+              if (location != null) {
+                setState(() {
+                  Navigator.pop(context, location);
+                });
+              }
+            },
+          ),
+        ],
       ),
       body: GradientContainerWidget(
         color: Colors.blue,
