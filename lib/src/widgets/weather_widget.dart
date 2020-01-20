@@ -71,7 +71,7 @@ class _WeatherWidgetState extends State<WeatherWidget> {
             },
           ),
           PopupMenuButton<int>(
-            onSelected: (i) {
+            onSelected: (i) async {
               if (i == 0) {
                 Navigator.push(
                   context,
@@ -79,10 +79,28 @@ class _WeatherWidgetState extends State<WeatherWidget> {
                     builder: (context) => InformationWidget(),
                   ),
                 );
+              } else if (i == 1) {
+                final location = await Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => LocationList(
+                      locations: this.locations,
+                    ),
+                  ),
+                );
+                if (location != null) {
+                  BlocProvider.of<WeatherBloc>(context).add(FetchWeather(
+                    location: location,
+                  ));
+                }
               }
             },
             itemBuilder: (BuildContext context) {
               return [
+                PopupMenuItem<int>(
+                  value: 1,
+                  child: Text('Localizaciones'),
+                ),
                 PopupMenuItem<int>(
                   value: 0,
                   child: Text('Información'),

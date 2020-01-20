@@ -4,5 +4,6 @@ export 'information_widget.dart';
 export 'last_updated_widget.dart';
 export 'name_location_widget.dart';
 export 'location_selection_widget.dart';
+export 'locations_list.dart';
 export 'data_widget.dart';
 export 'weather_widget.dart';
