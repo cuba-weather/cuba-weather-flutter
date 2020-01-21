@@ -9,14 +9,17 @@ class LastUpdatedWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(
-      'Actualización: ${TimeOfDay.fromDateTime(dateTime).format(context)}',
-      style: TextStyle(
-        fontSize: 18,
-        fontWeight: FontWeight.w200,
-        color: Colors.white,
+    return Container(
+      margin: EdgeInsets.symmetric(horizontal: 50, vertical: 5),
+      child: Text(
+        'Actualización: ${TimeOfDay.fromDateTime(dateTime).format(context)}',
+        style: TextStyle(
+          fontSize: 18,
+          fontWeight: FontWeight.w300,
+          color: Colors.white,
+        ),
+        textAlign: TextAlign.center,
       ),
-      textAlign: TextAlign.center,
     );
   }
 }
