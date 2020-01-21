@@ -9,12 +9,16 @@ class NameLocationWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(
-      location,
-      style: TextStyle(
-        fontSize: 30,
-        fontWeight: FontWeight.bold,
-        color: Colors.white,
+    return Container(
+      margin: EdgeInsets.symmetric(horizontal: 30, vertical: 5),
+      child: Text(
+        location,
+        textAlign: TextAlign.center,
+        style: TextStyle(
+          fontSize: 30,
+          fontWeight: FontWeight.bold,
+          color: Colors.white,
+        ),
       ),
     );
   }
