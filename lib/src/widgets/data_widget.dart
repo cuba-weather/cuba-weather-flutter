@@ -33,7 +33,7 @@ class DataWidget extends StatelessWidget {
               'Presión: ${pressure.round()} hpa',
               style: TextStyle(
                 fontSize: 16,
-                fontWeight: FontWeight.w100,
+                fontWeight: FontWeight.w300,
                 color: Colors.white,
               ),
             ),
@@ -41,7 +41,7 @@ class DataWidget extends StatelessWidget {
               'Humedad: ${humidity.round()}%',
               style: TextStyle(
                 fontSize: 16,
-                fontWeight: FontWeight.w100,
+                fontWeight: FontWeight.w300,
                 color: Colors.white,
               ),
             )
