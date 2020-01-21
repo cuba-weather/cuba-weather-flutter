@@ -3,8 +3,10 @@ import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:getflutter/components/avatar/gf_avatar.dart';
 
 import 'package:getflutter/components/button/gf_button.dart';
+import 'package:getflutter/getflutter.dart';
 import 'package:package_info/package_info.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -99,7 +101,7 @@ class InformationWidgetState extends State<InformationWidget> {
                       color: Colors.white,
                       size: GFSize.large,
                       shape: GFButtonShape.pills,
-                      type: GFType.outline2x,
+                      type: GFButtonType.outline2x,
                       fullWidthButton: true,
                       onPressed: () async {
                         const url = 'mailto:leynier41@gmail.com';
@@ -119,7 +121,7 @@ class InformationWidgetState extends State<InformationWidget> {
                       color: Colors.white,
                       size: GFSize.large,
                       shape: GFButtonShape.pills,
-                      type: GFType.outline2x,
+                      type: GFButtonType.outline2x,
                       fullWidthButton: true,
                       onPressed: () async {
                         const url =
