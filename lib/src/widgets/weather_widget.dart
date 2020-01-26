@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 
@@ -6,6 +7,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:cuba_weather/src/blocs/blocs.dart';
 import 'package:cuba_weather/src/widgets/widgets.dart';
+import 'package:package_info/package_info.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class WeatherWidget extends StatefulWidget {
   final String initialLocation;
@@ -29,6 +32,8 @@ class _WeatherWidgetState extends State<WeatherWidget> {
   final String initialLocation;
   final List<String> locations;
   Completer<void> _refreshCompleter;
+  String appName = '';
+  String version = '';
 
   _WeatherWidgetState({
     @required this.locations,
@@ -44,13 +49,90 @@ class _WeatherWidgetState extends State<WeatherWidget> {
         location: this.initialLocation,
       ));
     }
+    start();
+  }
+
+  void start() async {
+    var packageInfo = await PackageInfo.fromPlatform();
+    setState(() {
+      appName = packageInfo.appName;
+      version = packageInfo.version;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBodyBehindAppBar: true,
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+            _createHeader(context),
+            _createDrawerItem(context,
+                icon: Icons.location_on, text: 'Localizaciones', onTap: () {
+              Navigator.of(context).pop();
+              getLocation(context).then((location) {
+                if (location != null) {
+                  BlocProvider.of<WeatherBloc>(context).add(FetchWeather(
+                    location: location.toString(),
+                  ));
+                }
+              });
+            }),
+            _createDrawerItem(context, icon: Icons.info, text: 'Información',
+                onTap: () {
+              Navigator.of(context).pop();
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => InformationWidget(),
+                ),
+              );
+            }),
+            Divider(),
+            _createDrawerItem(
+              context,
+              icon: Icons.bug_report,
+              text: 'Reportar un error',
+              onTap: () async {
+                const url = 'mailto:leynier41@gmail.com';
+                if (await canLaunch(url)) {
+                  await launch(url);
+                } else {
+                  log('Could not launch $url');
+                }
+              },
+            ),
+            ListTile(
+              title: Text(
+                'v$version',
+                textAlign: TextAlign.right,
+                style: TextStyle(fontSize: 10),
+              ),
+              onTap: () {},
+            ),
+          ],
+        ),
+      ),
       appBar: AppBar(
-        title: Text('Cuba Weather'),
+        backgroundColor: Colors.transparent,
+        elevation: 0.0,
+        centerTitle: true,
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Image.asset(
+              'images/logo.png',
+              fit: BoxFit.cover,
+              height: 35.0,
+            ),
+            Text(
+              appName,
+              textAlign: TextAlign.center,
+            )
+          ],
+        ),
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.search),
@@ -68,44 +150,6 @@ class _WeatherWidgetState extends State<WeatherWidget> {
                   location: location,
                 ));
               }
-            },
-          ),
-          PopupMenuButton<int>(
-            onSelected: (i) async {
-              if (i == 0) {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => InformationWidget(),
-                  ),
-                );
-              } else if (i == 1) {
-                final location = await Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => LocationList(
-                      locations: this.locations,
-                    ),
-                  ),
-                );
-                if (location != null) {
-                  BlocProvider.of<WeatherBloc>(context).add(FetchWeather(
-                    location: location,
-                  ));
-                }
-              }
-            },
-            itemBuilder: (BuildContext context) {
-              return [
-                PopupMenuItem<int>(
-                  value: 1,
-                  child: Text('Localizaciones'),
-                ),
-                PopupMenuItem<int>(
-                  value: 0,
-                  child: Text('Información'),
-                ),
-              ];
             },
           ),
         ],
@@ -213,5 +257,56 @@ class _WeatherWidgetState extends State<WeatherWidget> {
         ),
       ),
     );
+  }
+
+  Widget _createHeader(BuildContext context) {
+    return UserAccountsDrawerHeader(
+      accountName: Text(
+        appName,
+        style: TextStyle(fontSize: 20.0),
+      ),
+      accountEmail: Text("De Cuba para Cuba"),
+      currentAccountPicture: CircleAvatar(
+        backgroundImage: ExactAssetImage('images/logo.png'),
+      ),
+      otherAccountsPictures: <Widget>[
+        IconButton(
+          icon: Icon(
+            Icons.arrow_back,
+            color: Colors.white,
+          ),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        )
+      ],
+    );
+  }
+
+  Widget _createDrawerItem(BuildContext context,
+      {IconData icon, String text, GestureTapCallback onTap}) {
+    return ListTile(
+        title: Row(
+          children: <Widget>[
+            Icon(icon),
+            Padding(
+              padding: EdgeInsets.only(left: 8.0),
+              child: Text(text),
+            )
+          ],
+        ),
+        onTap: onTap);
+  }
+
+  Future getLocation(BuildContext context) async {
+    final location = await Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => LocationList(
+          locations: this.locations,
+        ),
+      ),
+    );
+    return location;
   }
 }

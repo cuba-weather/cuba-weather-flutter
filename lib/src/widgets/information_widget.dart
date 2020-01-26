@@ -125,7 +125,7 @@ class InformationWidgetState extends State<InformationWidget> {
                       fullWidthButton: true,
                       onPressed: () async {
                         const url =
-                            'https://github.com/leynier/cuba-weather-flutter';
+                            'https://github.com/cuba-weather/cuba-weather-flutter';
                         if (await canLaunch(url)) {
                           await launch(url);
                         } else {
