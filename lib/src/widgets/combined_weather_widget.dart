@@ -46,45 +46,77 @@ class CombinedWeatherWidget extends StatelessWidget {
           )),
         ),
         Center(
-            child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Column(
-              children: <Widget>[
-                IconButton(
-                    icon: Icon(WeatherIcons.strong_wind),
-                    color: Colors.white,
-                    iconSize: 30,
-                    onPressed: () {}),
-                Text(
-                  weather.windVelocity.round().toString() + ' km/h',
-                  style: TextStyle(
-                    fontWeight: FontWeight.w300,
-                    color: Colors.white,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Column(
+                children: <Widget>[
+                  IconButton(
+                      icon: _parseWindVelocity(weather.windVelocity),
+                      color: Colors.white,
+                      iconSize: 30,
+                      onPressed: () {}),
+                  Text(
+                    '${weather.windVelocity.round()} Km/h',
+                    style: TextStyle(
+                      fontWeight: FontWeight.w300,
+                      color: Colors.white,
+                    ),
                   ),
-                ),
-              ],
-            ),
-            VerticalDivider(width: 50, ),
-            Column(
-              children: <Widget>[
-                IconButton(
-                    icon: Icon(WeatherIcons.wind),
-                    color: Colors.white,
-                    iconSize: 30,
-                    onPressed: () {}),
-                Text(
-                  weather.windDirection,
-                  style: TextStyle(
-                    fontWeight: FontWeight.w300,
-                    color: Colors.white,
+                ],
+              ),
+              VerticalDivider(
+                width: 50,
+              ),
+              Column(
+                children: <Widget>[
+                  IconButton(
+                      icon: Icon(WeatherIcons.wind),
+                      color: Colors.white,
+                      iconSize: 30,
+                      onPressed: () {}),
+                  Text(
+                    weather.windDirection,
+                    style: TextStyle(
+                      fontWeight: FontWeight.w300,
+                      color: Colors.white,
+                    ),
                   ),
-                ),
-              ],
-            )
-          ],
-        )),
+                ],
+              ),
+            ],
+          ),
+        ),
       ],
     );
+  }
+
+  static Icon _parseWindVelocity(double x) {
+    if (x < 2)
+      return Icon(WeatherIcons.wind_beaufort_0);
+    if (x < 6)
+      return Icon(WeatherIcons.wind_beaufort_1);
+    if (x < 12)
+      return Icon(WeatherIcons.wind_beaufort_2);
+    if (x < 20)
+      return Icon(WeatherIcons.wind_beaufort_3);
+    if (x < 29)
+      return Icon(WeatherIcons.wind_beaufort_4);
+    if (x < 39)
+      return Icon(WeatherIcons.wind_beaufort_5);
+    if (x < 50)
+      return Icon(WeatherIcons.wind_beaufort_6);
+    if (x < 62)
+      return Icon(WeatherIcons.wind_beaufort_7);
+    if (x < 75)
+      return Icon(WeatherIcons.wind_beaufort_8);
+    if (x < 89)
+      return Icon(WeatherIcons.wind_beaufort_9);
+    if (x < 103)
+      return Icon(WeatherIcons.wind_beaufort_10);
+    if (x < 118)
+      return Icon(WeatherIcons.wind_beaufort_11);
+    else
+      return Icon(WeatherIcons.wind_beaufort_12);
   }
 }
