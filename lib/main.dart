@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:cuba_weather_municipality_dart/cuba_weather_municipality_dart.dart';
 import 'package:flutter/material.dart';
 
 import 'package:bloc/bloc.dart';
@@ -12,8 +13,8 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   BlocSupervisor.delegate = SimpleBlocDelegate();
   final _locations = List<String>();
-  for (var item in locations) {
-    _locations.add(item);
+  for (var item in municipalities) {
+    _locations.add(item.name);
   }
   _locations.sort();
   String _initialLocation;
