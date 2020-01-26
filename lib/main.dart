@@ -27,6 +27,7 @@ void main() async {
     api: CubaWeather(),
     locations: _locations,
     initialLocation: _initialLocation,
+    appName: 'Cuba Weather'
   ));
 }
 

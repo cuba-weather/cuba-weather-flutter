@@ -12,12 +12,14 @@ class App extends StatelessWidget {
   final CubaWeather api;
   final String initialLocation;
   final List<String> locations;
+  final String appName;
 
   App({
     Key key,
     @required this.api,
     @required this.locations,
     @required this.initialLocation,
+    @required this.appName,
   })  : assert(api != null),
         assert(locations != null),
         super(key: key);
@@ -26,7 +28,7 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
     return MaterialApp(
-      title: 'Cuba Weather',
+      title: appName,
       theme: ThemeData(primaryColor: Colors.blue),
       home: BlocProvider(
         create: (context) => WeatherBloc(api: api),
