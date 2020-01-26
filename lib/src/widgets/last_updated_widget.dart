@@ -14,20 +14,24 @@ class LastUpdatedWidget extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          Text(
-            'Actualización: ${TimeOfDay.fromDateTime(dateTime).format(context)}',
-            style: TextStyle(
-              fontSize: 15,
-              fontWeight: FontWeight.w300,
-              color: Colors.white,
+          Container(
+            padding: EdgeInsets.only(top: 13),
+            child: Text(
+              'Actualización: ${TimeOfDay.fromDateTime(dateTime).format(context)}',
+              style: TextStyle(
+                fontSize: 15,
+                fontWeight: FontWeight.w300,
+                color: Colors.white,
+              ),
+              textAlign: TextAlign.center,
             ),
-            textAlign: TextAlign.center,
           ),
           IconButton(
-              icon: TimeIcon.iconFromDate(dateTime),
-              color: Colors.white,
-              //iconSize: 20,
-              onPressed: () {}),
+            icon: TimeIcon.iconFromDate(dateTime),
+            color: Colors.white,
+            onPressed: () {},
+            alignment: Alignment.centerLeft,
+          ),
         ],
       ),
     );
