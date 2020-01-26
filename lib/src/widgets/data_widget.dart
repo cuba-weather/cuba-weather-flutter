@@ -13,12 +13,10 @@ class DataWidget extends StatelessWidget {
     return Column(
       children: <Widget>[
         Icon(
-          WeatherIcons.fromString(weatherIconCode,
-              // Fallback is optional, throws if not found, and not supplied.
-              fallback: WeatherIcons.na),
+          WeatherIcons.fromString(weatherIconCode, fallback: WeatherIcons.na),
           size: 100,
           color: Colors.white,
-          semanticLabel:weather.stateDescription,
+          semanticLabel: weather.stateDescription,
         ),
         Padding(
           padding: EdgeInsets.only(bottom: 50.0),
@@ -109,7 +107,7 @@ class DataWidget extends StatelessWidget {
         result = 'wi-day-thunderstorm';
         break;
       default:
-        result = '';
+        result = 'wi-na';
     }
     return result;
   }

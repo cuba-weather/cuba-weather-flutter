@@ -3,42 +3,44 @@ import 'package:flutter/material.dart';
 
 import 'package:cuba_weather/src/widgets/widgets.dart';
 
-class LocationList extends StatefulWidget {
-  final List<String> locations;
+class MunicipalityList extends StatefulWidget {
+  final List<String> municipalities;
 
-  const LocationList({@required this.locations}) : assert(locations != null);
+  const MunicipalityList({@required this.municipalities})
+      : assert(municipalities != null);
 
   @override
-  State<StatefulWidget> createState() => LocationListState(
-        locations: locations,
+  State<StatefulWidget> createState() => MunicipalityListState(
+        municipalities: municipalities,
       );
 }
 
-class LocationListState extends State<LocationList> {
-  final List<String> locations;
+class MunicipalityListState extends State<MunicipalityList> {
+  final List<String> municipalities;
 
-  LocationListState({@required this.locations}) : assert(locations != null);
+  MunicipalityListState({@required this.municipalities})
+      : assert(municipalities != null);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Localizaciones'),
+        title: Text('Municipios'),
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.search),
             onPressed: () async {
-              final location = await Navigator.push(
+              final municipality = await Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => LocationSelectionWidget(
-                    locations: this.locations,
+                  builder: (context) => MunicipalitySelectionWidget(
+                    municipalities: this.municipalities,
                   ),
                 ),
               );
-              if (location != null) {
+              if (municipality != null) {
                 setState(() {
-                  Navigator.pop(context, location);
+                  Navigator.pop(context, municipality);
                 });
               }
             },
@@ -54,12 +56,12 @@ class LocationListState extends State<LocationList> {
               child: Container(
                 padding: index == 0
                     ? EdgeInsets.only(left: p, right: p, bottom: p, top: p * 2)
-                    : index == locations.length - 1
+                    : index == municipalities.length - 1
                         ? EdgeInsets.only(
                             left: p, right: p, bottom: p * 2, top: p)
                         : EdgeInsets.all(p),
                 child: Text(
-                  locations[index],
+                  municipalities[index],
                   style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
@@ -68,7 +70,7 @@ class LocationListState extends State<LocationList> {
               ),
               onPressed: () {
                 setState(() {
-                  Navigator.pop(context, locations[index]);
+                  Navigator.pop(context, municipalities[index]);
                 });
               },
             );
@@ -78,7 +80,7 @@ class LocationListState extends State<LocationList> {
               color: Colors.white,
             );
           },
-          itemCount: this.locations.length,
+          itemCount: this.municipalities.length,
         ),
       ),
     );

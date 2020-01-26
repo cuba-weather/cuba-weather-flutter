@@ -12,22 +12,22 @@ import 'package:cuba_weather/src/app.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   BlocSupervisor.delegate = SimpleBlocDelegate();
-  final _locations = List<String>();
+  final _municipalities = List<String>();
   for (var item in municipalities) {
-    _locations.add(item.name);
+    _municipalities.add(item.name);
   }
-  _locations.sort();
-  String _initialLocation;
+  _municipalities.sort();
+  String _initialMunicipality;
   try {
     var prefs = await SharedPreferences.getInstance();
-    _initialLocation = prefs.getString('location');
+    _initialMunicipality = prefs.getString('municipality');
   } catch (e) {
     log(e.toString());
   }
   runApp(App(
     api: CubaWeather(),
-    locations: _locations,
-    initialLocation: _initialLocation,
+    municipalities: _municipalities,
+    initialMunicipality: _initialMunicipality,
     appName: 'Cuba Weather'
   ));
 }

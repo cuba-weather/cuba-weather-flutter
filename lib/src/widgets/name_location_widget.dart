@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-class NameLocationWidget extends StatelessWidget {
-  final String location;
+class NameMunicipalityWidget extends StatelessWidget {
+  final String municipality;
 
-  NameLocationWidget({Key key, @required this.location})
-      : assert(location != null),
+  NameMunicipalityWidget({Key key, @required this.municipality})
+      : assert(municipality != null),
         super(key: key);
 
   @override
@@ -12,7 +12,7 @@ class NameLocationWidget extends StatelessWidget {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 30, vertical: 5),
       child: Text(
-        location,
+        municipality,
         textAlign: TextAlign.center,
         style: TextStyle(
           fontSize: 30,

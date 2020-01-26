@@ -4,46 +4,46 @@ import 'package:autocomplete_textfield/autocomplete_textfield.dart';
 
 import 'package:cuba_weather/src/widgets/widgets.dart';
 
-class LocationSelectionWidget extends StatefulWidget {
-  final List<String> locations;
+class MunicipalitySelectionWidget extends StatefulWidget {
+  final List<String> municipalities;
 
-  LocationSelectionWidget({Key key, @required this.locations})
-      : assert(locations != null),
+  MunicipalitySelectionWidget({Key key, @required this.municipalities})
+      : assert(municipalities != null),
         super(key: key);
 
   @override
-  State<LocationSelectionWidget> createState() =>
-      _LocationSelectionWidgetState(locations: this.locations);
+  State<MunicipalitySelectionWidget> createState() =>
+      _MunicipalitySelectionWidgetState(municipalities: this.municipalities);
 }
 
-class _LocationSelectionWidgetState extends State<LocationSelectionWidget> {
+class _MunicipalitySelectionWidgetState extends State<MunicipalitySelectionWidget> {
   final GlobalKey<AutoCompleteTextFieldState<String>> key = new GlobalKey();
-  final List<String> locations;
+  final List<String> municipalities;
   final TextEditingController _textController = TextEditingController();
 
-  _LocationSelectionWidgetState({@required this.locations})
-      : assert(locations != null);
+  _MunicipalitySelectionWidgetState({@required this.municipalities})
+      : assert(municipalities != null);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Seleccionar localización'),
+        title: Text('Seleccionar municipio'),
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.format_list_bulleted),
             onPressed: () async {
-              final location = await Navigator.push(
+              final municipality = await Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => LocationList(
-                    locations: this.locations,
+                  builder: (context) => MunicipalityList(
+                    municipalities: this.municipalities,
                   ),
                 ),
               );
-              if (location != null) {
+              if (municipality != null) {
                 setState(() {
-                  Navigator.pop(context, location);
+                  Navigator.pop(context, municipality);
                 });
               }
             },
@@ -65,10 +65,10 @@ class _LocationSelectionWidgetState extends State<LocationSelectionWidget> {
                       child: SimpleAutoCompleteTextField(
                         key: key,
                         controller: _textController,
-                        suggestions: this.locations,
+                        suggestions: this.municipalities,
                         decoration: InputDecoration(
                           border: InputBorder.none,
-                          hintText: 'Localización',
+                          hintText: 'Municipio',
                         ),
                         style: TextStyle(color: Colors.white),
                         clearOnSubmit: false,
