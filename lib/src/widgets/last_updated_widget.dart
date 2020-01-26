@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:weather_icons/weather_icons.dart';
 
 class LastUpdatedWidget extends StatelessWidget {
   final DateTime dateTime;
@@ -10,15 +11,24 @@ class LastUpdatedWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 50, vertical: 5),
-      child: Text(
-        'Actualización: ${TimeOfDay.fromDateTime(dateTime).format(context)}',
-        style: TextStyle(
-          fontSize: 18,
-          fontWeight: FontWeight.w300,
-          color: Colors.white,
-        ),
-        textAlign: TextAlign.center,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Text(
+            'Actualización: ${TimeOfDay.fromDateTime(dateTime).format(context)}',
+            style: TextStyle(
+              fontSize: 15,
+              fontWeight: FontWeight.w300,
+              color: Colors.white,
+            ),
+            textAlign: TextAlign.center,
+          ),
+          IconButton(
+              icon: TimeIcon.iconFromDate(dateTime),
+              color: Colors.white,
+              //iconSize: 20,
+              onPressed: () {}),
+        ],
       ),
     );
   }

@@ -27,7 +27,7 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
         log(e.toString());
       }
       try {
-        final weather = await api.get(event.location, suggestion: true);
+        final weather = await api.get(event.location);
         yield WeatherLoaded(weather: weather);
       } catch (e) {
         log(e.toString());
