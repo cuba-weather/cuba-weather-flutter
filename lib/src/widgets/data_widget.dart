@@ -79,7 +79,7 @@ class DataWidget extends StatelessWidget {
   String _weatherIconCodeByState(String state, DateTime dateTime) {
     bool itsDay = true;
 
-    if (dateTime.hour >= 19) {
+    if (dateTime.hour >= 19 || dateTime.hour <= 6) {
       itsDay = false;
     }
 
