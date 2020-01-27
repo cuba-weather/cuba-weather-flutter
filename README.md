@@ -1,5 +1,5 @@
 # Cuba Weather Flutter
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-brightgreen.svg)](https://opensource.org/licenses/MIT) [![Codemagic build status](https://api.codemagic.io/apps/5e1ebfc40dabbd000fb1e4f7/5e1ebfc40dabbd000fb1e4f6/status_badge.svg)](https://codemagic.io/apps/5e1ebfc40dabbd000fb1e4f7/5e1ebfc40dabbd000fb1e4f6/latest_build)
+[![License: MIT](https://img.shields.io/badge/License-MIT-brightgreen.svg)](https://opensource.org/licenses/MIT) [![Codemagic build status](https://api.codemagic.io/apps/5e2e7e7cb9213d1ee194babb/5e2e7e7cb9213d1ee194baba/status_badge.svg)](https://codemagic.io/apps/5e2e7e7cb9213d1ee194babb/5e2e7e7cb9213d1ee194baba/latest_build)
 
 Application for mobile devices of the Cuba Weather project implemented with Flutter.
