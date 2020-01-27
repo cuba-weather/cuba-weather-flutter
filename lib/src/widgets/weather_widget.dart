@@ -11,42 +11,42 @@ import 'package:package_info/package_info.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class WeatherWidget extends StatefulWidget {
-  final String initialLocation;
-  final List<String> locations;
+  final String initialMunicipality;
+  final List<String> municipalities;
 
   WeatherWidget({
     Key key,
-    @required this.locations,
-    @required this.initialLocation,
-  })  : assert(locations != null),
+    @required this.municipalities,
+    @required this.initialMunicipality,
+  })  : assert(municipalities != null),
         super(key: key);
 
   @override
   State<WeatherWidget> createState() => _WeatherWidgetState(
-        locations: this.locations,
-        initialLocation: this.initialLocation,
+        municipalities: this.municipalities,
+        initialMunicipality: this.initialMunicipality,
       );
 }
 
 class _WeatherWidgetState extends State<WeatherWidget> {
-  final String initialLocation;
-  final List<String> locations;
+  final String initialMunicipality;
+  final List<String> municipalities;
   Completer<void> _refreshCompleter;
   String appName = '';
   String version = '';
 
   _WeatherWidgetState({
-    @required this.locations,
-    @required this.initialLocation,
-  }) : assert(locations != null);
+    @required this.municipalities,
+    @required this.initialMunicipality,
+  }) : assert(municipalities != null);
 
   @override
   void initState() {
     super.initState();
     _refreshCompleter = Completer<void>();
-    if (this.initialLocation != null) {
+    if (this.initialMunicipality != null) {
       BlocProvider.of<WeatherBloc>(context).add(FetchWeather(
-        location: this.initialLocation,
+        municipality: this.initialMunicipality,
       ));
     }
     start();
@@ -70,12 +70,12 @@ class _WeatherWidgetState extends State<WeatherWidget> {
           children: <Widget>[
             _createHeader(context),
             _createDrawerItem(context,
-                icon: Icons.location_on, text: 'Localizaciones', onTap: () {
+                icon: Icons.location_on, text: 'Municipios', onTap: () {
               Navigator.of(context).pop();
-              getLocation(context).then((location) {
-                if (location != null) {
+              getMunicipality(context).then((municipality) {
+                if (municipality != null) {
                   BlocProvider.of<WeatherBloc>(context).add(FetchWeather(
-                    location: location.toString(),
+                    municipality: municipality.toString(),
                   ));
                 }
               });
@@ -137,17 +137,17 @@ class _WeatherWidgetState extends State<WeatherWidget> {
           IconButton(
             icon: Icon(Icons.search),
             onPressed: () async {
-              final location = await Navigator.push(
+              final municipality = await Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => LocationSelectionWidget(
-                    locations: this.locations,
+                  builder: (context) => MunicipalitySelectionWidget(
+                    municipalities: this.municipalities,
                   ),
                 ),
               );
-              if (location != null) {
+              if (municipality != null) {
                 BlocProvider.of<WeatherBloc>(context).add(FetchWeather(
-                  location: location,
+                  municipality: municipality,
                 ));
               }
             },
@@ -172,7 +172,7 @@ class _WeatherWidgetState extends State<WeatherWidget> {
                       margin: EdgeInsets.all(20),
                       padding: EdgeInsets.only(bottom: 200),
                       child: Text(
-                        'Por favor, seleccione una localización presionando '
+                        'Por favor, seleccione un municipio presionando '
                         'sobre el ícono de una lupa en la parte superior '
                         'derecha de la pantalla.',
                         style: TextStyle(
@@ -203,7 +203,7 @@ class _WeatherWidgetState extends State<WeatherWidget> {
                   child: RefreshIndicator(
                     onRefresh: () {
                       BlocProvider.of<WeatherBloc>(context).add(
-                        RefreshWeather(location: weather.cityName),
+                        RefreshWeather(municipality: weather.cityName),
                       );
                       return _refreshCompleter.future;
                     },
@@ -212,8 +212,8 @@ class _WeatherWidgetState extends State<WeatherWidget> {
                         Padding(
                           padding: EdgeInsets.only(top: 20.0),
                           child: Center(
-                            child:
-                                NameLocationWidget(location: weather.cityName),
+                            child: NameMunicipalityWidget(
+                                municipality: weather.cityName),
                           ),
                         ),
                         Padding(
@@ -224,7 +224,7 @@ class _WeatherWidgetState extends State<WeatherWidget> {
                             ),
                           ),
                         ),
-                         Center(
+                        Center(
                           child: LastUpdatedWidget(dateTime: weather.dateTime),
                         ),
                       ],
@@ -298,15 +298,15 @@ class _WeatherWidgetState extends State<WeatherWidget> {
         onTap: onTap);
   }
 
-  Future getLocation(BuildContext context) async {
-    final location = await Navigator.push(
+  Future getMunicipality(BuildContext context) async {
+    final municipality = await Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => LocationList(
-          locations: this.locations,
+        builder: (context) => MunicipalityList(
+          municipalities: this.municipalities,
         ),
       ),
     );
-    return location;
+    return municipality;
   }
 }

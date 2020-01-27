@@ -10,18 +10,18 @@ import 'package:cuba_weather/src/widgets/widgets.dart';
 
 class App extends StatelessWidget {
   final CubaWeather api;
-  final String initialLocation;
-  final List<String> locations;
+  final String initialMunicipality;
+  final List<String> municipalities;
   final String appName;
 
   App({
     Key key,
     @required this.api,
-    @required this.locations,
-    @required this.initialLocation,
+    @required this.municipalities,
+    @required this.initialMunicipality,
     @required this.appName,
   })  : assert(api != null),
-        assert(locations != null),
+        assert(municipalities != null),
         super(key: key);
 
   @override
@@ -33,8 +33,8 @@ class App extends StatelessWidget {
       home: BlocProvider(
         create: (context) => WeatherBloc(api: api),
         child: WeatherWidget(
-          locations: this.locations,
-          initialLocation: this.initialLocation,
+          municipalities: this.municipalities,
+          initialMunicipality: this.initialMunicipality,
         ),
       ),
     );
