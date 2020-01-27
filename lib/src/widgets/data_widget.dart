@@ -11,6 +11,8 @@ class DataWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     String weatherIconCode = _weatherIconCodeByState(weather.state.toString());
     return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
         Icon(
           WeatherIcons.fromString(weatherIconCode, fallback: WeatherIcons.na),

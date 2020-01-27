@@ -16,7 +16,8 @@ class MunicipalitySelectionWidget extends StatefulWidget {
       _MunicipalitySelectionWidgetState(municipalities: this.municipalities);
 }
 
-class _MunicipalitySelectionWidgetState extends State<MunicipalitySelectionWidget> {
+class _MunicipalitySelectionWidgetState
+    extends State<MunicipalitySelectionWidget> {
   final GlobalKey<AutoCompleteTextFieldState<String>> key = new GlobalKey();
   final List<String> municipalities;
   final TextEditingController _textController = TextEditingController();

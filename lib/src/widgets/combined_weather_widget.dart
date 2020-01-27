@@ -19,6 +19,7 @@ class CombinedWeatherWidget extends StatelessWidget {
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             Padding(
               padding: EdgeInsets.all(10.0),
@@ -31,19 +32,20 @@ class CombinedWeatherWidget extends StatelessWidget {
         Container(
           margin: EdgeInsets.only(top: 50, bottom: 5),
           child: Center(
-              child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Text(
-                'Viento:',
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w300,
-                  color: Colors.white,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Text(
+                  'Viento:',
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w300,
+                    color: Colors.white,
+                  ),
                 ),
-              ),
-            ],
-          )),
+              ],
+            ),
+          ),
         ),
         Center(
           child: Row(
@@ -94,27 +96,27 @@ class CombinedWeatherWidget extends StatelessWidget {
   static Icon _parseWindVelocity(double x) {
     if (x < 2)
       return Icon(WeatherIcons.wind_beaufort_0);
-    if (x < 6)
+    else if (x < 6)
       return Icon(WeatherIcons.wind_beaufort_1);
-    if (x < 12)
+    else if (x < 12)
       return Icon(WeatherIcons.wind_beaufort_2);
-    if (x < 20)
+    else if (x < 20)
       return Icon(WeatherIcons.wind_beaufort_3);
-    if (x < 29)
+    else if (x < 29)
       return Icon(WeatherIcons.wind_beaufort_4);
-    if (x < 39)
+    else if (x < 39)
       return Icon(WeatherIcons.wind_beaufort_5);
-    if (x < 50)
+    else if (x < 50)
       return Icon(WeatherIcons.wind_beaufort_6);
-    if (x < 62)
+    else if (x < 62)
       return Icon(WeatherIcons.wind_beaufort_7);
-    if (x < 75)
+    else if (x < 75)
       return Icon(WeatherIcons.wind_beaufort_8);
-    if (x < 89)
+    else if (x < 89)
       return Icon(WeatherIcons.wind_beaufort_9);
-    if (x < 103)
+    else if (x < 103)
       return Icon(WeatherIcons.wind_beaufort_10);
-    if (x < 118)
+    else if (x < 118)
       return Icon(WeatherIcons.wind_beaufort_11);
     else
       return Icon(WeatherIcons.wind_beaufort_12);

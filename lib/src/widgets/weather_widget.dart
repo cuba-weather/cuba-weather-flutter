@@ -212,8 +212,8 @@ class _WeatherWidgetState extends State<WeatherWidget> {
                         Padding(
                           padding: EdgeInsets.only(top: 20.0),
                           child: Center(
-                            child:
-                                NameMunicipalityWidget(municipality: weather.cityName),
+                            child: NameMunicipalityWidget(
+                                municipality: weather.cityName),
                           ),
                         ),
                         Padding(
@@ -224,7 +224,7 @@ class _WeatherWidgetState extends State<WeatherWidget> {
                             ),
                           ),
                         ),
-                         Center(
+                        Center(
                           child: LastUpdatedWidget(dateTime: weather.dateTime),
                         ),
                       ],
