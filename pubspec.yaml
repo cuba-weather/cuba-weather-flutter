@@ -25,14 +25,13 @@ dependencies:
   flutter_bloc: ^3.1.0
   http: ^0.12.0
   equatable: ^1.0.0
-  cuba_weather_dart: ^2.0.2
+  cuba_weather_dart: ^2.2.0
   shared_preferences: ^0.5.6
   autocomplete_textfield: ^1.7.3
   package_info: ^0.4.0+13
   url_launcher: ^5.4.1
   getflutter: ^1.0.0-dev.1
   weather_icons: ^1.0.1
-  cuba_weather_municipality_dart: ^0.1.2
 
 dev_dependencies:
 
