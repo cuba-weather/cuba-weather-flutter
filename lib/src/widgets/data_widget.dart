@@ -9,7 +9,8 @@ class DataWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String weatherIconCode = _weatherIconCodeByState(weather.state.toString());
+    String weatherIconCode =
+        _weatherIconCodeByState(weather.state.toString(), weather.dateTime);
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -75,26 +76,56 @@ class DataWidget extends StatelessWidget {
     );
   }
 
-  String _weatherIconCodeByState(String state) {
+  String _weatherIconCodeByState(String state, DateTime dateTime) {
+    bool itsDay = true;
+
+    if (dateTime.hour >= 19) {
+      itsDay = false;
+    }
+
     String result = '';
     switch (state) {
       case 'State.OccasionalShowers':
-        result = 'wi-day-rain';
+        if (itsDay) {
+          result = 'wi-day-rain';
+        } else {
+          result = 'wi-night-alt-rain';
+        }
         break;
       case 'State.ScatteredShowers':
-        result = 'wi-day-rain-mix';
+        if (itsDay) {
+          result = 'wi-rain';
+        } else {
+          result = 'wi-rain';
+        }
         break;
       case 'State.IsolatedShowers':
-        result = 'wi-day-hail';
+        if (itsDay) {
+          result = 'wi-day-rain';
+        } else {
+          result = 'wi-night-alt-rain';
+        }
         break;
       case 'State.AfternoonShowers':
-        result = 'wi-showers';
+        if (itsDay) {
+          result = 'wi-showers';
+        } else {
+          result = 'wi-showers';
+        }
         break;
       case 'State.RainShowers':
-        result = 'wi-day-rain';
+        if (itsDay) {
+          result = 'wi-showers';
+        } else {
+          result = 'wi-night-alt-showers';
+        }
         break;
       case 'State.PartlyCloudy':
-        result = 'wi-day-cloudy';
+        if (itsDay) {
+          result = 'wi-day-cloudy';
+        } else {
+          result = 'wi-night-alt-cloudy';
+        }
         break;
       case 'State.Cloudy':
         result = 'wi-cloudy';
@@ -103,10 +134,14 @@ class DataWidget extends StatelessWidget {
         result = 'wi-day-sunny';
         break;
       case 'State.Storms':
-        result = 'wi-day-thunderstorm';
+        if (itsDay) {
+          result = 'wi-day-thunderstorm';
+        } else {
+          result = 'wi-night-alt-thunderstorm';
+        }
         break;
       case 'State.AfternoonStorms':
-        result = 'wi-day-thunderstorm';
+        result = 'wi-thunderstorm';
         break;
       default:
         result = 'wi-na';
