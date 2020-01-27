@@ -3,6 +3,7 @@ import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/painting.dart';
 import 'package:getflutter/components/avatar/gf_avatar.dart';
 
 import 'package:getflutter/components/button/gf_button.dart';
@@ -41,10 +42,10 @@ class InformationWidgetState extends State<InformationWidget> {
       ),
       body: GradientContainerWidget(
         color: Colors.blue,
-        child: Column(
+        child: ListView(
           children: <Widget>[
-            Expanded(
-              flex: 2,
+            Container(
+              margin: EdgeInsets.only(top: 30),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
@@ -69,73 +70,92 @@ class InformationWidgetState extends State<InformationWidget> {
                   Center(
                     child: Image.asset(
                       'images/logo.png',
-                      width: 200,
+                      width: 150,
                     ),
                   ),
                 ],
               ),
             ),
-            Expanded(
-              flex: 1,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Container(
-                    margin: EdgeInsets.symmetric(vertical: 5, horizontal: 30),
-                    child: Center(
-                      child: Text(
-                        'Para dudas, problemas o sugerencias puede:',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
+            Container(
+              margin: EdgeInsets.all(20),
+              child: Center(
+                child: Text(
+                  'Está aplicación obtiene datos de las siguientes fuentes:\n\n'
+                  '1. Buscador cubano RedCuba (https://www.redcuba.cu)\n'
+                  '2. Sitio web del Instituto de Meteorología '
+                  '(http://www.insmet.cu)\n\n'
+                  'Debido a que todas las fuentes son nacionales solo es '
+                  'necesario conexión a la red nacional (utiliza el bono '
+                  'nacional de 300 mb).\n\n'
+                  'Los desarrolladores son personas ajenas al estado sin '
+                  'ánimo de lucro.\n\n'
+                  'Para situaciones de tiempo peligrosas consultar las '
+                  'fuentes oficiales de información.',
+                  style: TextStyle(
+                    color: Colors.white,
                   ),
-                  Container(
-                    margin: EdgeInsets.symmetric(vertical: 5, horizontal: 20),
-                    child: GFButton(
-                      text: 'Escribir correo al desarrollador',
-                      textColor: Colors.white,
-                      color: Colors.white,
-                      size: GFSize.large,
-                      shape: GFButtonShape.pills,
-                      type: GFButtonType.outline2x,
-                      fullWidthButton: true,
-                      onPressed: () async {
-                        const url = 'mailto:leynier41@gmail.com';
-                        if (await canLaunch(url)) {
-                          await launch(url);
-                        } else {
-                          log('Could not launch $url');
-                        }
-                      },
-                    ),
-                  ),
-                  Container(
-                    margin: EdgeInsets.symmetric(vertical: 5, horizontal: 20),
-                    child: GFButton(
-                      text: 'Visitar repositorio en GitHub',
-                      textColor: Colors.white,
-                      color: Colors.white,
-                      size: GFSize.large,
-                      shape: GFButtonShape.pills,
-                      type: GFButtonType.outline2x,
-                      fullWidthButton: true,
-                      onPressed: () async {
-                        const url =
-                            'https://github.com/cuba-weather/cuba-weather-flutter';
-                        if (await canLaunch(url)) {
-                          await launch(url);
-                        } else {
-                          log('Could not launch $url');
-                        }
-                      },
-                    ),
-                  ),
-                ],
+                  textAlign: TextAlign.left,
+                ),
               ),
+            ),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Container(
+                  margin: EdgeInsets.symmetric(vertical: 5, horizontal: 30),
+                  child: Center(
+                    child: Text(
+                      'Para dudas, problemas o sugerencias puede:',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                ),
+                Container(
+                  margin: EdgeInsets.symmetric(horizontal: 20),
+                  child: GFButton(
+                    text: 'Escribir correo al desarrollador',
+                    textColor: Colors.white,
+                    color: Colors.white,
+                    size: GFSize.large,
+                    shape: GFButtonShape.pills,
+                    type: GFButtonType.outline2x,
+                    fullWidthButton: true,
+                    onPressed: () async {
+                      const url = 'mailto:leynier41@gmail.com';
+                      if (await canLaunch(url)) {
+                        await launch(url);
+                      } else {
+                        log('Could not launch $url');
+                      }
+                    },
+                  ),
+                ),
+                Container(
+                  margin: EdgeInsets.symmetric(horizontal: 20),
+                  child: GFButton(
+                    text: 'Visitar repositorio en GitHub',
+                    textColor: Colors.white,
+                    color: Colors.white,
+                    size: GFSize.large,
+                    shape: GFButtonShape.pills,
+                    type: GFButtonType.outline2x,
+                    fullWidthButton: true,
+                    onPressed: () async {
+                      const url =
+                          'https://github.com/cuba-weather/cuba-weather-flutter';
+                      if (await canLaunch(url)) {
+                        await launch(url);
+                      } else {
+                        log('Could not launch $url');
+                      }
+                    },
+                  ),
+                ),
+              ],
             ),
           ],
         ),
