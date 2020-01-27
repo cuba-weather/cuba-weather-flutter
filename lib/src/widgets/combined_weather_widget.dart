@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 
 import 'package:cuba_weather_dart/cuba_weather_dart.dart';
+import 'package:cuba_weather_redcuba_dart/src/models/weather_model.dart'
+    as redCuba;
+
 import 'package:cuba_weather/src/widgets/widgets.dart';
 import 'package:weather_icons/weather_icons.dart';
 
@@ -73,12 +76,12 @@ class CombinedWeatherWidget extends StatelessWidget {
               Column(
                 children: <Widget>[
                   IconButton(
-                      icon: Icon(WeatherIcons.wind),
+                      icon: _parseWindDirection(weather.windDirection),
                       color: Colors.white,
                       iconSize: 30,
                       onPressed: () {}),
                   Text(
-                    weather.windDirection,
+                    weather.windDirectionDescription,
                     style: TextStyle(
                       fontWeight: FontWeight.w300,
                       color: Colors.white,
@@ -91,6 +94,29 @@ class CombinedWeatherWidget extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  static Icon _parseWindDirection(redCuba.CardinalPoint input) {
+    switch (input) {
+      case redCuba.CardinalPoint.North:
+        return Icon(WeatherIcons.direction_up);
+      case redCuba.CardinalPoint.Northeast:
+        return Icon(WeatherIcons.direction_up_right);
+      case redCuba.CardinalPoint.East:
+        return Icon(WeatherIcons.direction_right);
+      case redCuba.CardinalPoint.Southeast:
+        return Icon(WeatherIcons.direction_down_right);
+      case redCuba.CardinalPoint.South:
+        return Icon(WeatherIcons.direction_down);
+      case redCuba.CardinalPoint.Southwest:
+        return Icon(WeatherIcons.direction_down_left);
+      case redCuba.CardinalPoint.West:
+        return Icon(WeatherIcons.direction_left);
+      case redCuba.CardinalPoint.Northwest:
+        return Icon(WeatherIcons.direction_up_left);
+      default:
+        return Icon(WeatherIcons.wind);
+    }
   }
 
   static Icon _parseWindVelocity(double x) {
