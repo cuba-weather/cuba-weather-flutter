@@ -99,21 +99,21 @@ class CombinedWeatherWidget extends StatelessWidget {
   static Icon _parseWindDirection(redCuba.CardinalPoint input) {
     switch (input) {
       case redCuba.CardinalPoint.North:
-        return Icon(WeatherIcons.direction_up);
-      case redCuba.CardinalPoint.Northeast:
-        return Icon(WeatherIcons.direction_up_right);
-      case redCuba.CardinalPoint.East:
-        return Icon(WeatherIcons.direction_right);
-      case redCuba.CardinalPoint.Southeast:
-        return Icon(WeatherIcons.direction_down_right);
-      case redCuba.CardinalPoint.South:
         return Icon(WeatherIcons.direction_down);
-      case redCuba.CardinalPoint.Southwest:
+      case redCuba.CardinalPoint.Northeast:
         return Icon(WeatherIcons.direction_down_left);
-      case redCuba.CardinalPoint.West:
+      case redCuba.CardinalPoint.East:
         return Icon(WeatherIcons.direction_left);
-      case redCuba.CardinalPoint.Northwest:
+      case redCuba.CardinalPoint.Southeast:
         return Icon(WeatherIcons.direction_up_left);
+      case redCuba.CardinalPoint.South:
+        return Icon(WeatherIcons.direction_up);
+      case redCuba.CardinalPoint.Southwest:
+        return Icon(WeatherIcons.direction_up_rigth);
+      case redCuba.CardinalPoint.West:
+        return Icon(WeatherIcons.direction_rigth);
+      case redCuba.CardinalPoint.Northwest:
+        return Icon(WeatherIcons.direction_down_rigth);
       default:
         return Icon(WeatherIcons.wind);
     }
