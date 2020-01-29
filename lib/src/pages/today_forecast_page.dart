@@ -21,6 +21,8 @@ Habrá poco oleaje en el litoral norte occidental y oriental. En el resto de los
 
   var authors = ['A. Justiz', 'A. Maturell'];
 
+  final String dataSource = 'wwww.insmet.cu';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,100 +38,143 @@ Habrá poco oleaje en el litoral norte occidental y oriental. En el resto de los
         ],
       ),
       body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    centerName,
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                  Text(
-                    forecastName,
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                  Text(
-                    forecastDateString,
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                  SizedBox(height: 20.0),
-                  Text(forecastTitle,
-                      style: TextStyle(fontStyle: FontStyle.italic)),
-                  SizedBox(height: 8.0),
-                  Text(
-                    forecastText,
-                  ),
-                ],
-              ),
-            ),
-            Container(
-              padding: EdgeInsets.only(left: 20.0, top: 10),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 8.0, vertical: 20),
-                    child: Text(
-                      'Autores',
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                  Row(
-                    children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.only(left: 10.0),
-                        child: Column(
-                          children: [
-                            CircleAvatar(
-                              backgroundImage: meteorologistImg(authors[0]) !=
-                                      null
-                                  ? NetworkImage(meteorologistImg(authors[0]))
-                                  : ExactAssetImage('images/no-image.png'),
-                              radius: 30.0,
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(top: 8.0),
-                              child: Text(
-                                authors[0],
-                                style: TextStyle(fontWeight: FontWeight.bold),
-                              ),
-                            ),
-                          ],
-                        ),
+        child: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Column(
+            children: [
+              Card(
+                child: Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        centerName,
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      Text(
+                        forecastName,
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      Text(
+                        forecastDateString,
+                        style: TextStyle(fontWeight: FontWeight.bold),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(left: 20.0),
-                        child: Column(
-                          children: [
-                            CircleAvatar(
-                              backgroundImage: meteorologistImg(authors[1]) !=
-                                      null
-                                  ? NetworkImage(meteorologistImg(authors[1]))
-                                  : ExactAssetImage('images/no-image.png'),
-                              radius: 30.0,
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(top: 8.0),
-                              child: Text(
-                                authors[1],
-                                style: TextStyle(fontWeight: FontWeight.bold),
-                              ),
-                            ),
-                          ],
-                        ),
+                        padding: EdgeInsets.all(5),
                       ),
+                      Divider(),
+                      SizedBox(height: 10.0),
+                      Text(forecastTitle,
+                          style: TextStyle(
+                              fontStyle: FontStyle.italic, color: Colors.blue)),
+                      SizedBox(height: 8.0),
+                      Text(
+                        forecastText,
+                      ),
+                      SizedBox(height: 8.0),
                     ],
-                  )
-                ],
+                  ),
+                ),
               ),
-            ),
-          ],
+              Container(
+                padding: EdgeInsets.only(top: 10),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 5, horizontal: 10),
+                      child: Text(
+                        'Autores',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    Card(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: <Widget>[
+                          Padding(
+                            padding: const EdgeInsets.all(15),
+                            child: Column(
+                              children: [
+                                CircleAvatar(
+                                  backgroundImage:
+                                      meteorologistImg(authors[0]) != null
+                                          ? NetworkImage(
+                                              meteorologistImg(authors[0]))
+                                          : ExactAssetImage(
+                                              'images/no-image.png'),
+                                  radius: 30.0,
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 8.0),
+                                  child: Text(
+                                    authors[0],
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.bold),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(15),
+                            child: Column(
+                              children: [
+                                CircleAvatar(
+                                  backgroundImage:
+                                      meteorologistImg(authors[1]) != null
+                                          ? NetworkImage(
+                                              meteorologistImg(authors[1]))
+                                          : ExactAssetImage(
+                                              'images/no-image.png'),
+                                  radius: 30.0,
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 8.0),
+                                  child: Text(
+                                    authors[1],
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.bold),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Center(
+                        child: Text(
+                          'Fuente: $dataSource',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontWeight: FontWeight.w200, fontSize: 13),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
+      floatingActionButton: FloatingActionButton(
+        child: Image(
+          image: ExactAssetImage('images/logo_insmet.png'),
+        ),
+        backgroundColor: Colors.white,
+        elevation: 0.5,
+        mini: true,
+        onPressed: () {
+          print('Clicked');
+        },
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
     );
   }
 
