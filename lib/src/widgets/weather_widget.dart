@@ -9,6 +9,7 @@ import 'package:cuba_weather/src/blocs/blocs.dart';
 import 'package:cuba_weather/src/widgets/widgets.dart';
 import 'package:package_info/package_info.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:cuba_weather/src/pages/pages.dart';
 
 class WeatherWidget extends StatefulWidget {
   final String initialMunicipality;
@@ -90,6 +91,45 @@ class _WeatherWidgetState extends State<WeatherWidget> {
                 ),
               );
             }),
+            Divider(),
+            ExpansionTile(
+              title: Text("Pronósticos nacionales"),
+              children: <Widget>[
+                _createDrawerItem(context,
+                    icon: Icons.filter_drama, text: 'Hoy',
+                onTap: () {
+              Navigator.of(context).pop();
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => TodayForecastPage(),
+                ),
+              );
+            }),
+            //     _createDrawerItem(context,
+            //         icon: Icons.filter_drama, text: 'Mañana',
+            //     onTap: () {
+            //   Navigator.of(context).pop();
+            //   Navigator.push(
+            //     context,
+            //     MaterialPageRoute(
+            //       builder: (context) => InformationWidget(),
+            //     ),
+            //   );
+            // }),
+            //     _createDrawerItem(context,
+            //         icon: Icons.gradient, text: 'Perspectivas',
+            //     onTap: () {
+            //   Navigator.of(context).pop();
+            //   Navigator.push(
+            //     context,
+            //     MaterialPageRoute(
+            //       builder: (context) => InformationWidget(),
+            //     ),
+            //   );
+            // }),
+              ],
+            ),
             Divider(),
             _createDrawerItem(
               context,
