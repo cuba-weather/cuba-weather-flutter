@@ -254,7 +254,6 @@ class _WeatherWidgetState extends State<WeatherWidget> {
                               municipalities: municipalities,
                               municipality: weather.cityName),
                         ),
-                        LastUpdatedWidget(dateTime: weather.dateTime),
                         Padding(
                           padding: EdgeInsets.symmetric(vertical: 5.0),
                           child: CombinedWeatherWidget(

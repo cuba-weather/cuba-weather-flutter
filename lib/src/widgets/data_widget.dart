@@ -2,6 +2,8 @@ import 'package:cuba_weather_dart/cuba_weather_dart.dart';
 import 'package:flutter/material.dart';
 import 'package:weather_icons/weather_icons.dart';
 
+import 'package:cuba_weather/src/widgets/widgets.dart';
+
 class DataWidget extends StatelessWidget {
   final WeatherModel weather;
 
@@ -43,6 +45,7 @@ class DataWidget extends StatelessWidget {
             ),
           ),
         ),
+        LastUpdatedWidget(dateTime: weather.dateTime),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           crossAxisAlignment: CrossAxisAlignment.center,
