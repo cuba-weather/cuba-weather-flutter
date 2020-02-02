@@ -154,7 +154,7 @@ class _WeatherWidgetState extends State<WeatherWidget> {
         ),
       ),
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
+        backgroundColor: Colors.blue[700],
         elevation: 0.0,
         centerTitle: true,
         title: Row(
@@ -168,7 +168,7 @@ class _WeatherWidgetState extends State<WeatherWidget> {
             Text(
               appName,
               textAlign: TextAlign.center,
-            )
+            ),
           ],
         ),
         actions: <Widget>[
@@ -239,6 +239,7 @@ class _WeatherWidgetState extends State<WeatherWidget> {
                 return GradientContainerWidget(
                   color: Colors.blue,
                   child: RefreshIndicator(
+                    displacement: 80,
                     onRefresh: () {
                       BlocProvider.of<WeatherBloc>(context).add(
                         RefreshWeather(municipality: weather.cityName),
