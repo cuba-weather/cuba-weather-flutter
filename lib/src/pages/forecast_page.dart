@@ -3,29 +3,55 @@ import 'package:cuba_weather/src/models/models.dart';
 import 'package:cuba_weather/src/utils/weather_client.dart';
 import 'package:http/http.dart';
 
-class TodayForecastPage extends StatefulWidget {
+class ForecastPage extends StatefulWidget {
+  String forecastType;
+  String pageTitle;
+
+  ForecastPage({Key key, @required this.forecastType, @required this.pageTitle})
+      : assert(forecastType != null),
+        super(key: key);
+
   @override
-  _TodayForecastPageState createState() => _TodayForecastPageState();
+  _ForecastPageState createState() => _ForecastPageState();
 }
 
-class _TodayForecastPageState extends State<TodayForecastPage> {
+class _ForecastPageState extends State<ForecastPage> {
   ForecastModel _forecast;
   var client = Client();
 
   @override
   Widget build(BuildContext context) {
     if (_forecast == null) {
-      WeatherClient().todayForecast(client).then((onValue) {
-        setState(() {
-          _forecast = onValue;
-        });
-      });
+      switch (widget.forecastType) {
+        case 'today':
+          WeatherClient().todayForecast(client).then((onValue) {
+            setState(() {
+              _forecast = onValue;
+            });
+          });
+          break;
+        case 'tomorrow':
+          WeatherClient().tomorrowForecast(client).then((onValue) {
+            setState(() {
+              _forecast = onValue;
+            });
+          });
+          break;
+        case 'perspectives':
+          WeatherClient().perspectiveForecast(client).then((onValue) {
+            setState(() {
+              _forecast = onValue;
+            });
+          });
+          break;
+        default:
+      }
     }
 
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          _forecast == null ? "Cargando..." : _forecast.pageTitle,
+          widget.pageTitle,
         ),
         actions: <Widget>[
           IconButton(
@@ -66,12 +92,18 @@ class _TodayForecastPageState extends State<TodayForecastPage> {
                               padding: EdgeInsets.all(5),
                             ),
                             Divider(),
-                            SizedBox(height: 5.0),
-                            Text(_forecast.forecastTitle,
-                                style: TextStyle(
-                                    fontStyle: FontStyle.italic,
-                                    color: Colors.blue)),
-                            SizedBox(height: 8.0),
+                            _forecast.forecastTitle != ""
+                                ? SizedBox(height: 5.0)
+                                : Container(),
+                            _forecast.forecastTitle != ""
+                                ? Text(_forecast.forecastTitle,
+                                    style: TextStyle(
+                                        fontStyle: FontStyle.italic,
+                                        color: Colors.blue))
+                                : Container(),
+                            _forecast.forecastTitle != ""
+                                ? SizedBox(height: 8.0)
+                                : Container(),
                             Text(
                               _forecast.forecastText,
                               textAlign: TextAlign.justify,
@@ -101,16 +133,20 @@ class _TodayForecastPageState extends State<TodayForecastPage> {
                                   padding: const EdgeInsets.all(15),
                                   child: Column(
                                     children: [
-                                      CircleAvatar(
-                                        backgroundImage: meteorologistImg(
-                                                    _forecast.authors[0]) !=
-                                                null
-                                            ? NetworkImage(meteorologistImg(
-                                                _forecast.authors[0]))
-                                            : ExactAssetImage(
-                                                'images/no-image.png'),
-                                        radius: 30.0,
-                                      ),
+                                      _forecast.authors[0] != ""
+                                          ? CircleAvatar(
+                                              backgroundImage: meteorologistImg(
+                                                          _forecast
+                                                              .authors[0]) !=
+                                                      null
+                                                  ? NetworkImage(
+                                                      meteorologistImg(
+                                                          _forecast.authors[0]))
+                                                  : ExactAssetImage(
+                                                      'images/no-image.png'),
+                                              radius: 30.0,
+                                            )
+                                          : Container(),
                                       Padding(
                                         padding:
                                             const EdgeInsets.only(top: 8.0),

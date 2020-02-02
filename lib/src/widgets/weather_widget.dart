@@ -62,6 +62,7 @@ class _WeatherWidgetState extends State<WeatherWidget> {
 
   @override
   Widget build(BuildContext context) {
+    var hour = new DateTime.now().hour;
     return Scaffold(
       extendBodyBehindAppBar: true,
       drawer: Drawer(
@@ -92,7 +93,8 @@ class _WeatherWidgetState extends State<WeatherWidget> {
             }),
             Divider(),
             ExpansionTile(
-              title: Text("Pronósticos nacionales"),
+              //leading: Icon(Icons.filter_drama),
+              title: Text('Pronósticos nacionales'),
               children: <Widget>[
                 _createDrawerItem(context,
                     icon: Icons.filter_drama, text: 'Hoy', onTap: () {
@@ -100,32 +102,44 @@ class _WeatherWidgetState extends State<WeatherWidget> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => TodayForecastPage(),
+                      builder: (context) => ForecastPage(
+                          forecastType: 'today',
+                          pageTitle: 'Pronóstico para hoy'),
                     ),
                   );
                 }),
-                //     _createDrawerItem(context,
-                //         icon: Icons.filter_drama, text: 'Mañana',
-                //     onTap: () {
-                //   Navigator.of(context).pop();
-                //   Navigator.push(
-                //     context,
-                //     MaterialPageRoute(
-                //       builder: (context) => InformationWidget(),
-                //     ),
-                //   );
-                // }),
-                //     _createDrawerItem(context,
-                //         icon: Icons.gradient, text: 'Perspectivas',
-                //     onTap: () {
-                //   Navigator.of(context).pop();
-                //   Navigator.push(
-                //     context,
-                //     MaterialPageRoute(
-                //       builder: (context) => InformationWidget(),
-                //     ),
-                //   );
-                // }),
+                hour >= 15
+                    ? _createDrawerItem(context,
+                        icon: Icons.filter_drama, text: 'Mañana', onTap: () {
+                        Navigator.of(context).pop();
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ForecastPage(
+                                forecastType: 'tomorrow',
+                                pageTitle: 'Pronóstico para mañana'),
+                          ),
+                        );
+                      })
+                    : Container(),
+              ],
+            ),
+            Divider(),
+            ExpansionTile(
+              title: Text('Tiempo actual'),
+              children: <Widget>[
+                _createDrawerItem(context,
+                    icon: Icons.gradient, text: 'Perspectivas', onTap: () {
+                  Navigator.of(context).pop();
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ForecastPage(
+                          forecastType: 'perspectives',
+                          pageTitle: 'Perspectivas del Tiempo'),
+                    ),
+                  );
+                }),
               ],
             ),
             Divider(),

@@ -9,20 +9,17 @@ class WeatherClient {
     print("todayForecast " + DateTime.now().toString());
 
     ForecastModel forecast = new ForecastModel();
-    forecast.pageTitle = "Pronóstico para hoy";
 
     forecast.authors = new List<String>();
     try {
-      String route = '';
-      route = "http://www.insmet.cu/asp/link.asp?PRONOSTICO";
+      String url = "http://www.insmet.cu/asp/link.asp?PRONOSTICO";
 
-      Response response = await client.get(route);
+      Response response = await client.get(url);
 
       if (response.statusCode != 200) {
         throw BadRequestException(response.body);
       }
 
-      // Use html parser
       var document = parse(response.body);
       List<Element> tabs =
           document.getElementsByTagName('table.contenidoPagina');
@@ -76,83 +73,139 @@ class WeatherClient {
     }
   }
 
-  Future<String> tomorrowForecast(BaseClient client) async {
-    String text = '';
+  Future<ForecastModel> tomorrowForecast(BaseClient client) async {
+    ForecastModel forecast = new ForecastModel();
+    forecast.authors = new List<String>();
     try {
-      String route =
+      String url =
           'http://www.insmet.cu/asp/genesis.asp?TB0=PLANTILLAS&TB1=PTM&TB2=/Pronostico/Ptm.txt';
-      Response response = await client.get(route);
+      Response response = await client.get(url);
 
       if (response.statusCode != 200) {
         throw BadRequestException(response.body);
       }
 
-      // Use html parser
       var document = parse(response.body);
       List<Element> tabs =
           document.getElementsByTagName('table.contenidoPagina');
-      String autor1 = '';
-      String autor2 = '';
 
       Element autor1Element = document.getElementById('name1');
       if (autor1Element != null) {
-        autor1 = autor1Element.text;
-      }
-      Element autor2Element = document.getElementById('name2');
-      if (autor2Element != null) {
-        autor2 = autor2Element.text;
+        forecast.authors.add(autor1Element.text);
       }
 
+      Element autor2Element = document.getElementById('name2');
+      if (autor2Element != null) {
+        forecast.authors.add(autor2Element.text);
+      }
       String leading = tabs[0].outerHtml.toString();
-      String trailing = tabs[1].outerHtml.toString();
-      String anotherString = "";
+
+      var index = leading.indexOf('<b>');
+      leading = leading.replaceRange(0, index, '');
+
+      index = leading.indexOf('<br>');
+      forecast.centerName = leading.substring(3, index);
+      leading = leading.replaceRange(0, index + 4, '');
+
+      index = leading.indexOf('<br>');
+      forecast.forecastName = leading.substring(0, index);
+      leading = leading.replaceRange(0, index + 4, '');
+
+      index = leading.indexOf('<br>');
+      forecast.forecastDate = leading.substring(0, index);
+      leading = leading.replaceRange(0, index + 4, '');
+
+      index = leading.indexOf('<i>');
+      leading = leading.replaceRange(0, index + 3, '');
+
+      index = leading.indexOf('</i>');
+      forecast.forecastTitle = leading.substring(0, index);
+      forecast.forecastTitle = forecast.forecastTitle.replaceAll("", "...");
+      leading = leading.replaceRange(0, index + 4, '');
+
+      index = leading.indexOf('<br>');
+      leading = leading.replaceRange(0, index + 4, '');
+
+      index = leading.indexOf('</p>');
+      forecast.forecastText = leading.substring(0, index);
+      forecast.forecastText = forecast.forecastText.replaceAll("<br>", "\n");
+
+      forecast.dataSource = 'wwww.insmet.cu';
+      return forecast;
     } catch (e) {
       log(e.toString());
       throw ParseException(e.toString());
     }
-    throw InvalidSourceException('Invalid source');
   }
 
-  Future<String> perspectiveForecast(BaseClient client) async {
-    var now = new DateTime.now();
-    String text = '';
+  Future<ForecastModel> perspectiveForecast(BaseClient client) async {
+    ForecastModel forecast = new ForecastModel();
+    forecast.authors = new List<String>();
+    forecast.forecastTitle = "";
     try {
-      int hora = now.hour;
-      String route =
+      String url =
           'http://www.insmet.cu/asp/genesis.asp?TB0=PLANTILLAS&TB1=PERSPECTIVASTT';
-      Response response = await client.get(route);
+      Response response = await client.get(url);
 
-      if (response.statusCode != 200) return response.body;
+      if (response.statusCode != 200) {
+        throw BadRequestException(response.body);
+      }
 
-      // Use html parser
       var document = parse(response.body);
+
       List<Element> tabs = document.getElementsByTagName('td.contenidoPagina');
-      String autor1 = '';
-      String autor2 = '';
+
+      String leading = tabs[3].outerHtml.toString();
+
+      var index = leading.indexOf('<b>');
+      leading = leading.replaceRange(0, index + 3, '');
+
+      index = leading.indexOf('<br>');
+      forecast.forecastName = leading.substring(0, index);
+      leading = leading.replaceRange(0, index + 4, '');
+
+      index = leading.indexOf('<br>');
+      forecast.centerName = leading.substring(0, index);
+      leading = leading.replaceRange(0, index + 4, '');
+
+      index = leading.indexOf('<br>');
+      forecast.forecastDate = leading.substring(0, index);
+
+      String forecastText = tabs[5].innerHtml.toString();
+
+      index = forecastText.indexOf('>');
+      forecastText = forecastText.replaceRange(0, index + 1, '');
+
+      index = forecastText.indexOf('</p>');
+      forecast.forecastText = forecastText.substring(0, index);
+      forecast.forecastText = forecast.forecastText.replaceAll("<br>", "\n");
 
       List<Element> tableAutors =
           document.getElementsByTagName('table.contenidoPagina');
+
       List<Element> tableAutors1 = tableAutors[0].getElementsByTagName('td');
 
       Element autor1Element;
       try {
         autor1Element = tableAutors1[2];
         if (autor1Element != null) {
-          autor1 = autor1Element.text;
+          forecast.authors.add(autor1Element.text);
         }
       } catch (e) {}
       Element autor2Element;
       try {
         autor2Element = tableAutors1[3];
         if (autor2Element != null) {
-          autor2 = autor2Element.text;
+          forecast.authors.add(autor2Element.text);
         }
       } catch (e) {}
+
+      forecast.dataSource = 'wwww.insmet.cu';
+      return forecast;
     } catch (e) {
-      text =
-          '<span style="background-color: #2b2301; color: #fff; display: inline-block; padding: 3px 10px; font-weight: bold; border-radius: 5px;">No se pudo obtener el pronóstico</span>';
+      log(e.toString());
+      throw ParseException(e.toString());
     }
-    return text;
   }
 
   String imgMeteorologo(String name) {
