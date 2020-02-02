@@ -20,9 +20,20 @@ class CombinedWeatherWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
+        Container(
+          margin: EdgeInsets.symmetric(horizontal: 30),
+          padding: EdgeInsets.only(top: 16),
+          child: Text(
+            "Pronóstico para hoy:",
+            style: TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.w300,
+              color: Colors.white,
+            ),
+          ),
+        ),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             Padding(
               padding: EdgeInsets.all(10.0),
@@ -37,6 +48,7 @@ class CombinedWeatherWidget extends StatelessWidget {
           child: Center(
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 Text(
                   'Viento:',
