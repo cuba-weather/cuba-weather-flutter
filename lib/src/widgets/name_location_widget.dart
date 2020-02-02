@@ -17,7 +17,7 @@ class NameMunicipalityWidget extends StatelessWidget {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 30),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Container(
             padding: EdgeInsets.only(top: 13),
