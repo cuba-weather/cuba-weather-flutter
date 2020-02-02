@@ -8,7 +8,8 @@ class NameMunicipalityWidget extends StatelessWidget {
   final String municipality;
   final List<String> municipalities;
 
-  NameMunicipalityWidget({Key key, @required this.municipalities, @required this.municipality})
+  NameMunicipalityWidget(
+      {Key key, @required this.municipalities, @required this.municipality})
       : assert(municipality != null),
         super(key: key);
 
@@ -22,14 +23,14 @@ class NameMunicipalityWidget extends StatelessWidget {
           Container(
             padding: EdgeInsets.only(top: 13),
             child: Text(
-            municipality,
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 30,
-              fontWeight: FontWeight.bold,
-              color: Colors.white,
+              municipality,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
             ),
-          ),
           ),
           IconButton(
             icon: Icon(

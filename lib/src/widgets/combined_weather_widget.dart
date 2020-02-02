@@ -44,7 +44,7 @@ class CombinedWeatherWidget extends StatelessWidget {
           ],
         ),
         Container(
-          margin: EdgeInsets.only(top: 50, bottom: 5),
+          margin: EdgeInsets.only(top: 10, bottom: 5),
           child: Center(
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,

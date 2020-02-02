@@ -2,13 +2,12 @@ import 'dart:async';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:package_info/package_info.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'package:cuba_weather/src/blocs/blocs.dart';
 import 'package:cuba_weather/src/widgets/widgets.dart';
-import 'package:package_info/package_info.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:cuba_weather/src/pages/pages.dart';
 
 class WeatherWidget extends StatefulWidget {
@@ -155,7 +154,7 @@ class _WeatherWidgetState extends State<WeatherWidget> {
         ),
       ),
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
+        backgroundColor: Colors.blue[700],
         elevation: 0.0,
         centerTitle: true,
         title: Row(
@@ -169,7 +168,7 @@ class _WeatherWidgetState extends State<WeatherWidget> {
             Text(
               appName,
               textAlign: TextAlign.center,
-            )
+            ),
           ],
         ),
         actions: <Widget>[
@@ -240,6 +239,7 @@ class _WeatherWidgetState extends State<WeatherWidget> {
                 return GradientContainerWidget(
                   color: Colors.blue,
                   child: RefreshIndicator(
+                    displacement: 80,
                     onRefresh: () {
                       BlocProvider.of<WeatherBloc>(context).add(
                         RefreshWeather(municipality: weather.cityName),
@@ -254,7 +254,6 @@ class _WeatherWidgetState extends State<WeatherWidget> {
                               municipalities: municipalities,
                               municipality: weather.cityName),
                         ),
-                        LastUpdatedWidget(dateTime: weather.dateTime),
                         Padding(
                           padding: EdgeInsets.symmetric(vertical: 5.0),
                           child: CombinedWeatherWidget(

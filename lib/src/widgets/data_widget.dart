@@ -2,6 +2,8 @@ import 'package:cuba_weather_dart/cuba_weather_dart.dart';
 import 'package:flutter/material.dart';
 import 'package:weather_icons/weather_icons.dart';
 
+import 'package:cuba_weather/src/widgets/widgets.dart';
+
 class DataWidget extends StatelessWidget {
   final WeatherModel weather;
 
@@ -37,12 +39,13 @@ class DataWidget extends StatelessWidget {
           child: Text(
             "Estado actual:",
             style: TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.w300,
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
               color: Colors.white,
             ),
           ),
         ),
+        LastUpdatedWidget(dateTime: weather.dateTime),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -78,44 +81,45 @@ class DataWidget extends StatelessWidget {
               ),
             ),
             Padding(
-                padding: EdgeInsets.only(right: 20.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: <Widget>[
-                        BoxedIcon(
-                          WeatherIcons.barometer,
+              padding: EdgeInsets.only(right: 20.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: <Widget>[
+                      BoxedIcon(
+                        WeatherIcons.barometer,
+                        color: Colors.white,
+                      ),
+                      Text(
+                        'Presión: ${weather.pressure.round()} hPa',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w300,
                           color: Colors.white,
                         ),
-                        Text(
-                          'Presión: ${weather.pressure.round()} hPa',
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w300,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ],
-                    ),
-                    Row(
-                      children: <Widget>[
-                        BoxedIcon(
-                          WeatherIcons.humidity,
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: <Widget>[
+                      BoxedIcon(
+                        WeatherIcons.humidity,
+                        color: Colors.white,
+                      ),
+                      Text(
+                        'Humedad: ${weather.humidity.round()}%',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w300,
                           color: Colors.white,
                         ),
-                        Text(
-                          'Humedad: ${weather.humidity.round()}%',
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w300,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ],
-                    )
-                  ],
-                )),
+                      ),
+                    ],
+                  )
+                ],
+              ),
+            ),
           ],
         ),
       ],
