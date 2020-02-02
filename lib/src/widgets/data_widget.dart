@@ -39,8 +39,8 @@ class DataWidget extends StatelessWidget {
           child: Text(
             "Estado actual:",
             style: TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.w300,
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
               color: Colors.white,
             ),
           ),
