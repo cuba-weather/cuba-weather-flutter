@@ -69,7 +69,7 @@ class _MunicipalitySelectionWidgetState
                         suggestions: this.municipalities,
                         decoration: InputDecoration(
                           border: InputBorder.none,
-                          hintText: 'Municipio',
+                          hintText: 'Inserte aquí el municipio deseado',
                         ),
                         style: TextStyle(color: Colors.white),
                         clearOnSubmit: false,
