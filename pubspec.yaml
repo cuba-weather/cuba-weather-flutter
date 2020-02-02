@@ -32,6 +32,8 @@ dependencies:
   url_launcher: ^5.4.1
   getflutter: ^1.0.0-dev.1
   weather_icons: ^2.0.0
+  xml: ^3.7.0
+  html: ^0.14.0+3
 
 dev_dependencies:
 
