@@ -68,6 +68,21 @@ class CombinedWeatherWidget extends StatelessWidget {
             children: <Widget>[
               Column(
                 children: <Widget>[
+                  SizedBox(
+                    width: 30,
+                    height: 30,
+                    child: Stack(
+                      children: <Widget>[
+                        new Positioned(
+                            bottom: 0,
+                            child: new Icon(WeatherIcons.direction_down_right,color: Colors.white, size: 35,)),
+                        new Positioned(
+                            right: 6,
+                            child: new Icon(WeatherIcons.direction_down,color: Colors.white, size: 30)),
+                      ],
+                    ),
+                  ),
+
                   IconButton(
                       icon: _parseWindVelocity(weather.windVelocity),
                       color: Colors.white,
