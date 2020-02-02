@@ -1,5 +1,4 @@
-class ForecastModel {
-  String pageTitle;
+class ForecastModel { 
   String centerName;
   String forecastName;
   String forecastDate;
@@ -9,7 +8,6 @@ class ForecastModel {
   String dataSource;
 
   ForecastModel({
-    this.pageTitle,
     this.centerName,
     this.forecastName,
     this.forecastDate,
