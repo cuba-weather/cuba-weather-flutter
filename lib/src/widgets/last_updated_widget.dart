@@ -11,26 +11,26 @@ class LastUpdatedWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      margin: EdgeInsets.symmetric(horizontal: 30),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
+        //mainAxisAlignment: MainAxisAlignment.start,
+        //crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Container(
-            padding: EdgeInsets.only(top: 13),
+            //padding: EdgeInsets.only(top: 13),
             child: Text(
-              'Actualización: ${TimeOfDay.fromDateTime(dateTime).format(context)}',
+              'Actualizado: ${TimeOfDay.fromDateTime(dateTime).format(context)}',
               style: TextStyle(
-                fontSize: 15,
+                fontSize: 14,
                 fontWeight: FontWeight.w300,
                 color: Colors.white,
               ),
               textAlign: TextAlign.center,
             ),
           ),
-          IconButton(
-            icon: TimeIcon.iconFromDate(dateTime),
+          BoxedIcon(
+            TimeIcon.fromHour(dateTime.hour),
             color: Colors.white,
-            onPressed: () {},
-            alignment: Alignment.centerLeft,
           ),
         ],
       ),

@@ -92,45 +92,44 @@ class _WeatherWidgetState extends State<WeatherWidget> {
               );
             }),
             Divider(),
-            ExpansionTile(
-              title: Text("Pronósticos nacionales"),
-              children: <Widget>[
-                _createDrawerItem(context,
-                    icon: Icons.filter_drama, text: 'Hoy',
-                onTap: () {
-              Navigator.of(context).pop();
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => TodayForecastPage(),
-                ),
-              );
-            }),
+            // ExpansionTile(
+            //   title: Text("Pronósticos nacionales"),
+            //   children: <Widget>[
             //     _createDrawerItem(context,
-            //         icon: Icons.filter_drama, text: 'Mañana',
-            //     onTap: () {
-            //   Navigator.of(context).pop();
-            //   Navigator.push(
-            //     context,
-            //     MaterialPageRoute(
-            //       builder: (context) => InformationWidget(),
-            //     ),
-            //   );
-            // }),
-            //     _createDrawerItem(context,
-            //         icon: Icons.gradient, text: 'Perspectivas',
-            //     onTap: () {
-            //   Navigator.of(context).pop();
-            //   Navigator.push(
-            //     context,
-            //     MaterialPageRoute(
-            //       builder: (context) => InformationWidget(),
-            //     ),
-            //   );
-            // }),
-              ],
-            ),
-            Divider(),
+            //         icon: Icons.filter_drama, text: 'Hoy', onTap: () {
+            //       Navigator.of(context).pop();
+            //       Navigator.push(
+            //         context,
+            //         MaterialPageRoute(
+            //           builder: (context) => TodayForecastPage(),
+            //         ),
+            //       );
+            //     }),
+            //     //     _createDrawerItem(context,
+            //     //         icon: Icons.filter_drama, text: 'Mañana',
+            //     //     onTap: () {
+            //     //   Navigator.of(context).pop();
+            //     //   Navigator.push(
+            //     //     context,
+            //     //     MaterialPageRoute(
+            //     //       builder: (context) => InformationWidget(),
+            //     //     ),
+            //     //   );
+            //     // }),
+            //     //     _createDrawerItem(context,
+            //     //         icon: Icons.gradient, text: 'Perspectivas',
+            //     //     onTap: () {
+            //     //   Navigator.of(context).pop();
+            //     //   Navigator.push(
+            //     //     context,
+            //     //     MaterialPageRoute(
+            //     //       builder: (context) => InformationWidget(),
+            //     //     ),
+            //     //   );
+            //     // }),
+            //   ],
+            // ),
+            // Divider(),
             _createDrawerItem(
               context,
               icon: Icons.bug_report,
@@ -250,22 +249,17 @@ class _WeatherWidgetState extends State<WeatherWidget> {
                     child: ListView(
                       children: <Widget>[
                         Padding(
-                          padding: EdgeInsets.only(top: 20.0),
-                          child: Center(
-                            child: NameMunicipalityWidget(
-                                municipality: weather.cityName),
-                          ),
+                          padding: EdgeInsets.only(top: 10.0),
+                          child: NameMunicipalityWidget(
+                              municipalities: municipalities,
+                              municipality: weather.cityName),
                         ),
+                        LastUpdatedWidget(dateTime: weather.dateTime),
                         Padding(
-                          padding: EdgeInsets.symmetric(vertical: 30.0),
-                          child: Center(
-                            child: CombinedWeatherWidget(
-                              weather: weather,
-                            ),
+                          padding: EdgeInsets.symmetric(vertical: 5.0),
+                          child: CombinedWeatherWidget(
+                            weather: weather,
                           ),
-                        ),
-                        Center(
-                          child: LastUpdatedWidget(dateTime: weather.dateTime),
                         ),
                       ],
                     ),

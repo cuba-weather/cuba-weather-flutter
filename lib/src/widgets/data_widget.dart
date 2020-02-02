@@ -12,64 +12,110 @@ class DataWidget extends StatelessWidget {
     String weatherIconCode =
         _weatherIconCodeByState(weather.state.toString(), weather.dateTime);
     return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
-        Icon(
+        BoxedIcon(
           WeatherIcons.fromString(weatherIconCode, fallback: WeatherIcons.na),
           size: 100,
           color: Colors.white,
-          semanticLabel: weather.stateDescription,
-        ),
-        Padding(
-          padding: EdgeInsets.only(bottom: 50.0),
         ),
         Center(
           child: Text(
             weather.stateDescription,
             style: TextStyle(
               fontSize: 20,
-              fontWeight: FontWeight.w300,
+              fontWeight: FontWeight.w600,
               color: Colors.white,
             ),
           ),
         ),
         Padding(
-          padding: EdgeInsets.only(top: 20),
+          padding: EdgeInsets.only(bottom: 20.0),
+        ),
+        Container(
+          margin: EdgeInsets.symmetric(horizontal: 30),
+          padding: EdgeInsets.only(top: 16),
+          child: Text(
+            "Estado actual:",
+            style: TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.w300,
+              color: Colors.white,
+            ),
+          ),
         ),
         Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Padding(
-              padding: EdgeInsets.only(right: 20.0),
-              child: Text(
-                '${weather.temperature.round()}°C',
-                style: TextStyle(
-                  fontSize: 45,
-                  fontWeight: FontWeight.w600,
-                  color: Colors.white,
-                ),
+            Text(
+              '${weather.temperature.round()}',
+              style: TextStyle(
+                fontSize: 80,
+                fontWeight: FontWeight.w600,
+                color: Colors.white,
               ),
             ),
-            Column(
-              children: [
-                Text(
-                  'Presión: ${weather.pressure.round()} hPa',
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w300,
-                    color: Colors.white,
+            Padding(
+              padding: const EdgeInsets.only(right: 15),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Text(
+                    '°C',
+                    style: TextStyle(
+                      fontSize: 25,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.white,
+                    ),
                   ),
-                ),
-                Text(
-                  'Humedad: ${weather.humidity.round()}%',
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w300,
+                  BoxedIcon(
+                    WeatherIcons.thermometer,
                     color: Colors.white,
+                    size: 25,
                   ),
-                )
-              ],
-            )
+                ],
+              ),
+            ),
+            Padding(
+                padding: EdgeInsets.only(right: 20.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: <Widget>[
+                        BoxedIcon(
+                          WeatherIcons.barometer,
+                          color: Colors.white,
+                        ),
+                        Text(
+                          'Presión: ${weather.pressure.round()} hPa',
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w300,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      children: <Widget>[
+                        BoxedIcon(
+                          WeatherIcons.humidity,
+                          color: Colors.white,
+                        ),
+                        Text(
+                          'Humedad: ${weather.humidity.round()}%',
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w300,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ],
+                    )
+                  ],
+                )),
           ],
         ),
       ],
