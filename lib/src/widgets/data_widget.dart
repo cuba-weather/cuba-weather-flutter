@@ -81,44 +81,45 @@ class DataWidget extends StatelessWidget {
               ),
             ),
             Padding(
-                padding: EdgeInsets.only(right: 20.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: <Widget>[
-                        BoxedIcon(
-                          WeatherIcons.barometer,
+              padding: EdgeInsets.only(right: 20.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: <Widget>[
+                      BoxedIcon(
+                        WeatherIcons.barometer,
+                        color: Colors.white,
+                      ),
+                      Text(
+                        'Presión: ${weather.pressure.round()} hPa',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w300,
                           color: Colors.white,
                         ),
-                        Text(
-                          'Presión: ${weather.pressure.round()} hPa',
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w300,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ],
-                    ),
-                    Row(
-                      children: <Widget>[
-                        BoxedIcon(
-                          WeatherIcons.humidity,
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: <Widget>[
+                      BoxedIcon(
+                        WeatherIcons.humidity,
+                        color: Colors.white,
+                      ),
+                      Text(
+                        'Humedad: ${weather.humidity.round()}%',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w300,
                           color: Colors.white,
                         ),
-                        Text(
-                          'Humedad: ${weather.humidity.round()}%',
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w300,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ],
-                    )
-                  ],
-                )),
+                      ),
+                    ],
+                  )
+                ],
+              ),
+            ),
           ],
         ),
       ],
