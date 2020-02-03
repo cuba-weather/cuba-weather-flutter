@@ -235,6 +235,9 @@ class _ForecastPageState extends State<ForecastPage> {
       case 'MAHernández':
         return url + 'MAHernandez.jpg';
         break;
+      case 'MAHernandez':
+        return url + 'MAHernandez.jpg';
+        break;
       case 'AJustiz':
         return url + 'A.Justiz.jpg';
         break;
@@ -249,6 +252,60 @@ class _ForecastPageState extends State<ForecastPage> {
         break;
       case 'ACaymares':
         return url + 'ACaymares.jpg';
+        break;
+      case 'ASanchez':
+        return url + 'ASanchez.jpg';
+        break;
+      case 'ALima':
+        return url + 'ALima.jpg';
+        break;
+      case 'JASerrano':
+        return url + 'JASerrano.jpg';
+        break;
+      case 'GAguilar':
+        return url + 'GAguilar.jpg';
+        break;
+      case 'NFournier':
+        return url + 'NFournier.jpg';
+        break;
+      case 'JGonzález':
+        return url + 'JGonzález.jpg';
+        break;
+      case 'Amengana':
+        return url + 'Amengana.jpg';
+        break;
+      case 'Miri':
+        return url + 'Miri.jpg';
+        break;
+      case 'Yinelis':
+        return url + 'Yinelis.jpg';
+        break;
+      case 'GEstevez':
+        return url + 'GEstevez.jpg';
+        break;
+      case 'YCedeno':
+        return url + 'YCedeno.jpg';
+        break;
+      case 'JPalacios':
+        return url + 'JPalacios.jpg';
+        break;
+      case 'AEspinosa':
+        return url + 'A.Espinosa.jpg';
+        break;
+      case 'YMartinez':
+        return url + 'Y.Martinez.jpg';
+        break;
+      case 'EVázquez':
+        return url + 'E. Vázquez.JPG';
+        break;
+      case 'AOtero':
+        return url + 'A.Otero.jpg';
+        break;
+      case 'AMiro':
+        return url + 'A.Miro.jpg';
+        break;
+      case 'AWong':
+        return url + 'A.Wong.jpg';
         break;
       default:
         return null;
