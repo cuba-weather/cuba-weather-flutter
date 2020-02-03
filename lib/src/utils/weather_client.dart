@@ -65,7 +65,7 @@ class WeatherClient {
       forecast.forecastText = leading.substring(0, index);
       forecast.forecastText = forecast.forecastText.replaceAll("<br>", "\n");
 
-      forecast.dataSource = 'wwww.insmet.cu';
+      forecast.dataSource = 'www.insmet.cu';
       return forecast;
     } catch (e) {
       log(e.toString());
@@ -130,7 +130,7 @@ class WeatherClient {
       forecast.forecastText = leading.substring(0, index);
       forecast.forecastText = forecast.forecastText.replaceAll("<br>", "\n");
 
-      forecast.dataSource = 'wwww.insmet.cu';
+      forecast.dataSource = 'www.insmet.cu';
       return forecast;
     } catch (e) {
       log(e.toString());
@@ -200,7 +200,7 @@ class WeatherClient {
         }
       } catch (e) {}
 
-      forecast.dataSource = 'wwww.insmet.cu';
+      forecast.dataSource = 'www.insmet.cu';
       return forecast;
     } catch (e) {
       log(e.toString());
