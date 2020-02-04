@@ -23,35 +23,35 @@ class WindDirectionWidget extends StatelessWidget {
       case redCuba.CardinalPoint.North:
         return _arrowicon(WeatherIcons.direction_down,);
       case  redCuba.CardinalPoint.North_Northeast:
-        return _multi_arrow(WeatherIcons.direction_down, WeatherIcons.direction_down_left);
+        return _multi_arrow(WeatherIcons.direction_down, WeatherIcons.direction_down_left, size2: 35.0, top1: -5.0,top2: -10.0, right2: 17.0);
       case redCuba.CardinalPoint.Northeast:
         return _arrowicon(WeatherIcons.direction_down_left);
       case redCuba.CardinalPoint.East_Northeast:
-        return _multi_arrow(WeatherIcons.direction_down_left, WeatherIcons.direction_left);
+        return _multi_arrow(WeatherIcons.direction_down_left, WeatherIcons.direction_left, size1: 35.0, top2: -10.0, right2: 5.0, top1: -3.0);
       case redCuba.CardinalPoint.East:
         return _arrowicon(WeatherIcons.direction_left);
       case redCuba.CardinalPoint.East_Southeast:
-        return _multi_arrow(WeatherIcons.direction_left, WeatherIcons.direction_up_left);
+        return _multi_arrow(WeatherIcons.direction_left, WeatherIcons.direction_up_left, size2: 35.0, top2: -11.0, left2: 4.0);
       case redCuba.CardinalPoint.Southeast:
         return _arrowicon(WeatherIcons.direction_up_left);
       case redCuba.CardinalPoint.South_Southeast:
-        return _multi_arrow(WeatherIcons.direction_up_left, WeatherIcons.direction_up);
+        return _multi_arrow(WeatherIcons.direction_up_left, WeatherIcons.direction_up, size1: 35.0, right1: 17.0);
       case redCuba.CardinalPoint.South:
         return _arrowicon(WeatherIcons.direction_up);
       case redCuba.CardinalPoint.South_Southwest:
-        return _multi_arrow(WeatherIcons.direction_up, WeatherIcons.direction_up_right);
+        return _multi_arrow(WeatherIcons.direction_up, WeatherIcons.direction_up_right, size2: 35.0, left2: 17.0);
       case redCuba.CardinalPoint.Southwest:
         return _arrowicon(WeatherIcons.direction_up_right);
       case redCuba.CardinalPoint.West_Southwest:
-        return _multi_arrow(WeatherIcons.direction_up_right, WeatherIcons.direction_right);
+        return _multi_arrow(WeatherIcons.direction_up_right, WeatherIcons.direction_right, size1: 35.0, right1: 6.0, top1: -12.0, top2: 0.0);
       case redCuba.CardinalPoint.West:
         return _arrowicon(WeatherIcons.direction_right);
       case redCuba.CardinalPoint.West_Northwest:
-        return _multi_arrow(WeatherIcons.direction_right, WeatherIcons.direction_down_right);
+        return _multi_arrow(WeatherIcons.direction_right, WeatherIcons.direction_down_right ,size2: 35.0, right2: 6.0, top1: -6.0);
       case redCuba.CardinalPoint.Northwest:
         return _arrowicon(WeatherIcons.direction_down_right);
       case redCuba.CardinalPoint.North_Northwest:
-        return _multi_arrow(WeatherIcons.direction_down_right, WeatherIcons.direction_down);
+        return _multi_arrow(WeatherIcons.direction_down_right, WeatherIcons.direction_down, size1: 35.0, right2: 16.0, top1: -5.0);
       default:
         return _arrowicon(WeatherIcons.wind);
     }
@@ -81,113 +81,4 @@ class WindDirectionWidget extends StatelessWidget {
       ],
     );
   }
-
- // static Widget _complex_arrow(redCuba.CardinalPoint point)
- // {
-
- // }
-
-/*
-                  SizedBox(
-                    width: 30,
-                    height: 30,
-                    child: Stack(
-                      children: <Widget>[
-                        new Positioned(
-                            bottom: 0,
-                            child: new Icon(WeatherIcons.direction_down_right,color: Colors.white, size: 35,)),
-                        new Positioned(
-                            right: 6,
-                            child: new Icon(WeatherIcons.direction_down,color: Colors.white, size: 30)),
-                      ],
-                    ),
-                  ),
-
-
-                  SizedBox(
-                    width: 30,
-                    height: 30,
-                    child: Stack(
-                      children: <Widget>[
-                        new Positioned(
-                            bottom: 0,
-                            left: 0,
-                            right: 6,
-                            top: 0,
-                            child: new Icon(WeatherIcons.direction_down_right,color: Colors.white, size: 35,)),
-                        new Positioned(
-                            right: 0,
-                            bottom: 7,
-                            child: new Icon(WeatherIcons.direction_right,color: Colors.white, size: 30)),
-                      ],
-                    ),
-                  ),
-
-
-                  SizedBox(
-                    width: 30,
-                    height: 30,
-                    child: Stack(
-                      children: <Widget>[
-                        new Positioned(
-                            bottom: 0,
-                            left: 0,
-                            right: 6,
-                            top: 0,
-                            child: new Icon(WeatherIcons.direction_up_right,color: Colors.white, size: 35,)),
-                        new Positioned(
-                            right: 0,
-                            bottom: 0,
-                            top: 12,
-                            child: new Icon(WeatherIcons.direction_right,color: Colors.white, size: 30)),
-                      ],
-                    ),
-                  ),
-
-
-                  SizedBox(
-                    width: 30,
-                    height: 30,
-                    child: Stack(
-                      children: <Widget>[
-                        new Positioned(
-                            bottom: 0,
-                            left: 17,
-                            right: 0,
-                            top: 0,
-                            child: new Icon(WeatherIcons.direction_up_right,color: Colors.white, size: 35,)),
-                        new Positioned(
-                            right: 0,
-                            bottom: 0,
-                            top: 0,
-                            child: new Icon(WeatherIcons.direction_up,color: Colors.white, size: 30)),
-                      ],
-                    ),
-                  ),
-
-                    SizedBox(
-                    width: 30,
-                    height: 30,
-                    child: Stack(
-                      children: <Widget>[
-                        new Positioned(
-                            bottom: 0,
-                            left: 0,
-                            right: 17,
-                            top: 0,
-                            child: new Icon(WeatherIcons.direction_up_left,color: Colors.white, size: 35,)),
-                        new Positioned(
-                            right: 0,
-                            bottom: 0,
-                            top: 0,
-                            child: new Icon(WeatherIcons.direction_up,color: Colors.white, size: 30)),
-                      ],
-                    ),
-                  ),
-
-
-
-
- */
-
 }
