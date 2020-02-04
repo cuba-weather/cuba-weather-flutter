@@ -15,10 +15,137 @@ class DataWidget extends StatelessWidget {
         _weatherIconCodeByState(weather.state.toString(), weather.dateTime);
     return Column(
       children: <Widget>[
-        BoxedIcon(
-          WeatherIcons.fromString(weatherIconCode, fallback: WeatherIcons.na),
-          size: 100,
-          color: Colors.white,
+        Container(
+          margin: EdgeInsets.symmetric(horizontal: 0),
+          padding: EdgeInsets.only(top: 0),
+          child: Text(
+            "____________________________________________",
+            style: TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
+            ),
+          ),
+        ),
+        Container(
+          margin: EdgeInsets.symmetric(horizontal: 30),
+          padding: EdgeInsets.only(top: 16),
+          child: Text(
+            "Pronóstico para hoy:",
+            style: TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.w300,
+              color: Colors.white,
+            ),
+          ),
+        ),
+        Row(
+          children: <Widget>[
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                Text(
+                  'Mínima',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Colors.white,
+                  ),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(
+                      '${weather.temperatureMin.round()}',
+                      style: TextStyle(
+                        fontSize: 40,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.white,
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(right: 0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Text(
+                            '°C',
+                            style: TextStyle(
+                              fontSize: 10,
+                              fontWeight: FontWeight.w600,
+                              color: Colors.white,
+                            ),
+                          ),
+                          BoxedIcon(
+                            WeatherIcons.thermometer,
+                            color: Colors.white,
+                            size: 10,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+            BoxedIcon(
+              WeatherIcons.fromString(weatherIconCode,
+                  fallback: WeatherIcons.na),
+              size: 100,
+              color: Colors.white,
+            ),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                Text(
+                  'Máxima',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Colors.white,
+                  ),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(
+                      '${weather.temperatureMax.round()}',
+                      style: TextStyle(
+                        fontSize: 40,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.white,
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(right: 0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Text(
+                            '°C',
+                            style: TextStyle(
+                              fontSize: 10,
+                              fontWeight: FontWeight.w600,
+                              color: Colors.white,
+                            ),
+                          ),
+                          BoxedIcon(
+                            WeatherIcons.thermometer,
+                            color: Colors.white,
+                            size: 10,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ],
         ),
         Center(
           child: Text(
@@ -30,8 +157,17 @@ class DataWidget extends StatelessWidget {
             ),
           ),
         ),
-        Padding(
-          padding: EdgeInsets.only(bottom: 20.0),
+        Container(
+          margin: EdgeInsets.symmetric(horizontal: 0),
+          padding: EdgeInsets.only(top: 0),
+          child: Text(
+            "____________________________________________",
+            style: TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
+            ),
+          ),
         ),
         Container(
           margin: EdgeInsets.symmetric(horizontal: 30),
