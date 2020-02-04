@@ -4,11 +4,14 @@ import 'package:cuba_weather/src/utils/weather_client.dart';
 import 'package:http/http.dart';
 
 class ForecastPage extends StatefulWidget {
-  String forecastType;
-  String pageTitle;
+  final String forecastType;
+  final String pageTitle;
 
-  ForecastPage({Key key, @required this.forecastType, @required this.pageTitle})
-      : assert(forecastType != null),
+  ForecastPage({
+    Key key,
+    @required this.forecastType,
+    @required this.pageTitle,
+  })  : assert(forecastType != null),
         super(key: key);
 
   @override
@@ -44,7 +47,6 @@ class _ForecastPageState extends State<ForecastPage> {
             });
           });
           break;
-        default:
       }
     }
 
@@ -53,18 +55,13 @@ class _ForecastPageState extends State<ForecastPage> {
         title: Text(
           widget.pageTitle,
         ),
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(Icons.share),
-            onPressed: () {},
-          ),
-        ],
       ),
       body: _forecast == null
           ? Center(
               child: CircularProgressIndicator(
-              backgroundColor: Colors.white,
-            ))
+                backgroundColor: Colors.white,
+              ),
+            )
           : SingleChildScrollView(
               child: Padding(
                 padding: const EdgeInsets.all(10.0),
@@ -78,15 +75,21 @@ class _ForecastPageState extends State<ForecastPage> {
                           children: [
                             Text(
                               _forecast.centerName,
-                              style: TextStyle(fontWeight: FontWeight.bold),
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                             Text(
                               _forecast.forecastName,
-                              style: TextStyle(fontWeight: FontWeight.bold),
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                             Text(
                               _forecast.forecastDate,
-                              style: TextStyle(fontWeight: FontWeight.bold),
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                             Padding(
                               padding: EdgeInsets.all(5),
@@ -96,10 +99,13 @@ class _ForecastPageState extends State<ForecastPage> {
                                 ? SizedBox(height: 5.0)
                                 : Container(),
                             _forecast.forecastTitle != ""
-                                ? Text(_forecast.forecastTitle,
+                                ? Text(
+                                    _forecast.forecastTitle,
                                     style: TextStyle(
-                                        fontStyle: FontStyle.italic,
-                                        color: Colors.blue))
+                                      fontStyle: FontStyle.italic,
+                                      color: Colors.blue,
+                                    ),
+                                  )
                                 : Container(),
                             _forecast.forecastTitle != ""
                                 ? SizedBox(height: 8.0)
@@ -122,7 +128,9 @@ class _ForecastPageState extends State<ForecastPage> {
                                 vertical: 5, horizontal: 10),
                             child: Text(
                               'Autores',
-                              style: TextStyle(fontWeight: FontWeight.bold),
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                           ),
                           Card(
@@ -153,7 +161,8 @@ class _ForecastPageState extends State<ForecastPage> {
                                         child: Text(
                                           _forecast.authors[0],
                                           style: TextStyle(
-                                              fontWeight: FontWeight.bold),
+                                            fontWeight: FontWeight.bold,
+                                          ),
                                         ),
                                       ),
                                     ],
@@ -179,7 +188,8 @@ class _ForecastPageState extends State<ForecastPage> {
                                         child: Text(
                                           _forecast.authors[1],
                                           style: TextStyle(
-                                              fontWeight: FontWeight.bold),
+                                            fontWeight: FontWeight.bold,
+                                          ),
                                         ),
                                       ),
                                     ],
@@ -195,7 +205,9 @@ class _ForecastPageState extends State<ForecastPage> {
                                 'Fuente: ${_forecast.dataSource}',
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
-                                    fontWeight: FontWeight.w200, fontSize: 13),
+                                  fontWeight: FontWeight.w200,
+                                  fontSize: 13,
+                                ),
                               ),
                             ),
                           ),
@@ -206,18 +218,6 @@ class _ForecastPageState extends State<ForecastPage> {
                 ),
               ),
             ),
-      floatingActionButton: FloatingActionButton(
-        child: Image(
-          image: ExactAssetImage('images/logo_insmet.png'),
-        ),
-        backgroundColor: Colors.white,
-        elevation: 0.5,
-        mini: true,
-        onPressed: () {
-          print('Clicked');
-        },
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
     );
   }
 
