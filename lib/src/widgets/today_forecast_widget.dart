@@ -2,31 +2,17 @@ import 'package:cuba_weather_dart/cuba_weather_dart.dart';
 import 'package:flutter/material.dart';
 import 'package:weather_icons/weather_icons.dart';
 
-import 'package:cuba_weather/src/widgets/widgets.dart';
-
-class DataWidget extends StatelessWidget {
+class TodayForecastWidget extends StatelessWidget {
   final WeatherModel weather;
 
-  DataWidget({Key key, this.weather}) : super(key: key);
+  TodayForecastWidget({Key key, this.weather}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     String weatherIconCode =
-        _weatherIconCodeByState(weather.state.toString(), weather.dateTime);
+    _weatherIconCodeByState(weather.state.toString(), weather.dateTime);
     return Column(
       children: <Widget>[
-        Container(
-          margin: EdgeInsets.symmetric(horizontal: 0),
-          padding: EdgeInsets.only(top: 0),
-          child: Text(
-            "____________________________________________",
-            style: TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.bold,
-              color: Colors.white,
-            ),
-          ),
-        ),
         Container(
           margin: EdgeInsets.symmetric(horizontal: 30),
           padding: EdgeInsets.only(top: 16),
@@ -40,6 +26,8 @@ class DataWidget extends StatelessWidget {
           ),
         ),
         Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -156,107 +144,6 @@ class DataWidget extends StatelessWidget {
               color: Colors.white,
             ),
           ),
-        ),
-        Container(
-          margin: EdgeInsets.symmetric(horizontal: 0),
-          padding: EdgeInsets.only(top: 0),
-          child: Text(
-            "____________________________________________",
-            style: TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.bold,
-              color: Colors.white,
-            ),
-          ),
-        ),
-        Container(
-          margin: EdgeInsets.symmetric(horizontal: 30),
-          padding: EdgeInsets.only(top: 16),
-          child: Text(
-            "Estado actual:",
-            style: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-              color: Colors.white,
-            ),
-          ),
-        ),
-        LastUpdatedWidget(dateTime: weather.dateTime),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Text(
-              '${weather.temperature.round()}',
-              style: TextStyle(
-                fontSize: 80,
-                fontWeight: FontWeight.w600,
-                color: Colors.white,
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(right: 15),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Text(
-                    '°C',
-                    style: TextStyle(
-                      fontSize: 25,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.white,
-                    ),
-                  ),
-                  BoxedIcon(
-                    WeatherIcons.thermometer,
-                    color: Colors.white,
-                    size: 25,
-                  ),
-                ],
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.only(right: 20.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    children: <Widget>[
-                      BoxedIcon(
-                        WeatherIcons.barometer,
-                        color: Colors.white,
-                      ),
-                      Text(
-                        'Presión: ${weather.pressure.round()} hPa',
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w300,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: <Widget>[
-                      BoxedIcon(
-                        WeatherIcons.humidity,
-                        color: Colors.white,
-                      ),
-                      Text(
-                        'Humedad: ${weather.humidity.round()}%',
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w300,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ],
-                  )
-                ],
-              ),
-            ),
-          ],
         ),
       ],
     );

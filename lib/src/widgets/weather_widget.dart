@@ -287,13 +287,13 @@ class _WeatherWidgetState extends State<WeatherWidget> {
                     child: ListView(
                       children: <Widget>[
                         Padding(
-                          padding: EdgeInsets.only(top: 10.0),
+                          padding: EdgeInsets.only(top: 5),
                           child: NameMunicipalityWidget(
                               municipalities: municipalities,
                               municipality: weather.cityName),
                         ),
                         Padding(
-                          padding: EdgeInsets.symmetric(vertical: 5.0),
+                          padding: EdgeInsets.symmetric(),
                           child: CombinedWeatherWidget(
                             weather: weather,
                           ),

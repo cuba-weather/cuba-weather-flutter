@@ -20,78 +20,15 @@ class CombinedWeatherWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Padding(
-              padding: EdgeInsets.all(5.0),
-              child: DataWidget(
-                weather: weather,
-              ),
-            ),
-          ],
-        ),
+        DividerWidget(),
         Container(
-          margin: EdgeInsets.only(top: 10, bottom: 5),
-          child: Center(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                Text(
-                  'Viento:',
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w300,
-                    color: Colors.white,
-                  ),
-                ),
-              ],
-            ),
-          ),
+          margin: EdgeInsets.symmetric(horizontal: 30),
+          child: ActualStateWidget(weather: weather),
         ),
-        Center(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Column(
-                children: <Widget>[
-                  IconButton(
-                      icon: _parseWindVelocity(weather.windVelocity),
-                      color: Colors.white,
-                      iconSize: 30,
-                      onPressed: () {}),
-                  Text(
-                    '${weather.windVelocity.round()} Km/h',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w300,
-                      color: Colors.white,
-                    ),
-                  ),
-                ],
-              ),
-              VerticalDivider(
-                width: 50,
-              ),
-              Column(
-                children: <Widget>[
-                  IconButton(
-                      icon: _parseWindDirection(weather.windDirection),
-                      color: Colors.white,
-                      iconSize: 30,
-                      onPressed: () {}),
-                  Text(
-                    weather.windDirectionDescription,
-                    style: TextStyle(
-                      fontWeight: FontWeight.w300,
-                      color: Colors.white,
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ),
+        DividerWidget(),
+        TodayForecastWidget(weather: weather),
+        DividerWidget(),
+        ForecastWidget(weather: weather),
       ],
     );
   }
