@@ -153,6 +153,7 @@ class _WeatherWidgetState extends State<WeatherWidget> {
                 );
               },
             ),
+            Divider(),
             _createDrawerItem(
               context,
               icon: Icons.info,
@@ -167,6 +168,7 @@ class _WeatherWidgetState extends State<WeatherWidget> {
                 );
               },
             ),
+            Divider(),
             _createDrawerItem(
               context,
               icon: Icons.bug_report,
