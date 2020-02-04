@@ -70,57 +70,45 @@ class _WeatherWidgetState extends State<WeatherWidget> {
           padding: EdgeInsets.zero,
           children: <Widget>[
             _createHeader(context),
-            _createDrawerItem(context,
-                icon: Icons.location_on, text: 'Municipios', onTap: () {
-              Navigator.of(context).pop();
-              getMunicipality(context).then((municipality) {
-                if (municipality != null) {
-                  BlocProvider.of<WeatherBloc>(context).add(FetchWeather(
-                    municipality: municipality.toString(),
-                  ));
-                }
-              });
-            }),
-            _createDrawerItem(context, icon: Icons.info, text: 'Información',
-                onTap: () {
-              Navigator.of(context).pop();
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => InformationWidget(),
-                ),
-              );
-            }),
             Divider(),
             ExpansionTile(
-              //leading: Icon(Icons.filter_drama),
               title: Text('Pronósticos nacionales'),
               children: <Widget>[
-                _createDrawerItem(context,
-                    icon: Icons.filter_drama, text: 'Hoy', onTap: () {
-                  Navigator.of(context).pop();
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => ForecastPage(
+                _createDrawerItem(
+                  context,
+                  icon: Icons.filter_drama,
+                  text: 'Hoy',
+                  onTap: () {
+                    Navigator.of(context).pop();
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ForecastPage(
                           forecastType: 'today',
-                          pageTitle: 'Pronóstico para hoy'),
-                    ),
-                  );
-                }),
+                          pageTitle: 'Pronóstico para hoy',
+                        ),
+                      ),
+                    );
+                  },
+                ),
                 hour >= 15
-                    ? _createDrawerItem(context,
-                        icon: Icons.filter_drama, text: 'Mañana', onTap: () {
-                        Navigator.of(context).pop();
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => ForecastPage(
+                    ? _createDrawerItem(
+                        context,
+                        icon: Icons.filter_drama,
+                        text: 'Mañana',
+                        onTap: () {
+                          Navigator.of(context).pop();
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ForecastPage(
                                 forecastType: 'tomorrow',
-                                pageTitle: 'Pronóstico para mañana'),
-                          ),
-                        );
-                      })
+                                pageTitle: 'Pronóstico para mañana',
+                              ),
+                            ),
+                          );
+                        },
+                      )
                     : Container(),
               ],
             ),
@@ -128,21 +116,57 @@ class _WeatherWidgetState extends State<WeatherWidget> {
             ExpansionTile(
               title: Text('Tiempo actual'),
               children: <Widget>[
-                _createDrawerItem(context,
-                    icon: Icons.gradient, text: 'Perspectivas', onTap: () {
-                  Navigator.of(context).pop();
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => ForecastPage(
+                _createDrawerItem(
+                  context,
+                  icon: Icons.gradient,
+                  text: 'Perspectivas',
+                  onTap: () {
+                    Navigator.of(context).pop();
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ForecastPage(
                           forecastType: 'perspectives',
-                          pageTitle: 'Perspectivas del Tiempo'),
-                    ),
-                  );
-                }),
+                          pageTitle: 'Perspectivas del Tiempo',
+                        ),
+                      ),
+                    );
+                  },
+                ),
               ],
             ),
             Divider(),
+            _createDrawerItem(
+              context,
+              icon: Icons.location_on,
+              text: 'Municipios',
+              onTap: () {
+                Navigator.of(context).pop();
+                getMunicipality(context).then(
+                      (municipality) {
+                    if (municipality != null) {
+                      BlocProvider.of<WeatherBloc>(context).add(FetchWeather(
+                        municipality: municipality.toString(),
+                      ));
+                    }
+                  },
+                );
+              },
+            ),
+            _createDrawerItem(
+              context,
+              icon: Icons.info,
+              text: 'Información',
+              onTap: () {
+                Navigator.of(context).pop();
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => InformationWidget(),
+                  ),
+                );
+              },
+            ),
             _createDrawerItem(
               context,
               icon: Icons.bug_report,
