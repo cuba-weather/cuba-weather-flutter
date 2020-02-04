@@ -9,6 +9,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:cuba_weather/src/blocs/blocs.dart';
 import 'package:cuba_weather/src/widgets/widgets.dart';
 import 'package:cuba_weather/src/pages/pages.dart';
+import 'package:share/share.dart';
 
 class WeatherWidget extends StatefulWidget {
   final String initialMunicipality;
@@ -143,7 +144,7 @@ class _WeatherWidgetState extends State<WeatherWidget> {
               onTap: () {
                 Navigator.of(context).pop();
                 getMunicipality(context).then(
-                      (municipality) {
+                  (municipality) {
                     if (municipality != null) {
                       BlocProvider.of<WeatherBloc>(context).add(FetchWeather(
                         municipality: municipality.toString(),
@@ -165,6 +166,19 @@ class _WeatherWidgetState extends State<WeatherWidget> {
                   MaterialPageRoute(
                     builder: (context) => InformationWidget(),
                   ),
+                );
+              },
+            ),
+            Divider(),
+            _createDrawerItem(
+              context,
+              icon: Icons.share,
+              text: 'Compatir',
+              onTap: () async {
+                Share.share(
+                  'Yo uso Cuba Weather: la app meteorológica de '
+                  'Cuba para Cuba. https://cubaweather.app',
+                  subject: 'Cuba Weather App',
                 );
               },
             ),
