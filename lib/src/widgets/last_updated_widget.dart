@@ -11,13 +11,10 @@ class LastUpdatedWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 30),
       child: Row(
-        //mainAxisAlignment: MainAxisAlignment.start,
-        //crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Container(
-            //padding: EdgeInsets.only(top: 13),
             child: Text(
               'Actualizado: ${TimeOfDay.fromDateTime(dateTime).format(context)}',
               style: TextStyle(

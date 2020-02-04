@@ -2,14 +2,14 @@ import 'dart:async';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:package_info/package_info.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'package:cuba_weather/src/blocs/blocs.dart';
 import 'package:cuba_weather/src/widgets/widgets.dart';
-import 'package:package_info/package_info.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:cuba_weather/src/pages/pages.dart';
+import 'package:share/share.dart';
 
 class WeatherWidget extends StatefulWidget {
   final String initialMunicipality;
@@ -63,6 +63,7 @@ class _WeatherWidgetState extends State<WeatherWidget> {
 
   @override
   Widget build(BuildContext context) {
+    var hour = new DateTime.now().hour;
     return Scaffold(
       extendBodyBehindAppBar: true,
       drawer: Drawer(
@@ -70,66 +71,118 @@ class _WeatherWidgetState extends State<WeatherWidget> {
           padding: EdgeInsets.zero,
           children: <Widget>[
             _createHeader(context),
-            _createDrawerItem(context,
-                icon: Icons.location_on, text: 'Municipios', onTap: () {
-              Navigator.of(context).pop();
-              getMunicipality(context).then((municipality) {
-                if (municipality != null) {
-                  BlocProvider.of<WeatherBloc>(context).add(FetchWeather(
-                    municipality: municipality.toString(),
-                  ));
-                }
-              });
-            }),
-            _createDrawerItem(context, icon: Icons.info, text: 'Información',
-                onTap: () {
-              Navigator.of(context).pop();
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => InformationWidget(),
-                ),
-              );
-            }),
             Divider(),
-            // ExpansionTile(
-            //   title: Text("Pronósticos nacionales"),
-            //   children: <Widget>[
-            //     _createDrawerItem(context,
-            //         icon: Icons.filter_drama, text: 'Hoy', onTap: () {
-            //       Navigator.of(context).pop();
-            //       Navigator.push(
-            //         context,
-            //         MaterialPageRoute(
-            //           builder: (context) => TodayForecastPage(),
-            //         ),
-            //       );
-            //     }),
-            //     //     _createDrawerItem(context,
-            //     //         icon: Icons.filter_drama, text: 'Mañana',
-            //     //     onTap: () {
-            //     //   Navigator.of(context).pop();
-            //     //   Navigator.push(
-            //     //     context,
-            //     //     MaterialPageRoute(
-            //     //       builder: (context) => InformationWidget(),
-            //     //     ),
-            //     //   );
-            //     // }),
-            //     //     _createDrawerItem(context,
-            //     //         icon: Icons.gradient, text: 'Perspectivas',
-            //     //     onTap: () {
-            //     //   Navigator.of(context).pop();
-            //     //   Navigator.push(
-            //     //     context,
-            //     //     MaterialPageRoute(
-            //     //       builder: (context) => InformationWidget(),
-            //     //     ),
-            //     //   );
-            //     // }),
-            //   ],
-            // ),
-            // Divider(),
+            ExpansionTile(
+              title: Text('Pronósticos nacionales'),
+              children: <Widget>[
+                _createDrawerItem(
+                  context,
+                  icon: Icons.filter_drama,
+                  text: 'Hoy',
+                  onTap: () {
+                    Navigator.of(context).pop();
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ForecastPage(
+                          forecastType: 'today',
+                          pageTitle: 'Pronóstico para hoy',
+                        ),
+                      ),
+                    );
+                  },
+                ),
+                hour >= 15
+                    ? _createDrawerItem(
+                        context,
+                        icon: Icons.filter_drama,
+                        text: 'Mañana',
+                        onTap: () {
+                          Navigator.of(context).pop();
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ForecastPage(
+                                forecastType: 'tomorrow',
+                                pageTitle: 'Pronóstico para mañana',
+                              ),
+                            ),
+                          );
+                        },
+                      )
+                    : Container(),
+              ],
+            ),
+            Divider(),
+            ExpansionTile(
+              title: Text('Tiempo actual'),
+              children: <Widget>[
+                _createDrawerItem(
+                  context,
+                  icon: Icons.gradient,
+                  text: 'Perspectivas',
+                  onTap: () {
+                    Navigator.of(context).pop();
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ForecastPage(
+                          forecastType: 'perspectives',
+                          pageTitle: 'Perspectivas del Tiempo',
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ],
+            ),
+            Divider(),
+            _createDrawerItem(
+              context,
+              icon: Icons.location_on,
+              text: 'Municipios',
+              onTap: () {
+                Navigator.of(context).pop();
+                getMunicipality(context).then(
+                  (municipality) {
+                    if (municipality != null) {
+                      BlocProvider.of<WeatherBloc>(context).add(FetchWeather(
+                        municipality: municipality.toString(),
+                      ));
+                    }
+                  },
+                );
+              },
+            ),
+            Divider(),
+            _createDrawerItem(
+              context,
+              icon: Icons.info,
+              text: 'Información',
+              onTap: () {
+                Navigator.of(context).pop();
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => InformationWidget(),
+                  ),
+                );
+              },
+            ),
+            Divider(),
+            _createDrawerItem(
+              context,
+              icon: Icons.share,
+              text: 'Compatir',
+              onTap: () async {
+                Share.share(
+                  'Yo uso Cuba Weather: la app meteorológica de '
+                  'Cuba para Cuba. https://cubaweather.app',
+                  subject: 'Cuba Weather App',
+                );
+              },
+            ),
+            Divider(),
             _createDrawerItem(
               context,
               icon: Icons.bug_report,
@@ -155,7 +208,7 @@ class _WeatherWidgetState extends State<WeatherWidget> {
         ),
       ),
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
+        backgroundColor: Colors.blue[700],
         elevation: 0.0,
         centerTitle: true,
         title: Row(
@@ -169,7 +222,7 @@ class _WeatherWidgetState extends State<WeatherWidget> {
             Text(
               appName,
               textAlign: TextAlign.center,
-            )
+            ),
           ],
         ),
         actions: <Widget>[
@@ -240,6 +293,7 @@ class _WeatherWidgetState extends State<WeatherWidget> {
                 return GradientContainerWidget(
                   color: Colors.blue,
                   child: RefreshIndicator(
+                    displacement: 80,
                     onRefresh: () {
                       BlocProvider.of<WeatherBloc>(context).add(
                         RefreshWeather(municipality: weather.cityName),
@@ -249,14 +303,13 @@ class _WeatherWidgetState extends State<WeatherWidget> {
                     child: ListView(
                       children: <Widget>[
                         Padding(
-                          padding: EdgeInsets.only(top: 10.0),
+                          padding: EdgeInsets.only(top: 5),
                           child: NameMunicipalityWidget(
                               municipalities: municipalities,
                               municipality: weather.cityName),
                         ),
-                        LastUpdatedWidget(dateTime: weather.dateTime),
                         Padding(
-                          padding: EdgeInsets.symmetric(vertical: 5.0),
+                          padding: EdgeInsets.symmetric(),
                           child: CombinedWeatherWidget(
                             weather: weather,
                           ),
