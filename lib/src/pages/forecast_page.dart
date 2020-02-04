@@ -136,66 +136,7 @@ class _ForecastPageState extends State<ForecastPage> {
                           Card(
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: <Widget>[
-                                Padding(
-                                  padding: const EdgeInsets.all(15),
-                                  child: Column(
-                                    children: [
-                                      _forecast.authors[0] != ""
-                                          ? CircleAvatar(
-                                              backgroundImage: meteorologistImg(
-                                                          _forecast
-                                                              .authors[0]) !=
-                                                      null
-                                                  ? NetworkImage(
-                                                      meteorologistImg(
-                                                          _forecast.authors[0]))
-                                                  : ExactAssetImage(
-                                                      'images/no-image.png'),
-                                              radius: 30.0,
-                                            )
-                                          : Container(),
-                                      Padding(
-                                        padding:
-                                            const EdgeInsets.only(top: 8.0),
-                                        child: Text(
-                                          _forecast.authors[0],
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.all(15),
-                                  child: Column(
-                                    children: [
-                                      CircleAvatar(
-                                        backgroundImage: meteorologistImg(
-                                                    _forecast.authors[1]) !=
-                                                null
-                                            ? NetworkImage(meteorologistImg(
-                                                _forecast.authors[1]))
-                                            : ExactAssetImage(
-                                                'images/no-image.png'),
-                                        radius: 30.0,
-                                      ),
-                                      Padding(
-                                        padding:
-                                            const EdgeInsets.only(top: 8.0),
-                                        child: Text(
-                                          _forecast.authors[1],
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
+                              children: _buildAuthors(),
                             ),
                           ),
                           Padding(
@@ -219,6 +160,86 @@ class _ForecastPageState extends State<ForecastPage> {
               ),
             ),
     );
+  }
+
+  List<Widget> _buildAuthors() {
+    return _forecast.authors[0] != ""
+        ? [
+            Padding(
+              padding: const EdgeInsets.all(15),
+              child: Column(
+                children: [
+                  _forecast.authors[0] != ""
+                      ? CircleAvatar(
+                          backgroundImage:
+                              meteorologistImg(_forecast.authors[0]) != null
+                                  ? NetworkImage(
+                                      meteorologistImg(_forecast.authors[0]))
+                                  : ExactAssetImage('images/no-image.png'),
+                          radius: 30.0,
+                        )
+                      : Container(),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 8.0),
+                    child: Text(
+                      _forecast.authors[0],
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(15),
+              child: Column(
+                children: [
+                  CircleAvatar(
+                    backgroundImage: meteorologistImg(_forecast.authors[1]) !=
+                            null
+                        ? NetworkImage(meteorologistImg(_forecast.authors[1]))
+                        : ExactAssetImage('images/no-image.png'),
+                    radius: 30.0,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 8.0),
+                    child: Text(
+                      _forecast.authors[1],
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ]
+        : [
+            Padding(
+              padding: const EdgeInsets.all(15),
+              child: Column(
+                children: [
+                  CircleAvatar(
+                    backgroundImage: meteorologistImg(_forecast.authors[1]) !=
+                            null
+                        ? NetworkImage(meteorologistImg(_forecast.authors[1]))
+                        : ExactAssetImage('images/no-image.png'),
+                    radius: 30.0,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 8.0),
+                    child: Text(
+                      _forecast.authors[1],
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ];
   }
 
   String meteorologistImg(String name) {
