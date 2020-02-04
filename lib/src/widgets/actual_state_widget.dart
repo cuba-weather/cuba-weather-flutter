@@ -30,19 +30,19 @@ class ActualStateWidget extends StatelessWidget {
         ),
         LastUpdatedWidget(dateTime: weather.dateTime),
         Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Text(
               '${weather.temperature.round()}',
               style: TextStyle(
-                fontSize: 80,
+                fontSize: 70,
                 fontWeight: FontWeight.w600,
                 color: Colors.white,
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(right: 15),
+              padding: const EdgeInsets.only(right: 5),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -50,7 +50,7 @@ class ActualStateWidget extends StatelessWidget {
                   Text(
                     '°C',
                     style: TextStyle(
-                      fontSize: 25,
+                      fontSize: 20,
                       fontWeight: FontWeight.w600,
                       color: Colors.white,
                     ),
@@ -58,13 +58,13 @@ class ActualStateWidget extends StatelessWidget {
                   BoxedIcon(
                     WeatherIcons.thermometer,
                     color: Colors.white,
-                    size: 25,
+                    size: 20,
                   ),
                 ],
               ),
             ),
             Padding(
-              padding: EdgeInsets.only(right: 20.0),
+              padding: EdgeInsets.only(right: 0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -77,7 +77,7 @@ class ActualStateWidget extends StatelessWidget {
                       Text(
                         'Presión: ${weather.pressure.round()} hPa',
                         style: TextStyle(
-                          fontSize: 16,
+                          fontSize: 14,
                           fontWeight: FontWeight.w300,
                           color: Colors.white,
                         ),
@@ -93,7 +93,7 @@ class ActualStateWidget extends StatelessWidget {
                       Text(
                         'Humedad: ${weather.humidity.round()}%',
                         style: TextStyle(
-                          fontSize: 16,
+                          fontSize: 14,
                           fontWeight: FontWeight.w300,
                           color: Colors.white,
                         ),
