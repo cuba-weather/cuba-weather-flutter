@@ -1,8 +1,7 @@
+import 'package:cuba_weather_dart/cuba_weather_dart.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
-import 'package:cuba_weather_dart/cuba_weather_dart.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:cuba_weather/src/blocs/blocs.dart';
@@ -26,12 +25,15 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark.copyWith(
+    SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle.dark.copyWith(
         statusBarColor: Colors.blue[700],
         statusBarBrightness: Brightness.light,
         statusBarIconBrightness: Brightness.light,
         systemNavigationBarIconBrightness: Brightness.light,
-        systemNavigationBarColor: Colors.blue[300]));
+        systemNavigationBarColor: Colors.blue[300],
+      ),
+    );
     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
     return MaterialApp(
       title: appName,

@@ -1,4 +1,5 @@
 import 'package:cuba_weather_dart/cuba_weather_dart.dart';
+import 'package:cuba_weather_insmet_dart/cuba_weather_insmet_dart.dart' as aux;
 import 'package:flutter/material.dart';
 import 'package:weather_icons/weather_icons.dart';
 
@@ -9,8 +10,10 @@ class TodayForecastWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String weatherIconCode =
-    _weatherIconCodeByState(weather.state.toString(), weather.dateTime);
+    String weatherIconCode = _weatherIconCodeByState(
+      weather.state,
+      weather.dateTime,
+    );
     return Column(
       children: <Widget>[
         Container(
@@ -149,71 +152,38 @@ class TodayForecastWidget extends StatelessWidget {
     );
   }
 
-  String _weatherIconCodeByState(String state, DateTime dateTime) {
-    bool itsDay = true;
-
-    if (dateTime.hour >= 19 || dateTime.hour <= 6) {
-      itsDay = false;
-    }
-
+  String _weatherIconCodeByState(aux.State state, DateTime dateTime) {
+    bool itsDay = dateTime.hour > 6 && dateTime.hour < 19;
     String result = '';
     switch (state) {
-      case 'State.OccasionalShowers':
-        if (itsDay) {
-          result = 'wi-day-rain';
-        } else {
-          result = 'wi-night-alt-rain';
-        }
+      case aux.State.OccasionalShowers:
+        result = itsDay ? 'wi-day-rain': 'wi-night-alt-rain';
         break;
-      case 'State.ScatteredShowers':
-        if (itsDay) {
-          result = 'wi-rain';
-        } else {
-          result = 'wi-rain';
-        }
+      case aux.State.ScatteredShowers:
+        result = itsDay ? 'wi-rain': 'wi-rain';
         break;
-      case 'State.IsolatedShowers':
-        if (itsDay) {
-          result = 'wi-day-rain';
-        } else {
-          result = 'wi-night-alt-rain';
-        }
+      case aux.State.IsolatedShowers:
+        result = itsDay ? 'wi-day-rain' : 'wi-night-alt-rain';
         break;
-      case 'State.AfternoonShowers':
-        if (itsDay) {
-          result = 'wi-showers';
-        } else {
-          result = 'wi-showers';
-        }
+      case aux.State.AfternoonShowers:
+        result = itsDay ? 'wi-showers' : 'wi-showers';
         break;
-      case 'State.RainShowers':
-        if (itsDay) {
-          result = 'wi-showers';
-        } else {
-          result = 'wi-night-alt-showers';
-        }
+      case aux.State.RainShowers:
+        result = itsDay ? 'wi-showers' : 'wi-night-alt-showers';
         break;
-      case 'State.PartlyCloudy':
-        if (itsDay) {
-          result = 'wi-day-cloudy';
-        } else {
-          result = 'wi-night-alt-cloudy';
-        }
+      case aux.State.PartlyCloudy:
+        result = itsDay ? 'wi-day-cloudy' : 'wi-night-alt-cloudy';
         break;
-      case 'State.Cloudy':
+      case aux.State.Cloudy:
         result = 'wi-cloudy';
         break;
-      case 'State.Sunny':
+      case aux.State.Sunny:
         result = 'wi-day-sunny';
         break;
-      case 'State.Storms':
-        if (itsDay) {
-          result = 'wi-day-thunderstorm';
-        } else {
-          result = 'wi-night-alt-thunderstorm';
-        }
+      case aux.State.Storms:
+        result = itsDay ? 'wi-day-thunderstorm' : 'wi-night-alt-thunderstorm';
         break;
-      case 'State.AfternoonStorms':
+      case aux.State.AfternoonStorms:
         result = 'wi-thunderstorm';
         break;
       default:

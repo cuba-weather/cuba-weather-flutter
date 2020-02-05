@@ -5,11 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:package_info/package_info.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:share/share.dart';
 
 import 'package:cuba_weather/src/blocs/blocs.dart';
 import 'package:cuba_weather/src/widgets/widgets.dart';
 import 'package:cuba_weather/src/pages/pages.dart';
-import 'package:share/share.dart';
 
 class WeatherWidget extends StatefulWidget {
   final String initialMunicipality;
@@ -370,19 +370,24 @@ class _WeatherWidgetState extends State<WeatherWidget> {
     );
   }
 
-  Widget _createDrawerItem(BuildContext context,
-      {IconData icon, String text, GestureTapCallback onTap}) {
+  Widget _createDrawerItem(
+    BuildContext context, {
+    IconData icon,
+    String text,
+    GestureTapCallback onTap,
+  }) {
     return ListTile(
-        title: Row(
-          children: <Widget>[
-            Icon(icon),
-            Padding(
-              padding: EdgeInsets.only(left: 8.0),
-              child: Text(text),
-            )
-          ],
-        ),
-        onTap: onTap);
+      title: Row(
+        children: <Widget>[
+          Icon(icon),
+          Padding(
+            padding: EdgeInsets.only(left: 8.0),
+            child: Text(text),
+          )
+        ],
+      ),
+      onTap: onTap,
+    );
   }
 
   Future getMunicipality(BuildContext context) async {

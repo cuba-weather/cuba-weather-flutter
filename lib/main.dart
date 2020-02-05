@@ -23,11 +23,14 @@ void main() async {
   } catch (e) {
     log(e.toString());
   }
-  runApp(App(
+  runApp(
+    App(
       api: CubaWeather(),
       municipalities: _municipalities,
       initialMunicipality: _initialMunicipality,
-      appName: 'Cuba Weather'));
+      appName: 'Cuba Weather',
+    ),
+  );
 }
 
 class SimpleBlocDelegate extends BlocDelegate {

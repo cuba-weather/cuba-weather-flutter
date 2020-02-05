@@ -1,10 +1,8 @@
 import 'dart:developer';
 import 'dart:io';
 
-
 import 'package:meta/meta.dart';
 import 'package:bloc/bloc.dart';
-
 import 'package:cuba_weather_dart/cuba_weather_dart.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
