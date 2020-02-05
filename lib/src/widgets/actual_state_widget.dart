@@ -14,10 +14,8 @@ class ActualStateWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var windData = _parseWindDirection(weather.windDirection);
-    var icon = windData.item1;
-    var radius = windData.item2;
-    var size = windData.item3;
+    Icon icon = Icon(WeatherIcons.direction_down,);
+    double size = 30.0;
     return Column(
       children: <Widget>[
         Container(
@@ -156,7 +154,7 @@ class ActualStateWidget extends StatelessWidget {
                   Column(
                     children: <Widget>[
                       Transform.rotate(
-                        angle: radius,
+                        angle: weather.windDirectionRadians,
                         child: IconButton(
                           icon: icon,
                           color: Colors.white,
@@ -185,97 +183,7 @@ class ActualStateWidget extends StatelessWidget {
     );
   }
 
-  static Tuple3 _parseWindDirection(aux.CardinalPoint input) {
-    var result = Tuple3<Icon, double, double>(null, 0, 0);
-    switch (input) {
-      case aux.CardinalPoint.North:
-        result = result.withItem1(Icon(WeatherIcons.direction_down));
-        result = result.withItem2(0);
-        result = result.withItem3(30);
-        break;
-      case aux.CardinalPoint.North_Northeast:
-        result = result.withItem1(Icon(WeatherIcons.direction_down));
-        result = result.withItem2(0.3926991);
-        result = result.withItem3(30);
-        break;
-      case aux.CardinalPoint.Northeast:
-        result = result.withItem1(Icon(WeatherIcons.direction_down_left));
-        result = result.withItem2(0);
-        result = result.withItem3(35);
-        break;
-      case aux.CardinalPoint.East_Northeast:
-        result = result.withItem1(Icon(WeatherIcons.direction_down_left));
-        result = result.withItem2(0.3926991);
-        result = result.withItem3(37);
-        break;
-      case aux.CardinalPoint.East:
-        result = result.withItem1(Icon(WeatherIcons.direction_left));
-        result = result.withItem2(0);
-        result = result.withItem3(30);
-        break;
-      case aux.CardinalPoint.East_Southeast:
-        result = result.withItem1(Icon(WeatherIcons.direction_left));
-        result = result.withItem2(0.3926991);
-        result = result.withItem3(30);
-        break;
-      case aux.CardinalPoint.Southeast:
-        result = result.withItem1(Icon(WeatherIcons.direction_up_left));
-        result = result.withItem2(0);
-        result = result.withItem3(35);
-        break;
-      case aux.CardinalPoint.South_Southeast:
-        result = result.withItem1(Icon(WeatherIcons.direction_up_left));
-        result = result.withItem2(0.3926991);
-        result = result.withItem3(35);
-        break;
-      case aux.CardinalPoint.South:
-        result = result.withItem1(Icon(WeatherIcons.direction_up));
-        result = result.withItem2(0);
-        result = result.withItem3(30);
-        break;
-      case aux.CardinalPoint.South_Southwest:
-        result = result.withItem1(Icon(WeatherIcons.direction_up));
-        result = result.withItem2(0.3926991);
-        result = result.withItem3(30);
-        break;
-      case aux.CardinalPoint.Southwest:
-        result = result.withItem1(Icon(WeatherIcons.direction_up_right));
-        result = result.withItem2(0);
-        result = result.withItem3(35);
-        break;
-      case aux.CardinalPoint.West_Southwest:
-        result = result.withItem1(Icon(WeatherIcons.direction_up_right));
-        result = result.withItem2(0.3926991);
-        result = result.withItem3(35);
-        break;
-      case aux.CardinalPoint.West:
-        result = result.withItem1(Icon(WeatherIcons.direction_right));
-        result = result.withItem2(0);
-        result = result.withItem3(30);
-        break;
-      case aux.CardinalPoint.West_Northwest:
-        result = result.withItem1(Icon(WeatherIcons.direction_right));
-        result = result.withItem2(0.3926991);
-        result = result.withItem3(30);
-        break;
-      case aux.CardinalPoint.Northwest:
-        result = result.withItem1(Icon(WeatherIcons.direction_down_right));
-        result = result.withItem2(0);
-        result = result.withItem3(35);
-        break;
-      case aux.CardinalPoint.North_Northwest:
-        result = result.withItem1(Icon(WeatherIcons.direction_down_right));
-        result = result.withItem2(0.3926991);
-        result = result.withItem3(35);
-        break;
-      default:
-        result = result.withItem1(Icon(WeatherIcons.wind));
-        result = result.withItem2(0);
-        result = result.withItem3(30);
-        break;
-    }
-    return result;
-  }
+
 
   static Icon _parseWindVelocity(double x) {
     if (x < 2)
