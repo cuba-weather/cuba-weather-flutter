@@ -199,6 +199,10 @@ class WeatherClient {
       } catch (e) {}
 
       forecast.dataSource = 'www.insmet.cu';
+      forecast.imageUrl = 'http://www.insmet.cu/Pronostico/tv12.jpg';
+      if (DateTime.now().hour >= 16) {
+        forecast.imageUrl = 'http://www.insmet.cu/Pronostico/tv18.jpg';
+      }
       return forecast;
     } catch (e) {
       log(e.toString());

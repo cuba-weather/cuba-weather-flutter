@@ -38,6 +38,7 @@ dependencies:
   tuple: ^1.0.3
   font_awesome_flutter: ^8.5.0
   flutter_speed_dial: ^1.2.5
+  transparent_image: ^1.0.0
 
 dev_dependencies:
 

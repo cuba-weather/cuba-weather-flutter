@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
 import 'package:cuba_weather/src/models/models.dart';
 import 'package:cuba_weather/src/utils/weather_client.dart';
-import 'package:http/http.dart';
+import 'package:transparent_image/transparent_image.dart';
 
 class ForecastPage extends StatefulWidget {
   final String forecastType;
@@ -21,6 +22,7 @@ class ForecastPage extends StatefulWidget {
 class _ForecastPageState extends State<ForecastPage> {
   ForecastModel _forecast;
   var client = Client();
+  bool showImage = false;
 
   @override
   Widget build(BuildContext context) {
@@ -161,6 +163,34 @@ class _ForecastPageState extends State<ForecastPage> {
                         ],
                       ),
                     ),
+                    _forecast.imageUrl != null
+                        ? Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: <Widget>[
+                              Text(
+                                'Mostrar imagen',
+                              ),
+                              Switch(
+                                value: showImage,
+                                onChanged: (value) {
+                                  setState(() {
+                                    showImage = value;
+                                  });
+                                },
+                                activeTrackColor: Colors.lightBlueAccent,
+                                activeColor: Colors.blue,
+                              ),
+                            ],
+                          )
+                        : Container(),
+                    _forecast.imageUrl != null
+                        ? showImage
+                            ? FadeInImage.memoryNetwork(
+                                placeholder: kTransparentImage,
+                                image: _forecast.imageUrl,
+                              )
+                            : Container()
+                        : Container()
                   ],
                 ),
               ),
