@@ -59,7 +59,10 @@ class DonateWidgetState extends State<DonateWidget> {
                   'de saldo al número +5353478301\n\nEn nuestro sitio web '
                   'cubaweather.app puede ver la lista de colaboradores así '
                   'como una lista de en que queremos utilizar esas donaciones. '
-                  'Además de información sobre el proyecto en general.',
+                  'Además de información sobre el proyecto en general.\n\n'
+                  'Utilize el botón de la esquina inferior derecha para '
+                  'copiar el número de la cuenta bancaria, el usuario de '
+                  'Enzona o el número de teléfono.',
                   style: TextStyle(
                     color: Colors.white,
                   ),
@@ -70,17 +73,6 @@ class DonateWidgetState extends State<DonateWidget> {
           ],
         ),
       ),
-//      floatingActionButton: FloatingActionButton.extended(
-//        onPressed: () {
-//          Clipboard.setData(new ClipboardData(text: '9224959879396073'));
-//          _showSnackBar('Cuenta bancaria copiada');
-//        },
-//        backgroundColor: Colors.white,
-//        label: Text(
-//          'Copiar la cuenta bancaria',
-//          style: TextStyle(color: Colors.blue),
-//        ),
-//      ),
       floatingActionButton: SpeedDial(
         animatedIcon: AnimatedIcons.menu_close,
         animatedIconTheme: IconThemeData(size: 22),

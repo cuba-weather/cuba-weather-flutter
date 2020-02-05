@@ -168,6 +168,20 @@ class _WeatherWidgetState extends State<WeatherWidget> {
             ),
             _createDrawerItem(
               context,
+              icon: Icons.card_giftcard,
+              text: 'Donar',
+              onTap: () {
+                Navigator.of(context).pop();
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => DonateWidget(),
+                  ),
+                );
+              },
+            ),
+            _createDrawerItem(
+              context,
               icon: Icons.share,
               text: 'Compatir',
               onTap: () async {
