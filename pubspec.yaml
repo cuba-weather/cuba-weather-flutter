@@ -36,6 +36,7 @@ dependencies:
   html: ^0.14.0+3
   share: ^0.6.3+5
   tuple: ^1.0.3
+  font_awesome_flutter: ^8.5.0
 
 dev_dependencies:
 
