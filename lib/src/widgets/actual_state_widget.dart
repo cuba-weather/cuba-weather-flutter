@@ -1,9 +1,8 @@
 import 'package:cuba_weather_dart/cuba_weather_dart.dart';
-import 'package:flutter/material.dart';
-import 'package:weather_icons/weather_icons.dart';
-
 import 'package:cuba_weather_redcuba_dart/src/models/weather_model.dart'
     as redCuba;
+import 'package:flutter/material.dart';
+import 'package:weather_icons/weather_icons.dart';
 
 import 'package:cuba_weather/src/widgets/widgets.dart';
 

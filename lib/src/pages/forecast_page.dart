@@ -27,25 +27,31 @@ class _ForecastPageState extends State<ForecastPage> {
     if (_forecast == null) {
       switch (widget.forecastType) {
         case 'today':
-          WeatherClient().todayForecast(client).then((onValue) {
-            setState(() {
-              _forecast = onValue;
-            });
-          });
+          WeatherClient().todayForecast(client).then(
+            (onValue) {
+              setState(() {
+                _forecast = onValue;
+              });
+            },
+          );
           break;
         case 'tomorrow':
-          WeatherClient().tomorrowForecast(client).then((onValue) {
-            setState(() {
-              _forecast = onValue;
-            });
-          });
+          WeatherClient().tomorrowForecast(client).then(
+            (onValue) {
+              setState(() {
+                _forecast = onValue;
+              });
+            },
+          );
           break;
         case 'perspectives':
-          WeatherClient().perspectiveForecast(client).then((onValue) {
-            setState(() {
-              _forecast = onValue;
-            });
-          });
+          WeatherClient().perspectiveForecast(client).then(
+            (onValue) {
+              setState(() {
+                _forecast = onValue;
+              });
+            },
+          );
           break;
       }
     }

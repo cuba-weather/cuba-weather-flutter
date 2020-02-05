@@ -1,39 +1,39 @@
-import 'package:cuba_weather/src/models/forecast_model.dart';
-import 'package:html/parser.dart' show parse;
-import 'package:http/http.dart';
-import 'package:html/dom.dart';
 import 'dart:developer';
+
+import 'package:cuba_weather/src/models/forecast_model.dart';
+import 'package:html/dom.dart';
+import 'package:http/http.dart';
+import 'package:html/parser.dart' show parse;
 
 class WeatherClient {
   Future<ForecastModel> todayForecast(BaseClient client) async {
     print("todayForecast " + DateTime.now().toString());
 
-    ForecastModel forecast = new ForecastModel();
+    var forecast = new ForecastModel();
 
     forecast.authors = new List<String>();
     try {
-      String url = "http://www.insmet.cu/asp/link.asp?PRONOSTICO";
+      var url = "http://www.insmet.cu/asp/link.asp?PRONOSTICO";
 
-      Response response = await client.get(url);
+      var response = await client.get(url);
 
       if (response.statusCode != 200) {
         throw BadRequestException(response.body);
       }
 
       var document = parse(response.body);
-      List<Element> tabs =
-          document.getElementsByTagName('table.contenidoPagina');
+      var tabs = document.getElementsByTagName('table.contenidoPagina');
 
-      Element autor1Element = document.getElementById('name1');
-      if (autor1Element != null) {
-        forecast.authors.add(autor1Element.text);
+      var author1Element = document.getElementById('name1');
+      if (author1Element != null) {
+        forecast.authors.add(author1Element.text);
       }
 
-      Element autor2Element = document.getElementById('name2');
-      if (autor2Element != null) {
-        forecast.authors.add(autor2Element.text);
+      var author2Element = document.getElementById('name2');
+      if (author2Element != null) {
+        forecast.authors.add(author2Element.text);
       }
-      String leading = tabs[0].outerHtml.toString();
+      var leading = tabs[0].outerHtml.toString();
 
       var index = leading.indexOf('<b>');
       leading = leading.replaceRange(0, index, '');
@@ -74,31 +74,30 @@ class WeatherClient {
   }
 
   Future<ForecastModel> tomorrowForecast(BaseClient client) async {
-    ForecastModel forecast = new ForecastModel();
+    var forecast = new ForecastModel();
     forecast.authors = new List<String>();
     try {
-      String url =
+      var url =
           'http://www.insmet.cu/asp/genesis.asp?TB0=PLANTILLAS&TB1=PTM&TB2=/Pronostico/Ptm.txt';
-      Response response = await client.get(url);
+      var response = await client.get(url);
 
       if (response.statusCode != 200) {
         throw BadRequestException(response.body);
       }
 
       var document = parse(response.body);
-      List<Element> tabs =
-          document.getElementsByTagName('table.contenidoPagina');
+      var tabs = document.getElementsByTagName('table.contenidoPagina');
 
-      Element autor1Element = document.getElementById('name1');
-      if (autor1Element != null) {
-        forecast.authors.add(autor1Element.text);
+      var author1Element = document.getElementById('name1');
+      if (author1Element != null) {
+        forecast.authors.add(author1Element.text);
       }
 
-      Element autor2Element = document.getElementById('name2');
-      if (autor2Element != null) {
-        forecast.authors.add(autor2Element.text);
+      var author2Element = document.getElementById('name2');
+      if (author2Element != null) {
+        forecast.authors.add(author2Element.text);
       }
-      String leading = tabs[0].outerHtml.toString();
+      var leading = tabs[0].outerHtml.toString();
 
       var index = leading.indexOf('<b>');
       leading = leading.replaceRange(0, index, '');
@@ -139,13 +138,13 @@ class WeatherClient {
   }
 
   Future<ForecastModel> perspectiveForecast(BaseClient client) async {
-    ForecastModel forecast = new ForecastModel();
+    var forecast = new ForecastModel();
     forecast.authors = new List<String>();
     forecast.forecastTitle = "";
     try {
-      String url =
+      var url =
           'http://www.insmet.cu/asp/genesis.asp?TB0=PLANTILLAS&TB1=PERSPECTIVASTT';
-      Response response = await client.get(url);
+      var response = await client.get(url);
 
       if (response.statusCode != 200) {
         throw BadRequestException(response.body);
@@ -153,9 +152,9 @@ class WeatherClient {
 
       var document = parse(response.body);
 
-      List<Element> tabs = document.getElementsByTagName('td.contenidoPagina');
+      var tabs = document.getElementsByTagName('td.contenidoPagina');
 
-      String leading = tabs[3].outerHtml.toString();
+      var leading = tabs[3].outerHtml.toString();
 
       var index = leading.indexOf('<b>');
       leading = leading.replaceRange(0, index + 3, '');
@@ -180,23 +179,22 @@ class WeatherClient {
       forecast.forecastText = forecastText.substring(0, index);
       forecast.forecastText = forecast.forecastText.replaceAll("<br>", "\n");
 
-      List<Element> tableAutors =
-          document.getElementsByTagName('table.contenidoPagina');
+      var tableAuthors = document.getElementsByTagName('table.contenidoPagina');
 
-      List<Element> tableAutors1 = tableAutors[0].getElementsByTagName('td');
+      var tableAuthors1 = tableAuthors[0].getElementsByTagName('td');
 
-      Element autor1Element;
+      Element author1Element;
       try {
-        autor1Element = tableAutors1[2];
-        if (autor1Element != null) {
-          forecast.authors.add(autor1Element.text);
+        author1Element = tableAuthors1[2];
+        if (author1Element != null) {
+          forecast.authors.add(author1Element.text);
         }
       } catch (e) {}
-      Element autor2Element;
+      Element author2Element;
       try {
-        autor2Element = tableAutors1[3];
-        if (autor2Element != null) {
-          forecast.authors.add(autor2Element.text);
+        author2Element = tableAuthors1[3];
+        if (author2Element != null) {
+          forecast.authors.add(author2Element.text);
         }
       } catch (e) {}
 
@@ -205,37 +203,6 @@ class WeatherClient {
     } catch (e) {
       log(e.toString());
       throw ParseException(e.toString());
-    }
-  }
-
-  String imgMeteorologo(String name) {
-    name = name.replaceAll(' ', '');
-    name = name.replaceAll('.', '');
-    String url = "http://www.insmet.cu/Imagenes/Meteorologos/";
-    switch (name) {
-      case 'AVarela':
-        return url + 'A.Varela.jpg';
-        break;
-      case 'YBermúdez':
-        return url + 'Yinelis.jpg';
-        break;
-      case 'MAHernández':
-        return url + 'MAHernandez.jpg';
-        break;
-      case 'AJustiz':
-        return url + 'A.Justiz.jpg';
-        break;
-      case 'YArias':
-        return url + 'Y.Arias.jpg';
-        break;
-      case 'JRubiera':
-        return url + 'JRubiera.jpg';
-        break;
-      case 'GAcosta':
-        return url + 'G.Acosta.jpg';
-        break;
-      default:
-        return url + 'unknown.jpg';
     }
   }
 }
