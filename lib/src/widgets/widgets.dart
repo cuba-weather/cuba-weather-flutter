@@ -10,5 +10,4 @@ export 'locations_list.dart';
 export 'name_location_widget.dart';
 export 'today_forecast_widget.dart';
 export 'weather_widget.dart';
-export 'wind_direction_widget.dart';
 
