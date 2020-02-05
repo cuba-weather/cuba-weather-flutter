@@ -2,9 +2,13 @@ import 'package:cuba_weather_dart/cuba_weather_dart.dart';
 import 'package:cuba_weather_redcuba_dart/src/models/weather_model.dart'
     as redCuba;
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:weather_icons/weather_icons.dart';
 
 import 'package:cuba_weather/src/widgets/widgets.dart';
+
+double radius = 0.0;
+double size = 30.0;
 
 class ActualStateWidget extends StatelessWidget {
   final WeatherModel weather;
@@ -132,7 +136,7 @@ class ActualStateWidget extends StatelessWidget {
                   IconButton(
                       icon: _parseWindVelocity(weather.windVelocity),
                       color: Colors.white,
-                      iconSize: 30,
+                      iconSize: size,
                       onPressed: () {}),
                   Text(
                     '${weather.windVelocity.round()} Km/h',
@@ -148,17 +152,28 @@ class ActualStateWidget extends StatelessWidget {
               ),
               Column(
                 children: <Widget>[
-                  IconButton(
-                      icon: _parseWindDirection(weather.windDirection),
-                      color: Colors.white,
-                      iconSize: 30,
-                      onPressed: () {}),
-                  Text(
-                    weather.windDirectionDescription,
-                    style: TextStyle(
-                      fontWeight: FontWeight.w300,
-                      color: Colors.white,
-                    ),
+                  Column(
+                    children: <Widget>[
+                      Transform.rotate(
+                        angle: radius,
+                        child: IconButton(
+                          icon: _parseWindDirection(weather.windDirection),
+                          color: Colors.white,
+                          iconSize: size,
+                          onPressed: () {},
+                        ),
+                      ),
+                      Container(
+                        child: Text(
+                          weather.windDirectionDescription,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontWeight: FontWeight.w300,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),
@@ -172,22 +187,72 @@ class ActualStateWidget extends StatelessWidget {
   static Icon _parseWindDirection(redCuba.CardinalPoint input) {
     switch (input) {
       case redCuba.CardinalPoint.North:
+        radius = 0.0;
+        size = 30;
+        return Icon(WeatherIcons.direction_down);
+      case redCuba.CardinalPoint.North_Northeast:
+        radius = 0.3926991;
+        size = 30;
         return Icon(WeatherIcons.direction_down);
       case redCuba.CardinalPoint.Northeast:
+        radius = 0.0;
+        size = 35;
+        return Icon(WeatherIcons.direction_down_left);
+      case redCuba.CardinalPoint.East_Northeast:
+        radius = 0.3926991;
+        size = 37;
         return Icon(WeatherIcons.direction_down_left);
       case redCuba.CardinalPoint.East:
+        radius = 0.0;
+        size = 30;
+        return Icon(WeatherIcons.direction_left);
+      case redCuba.CardinalPoint.East_Southeast:
+        radius = 0.3926991;
+        size = 30;
         return Icon(WeatherIcons.direction_left);
       case redCuba.CardinalPoint.Southeast:
+        radius = 0.0;
+        size = 35;
+        return Icon(WeatherIcons.direction_up_left);
+      case redCuba.CardinalPoint.South_Southeast:
+        radius = 0.3926991;
+        size = 35;
         return Icon(WeatherIcons.direction_up_left);
       case redCuba.CardinalPoint.South:
+        radius = 0.0;
+        size = 30;
+        return Icon(WeatherIcons.direction_up);
+      case redCuba.CardinalPoint.South_Southwest:
+        radius = 0.3926991;
+        size = 30;
         return Icon(WeatherIcons.direction_up);
       case redCuba.CardinalPoint.Southwest:
+        radius = 0.0;
+        size = 35;
+        return Icon(WeatherIcons.direction_up_right);
+      case redCuba.CardinalPoint.West_Southwest:
+        radius = 0.3926991;
+        size = 35;
         return Icon(WeatherIcons.direction_up_right);
       case redCuba.CardinalPoint.West:
+        radius = 0.0;
+        size = 30;
+        return Icon(WeatherIcons.direction_right);
+      case redCuba.CardinalPoint.West_Northwest:
+        radius = 0.3926991;
+        size = 30;
         return Icon(WeatherIcons.direction_right);
       case redCuba.CardinalPoint.Northwest:
+        radius = 0.0;
+        size = 35;
+        return Icon(WeatherIcons.direction_down_right);
+      case redCuba.CardinalPoint.North_Northwest:
+        radius = 0.3926991;
+        size = 35;
         return Icon(WeatherIcons.direction_down_right);
       default:
+        radius = 0.0;
+        size = 30;
         return Icon(WeatherIcons.wind);
     }
   }
