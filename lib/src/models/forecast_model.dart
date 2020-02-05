@@ -1,4 +1,4 @@
-class ForecastModel { 
+class ForecastModel {
   String centerName;
   String forecastName;
   String forecastDate;
@@ -6,6 +6,7 @@ class ForecastModel {
   String forecastText;
   List<String> authors = new List<String>();
   String dataSource;
+  String imageUrl;
 
   ForecastModel({
     this.centerName,
@@ -15,5 +16,6 @@ class ForecastModel {
     this.forecastText,
     this.authors,
     this.dataSource,
+    this.imageUrl,
   });
 }
