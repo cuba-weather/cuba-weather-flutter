@@ -3,6 +3,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:package_info/package_info.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:share/share.dart';
@@ -71,7 +72,6 @@ class _WeatherWidgetState extends State<WeatherWidget> {
           padding: EdgeInsets.zero,
           children: <Widget>[
             _createHeader(context),
-            Divider(),
             ExpansionTile(
               title: Text('Pronósticos nacionales'),
               children: <Widget>[
@@ -113,7 +113,6 @@ class _WeatherWidgetState extends State<WeatherWidget> {
                     : Container(),
               ],
             ),
-            Divider(),
             ExpansionTile(
               title: Text('Tiempo actual'),
               children: <Widget>[
@@ -136,7 +135,6 @@ class _WeatherWidgetState extends State<WeatherWidget> {
                 ),
               ],
             ),
-            Divider(),
             _createDrawerItem(
               context,
               icon: Icons.location_on,
@@ -154,7 +152,6 @@ class _WeatherWidgetState extends State<WeatherWidget> {
                 );
               },
             ),
-            Divider(),
             _createDrawerItem(
               context,
               icon: Icons.info,
@@ -169,7 +166,6 @@ class _WeatherWidgetState extends State<WeatherWidget> {
                 );
               },
             ),
-            Divider(),
             _createDrawerItem(
               context,
               icon: Icons.share,
@@ -182,7 +178,63 @@ class _WeatherWidgetState extends State<WeatherWidget> {
                 );
               },
             ),
-            Divider(),
+            ExpansionTile(
+              title: Text('Redes Sociales'),
+              children: <Widget>[
+                _createDrawerItem(
+                  context,
+                  icon: FontAwesomeIcons.internetExplorer,
+                  text: 'Web',
+                  onTap: () async {
+                    const url = 'https:cubaweather.app';
+                    if (await canLaunch(url)) {
+                      await launch(url);
+                    } else {
+                      log('Could not launch $url');
+                    }
+                  },
+                ),
+                _createDrawerItem(
+                  context,
+                  icon: FontAwesomeIcons.facebook,
+                  text: 'Facebook',
+                  onTap: () async {
+                    const url = 'https://www.facebook.com/cubaweatherapp';
+                    if (await canLaunch(url)) {
+                      await launch(url);
+                    } else {
+                      log('Could not launch $url');
+                    }
+                  },
+                ),
+                _createDrawerItem(
+                  context,
+                  icon: FontAwesomeIcons.twitter,
+                  text: 'Twitter',
+                  onTap: () async {
+                    const url = 'https://twitter.com/cubaweatherapp';
+                    if (await canLaunch(url)) {
+                      await launch(url);
+                    } else {
+                      log('Could not launch $url');
+                    }
+                  },
+                ),
+                _createDrawerItem(
+                  context,
+                  icon: FontAwesomeIcons.telegram,
+                  text: 'Telegram',
+                  onTap: () async {
+                    const url = 'https://t.me/cubaweather';
+                    if (await canLaunch(url)) {
+                      await launch(url);
+                    } else {
+                      log('Could not launch $url');
+                    }
+                  },
+                ),
+              ],
+            ),
             _createDrawerItem(
               context,
               icon: Icons.bug_report,
