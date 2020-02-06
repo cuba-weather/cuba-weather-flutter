@@ -183,7 +183,7 @@ class _WeatherWidgetState extends State<WeatherWidget> {
             _createDrawerItem(
               context,
               icon: Icons.share,
-              text: 'Compatir',
+              text: 'Compartir',
               onTap: () async {
                 Share.share(
                   'Yo uso Cuba Weather: la app meteorológica de '
@@ -213,11 +213,17 @@ class _WeatherWidgetState extends State<WeatherWidget> {
                   icon: FontAwesomeIcons.facebook,
                   text: 'Facebook',
                   onTap: () async {
-                    const url = 'https://www.facebook.com/cubaweatherapp';
-                    if (await canLaunch(url)) {
-                      await launch(url);
-                    } else {
-                      log('Could not launch $url');
+                    var fbProtocolUrl = 'fb://page/113097883578567';
+                    var fallbackUrl = "https://www.facebook.com/cubaweatherapp";
+                    try {
+                      bool launched =
+                          await launch(fbProtocolUrl, forceSafariVC: false);
+
+                      if (!launched) {
+                        await launch(fallbackUrl, forceSafariVC: false);
+                      }
+                    } catch (e) {
+                      log('Could not launch $fallbackUrl');
                     }
                   },
                 ),
