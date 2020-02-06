@@ -23,8 +23,7 @@ class _MunicipalitySelectionWidgetState
   final focusNode = FocusNode();
 
   _MunicipalitySelectionWidgetState({@required this.municipalities})
-      : assert(municipalities != null) {
-  }
+      : assert(municipalities != null);
 
   @override
   void dispose() {

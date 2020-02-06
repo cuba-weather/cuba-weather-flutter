@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
@@ -6,9 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
-import 'package:getflutter/components/button/gf_button.dart';
-import 'package:getflutter/getflutter.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 import 'package:cuba_weather/src/widgets/widgets.dart';
 
@@ -60,7 +56,7 @@ class DonateWidgetState extends State<DonateWidget> {
                   'cubaweather.app puede ver la lista de colaboradores así '
                   'como una lista de en que queremos utilizar esas donaciones. '
                   'Además de información sobre el proyecto en general.\n\n'
-                  'Utilize el botón de la esquina inferior derecha para '
+                  'Utilice el botón de la esquina inferior derecha para '
                   'copiar el número de la cuenta bancaria, el usuario de '
                   'Enzona o el número de teléfono.',
                   style: TextStyle(

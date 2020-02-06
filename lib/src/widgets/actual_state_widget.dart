@@ -1,8 +1,6 @@
 import 'package:cuba_weather_dart/cuba_weather_dart.dart';
-import 'package:cuba_weather_redcuba_dart/src/models/weather_model.dart' as aux;
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:tuple/tuple.dart';
 import 'package:weather_icons/weather_icons.dart';
 
 import 'package:cuba_weather/src/widgets/widgets.dart';
