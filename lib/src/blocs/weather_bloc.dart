@@ -33,7 +33,7 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
         log(e.toString());
         yield WeatherError(
           errorMessage: 'No se ha podido establecer conexión con la red '
-              'nacional. Por favor, revise su conexión y vuelva a internarlo.',
+              'nacional. Por favor, revise su conexión y vuelva a intentarlo.',
         );
       } catch (e) {
         log(e.toString());

@@ -216,14 +216,13 @@ class _WeatherWidgetState extends State<WeatherWidget> {
                     var fbProtocolUrl = 'fb://page/113097883578567';
                     var fallbackUrl = "https://www.facebook.com/cubaweatherapp";
                     try {
-                      bool launched =
-                          await launch(fbProtocolUrl, forceSafariVC: false);
-
-                      if (!launched) {
-                        await launch(fallbackUrl, forceSafariVC: false);
-                      }
+                      await launch(fbProtocolUrl, forceSafariVC: false);
                     } catch (e) {
-                      log('Could not launch $fallbackUrl');
+                      if (await canLaunch(fallbackUrl)) {
+                        await launch(fallbackUrl);
+                      } else {
+                        log('Could not launch $fallbackUrl');
+                      }
                     }
                   },
                 ),
