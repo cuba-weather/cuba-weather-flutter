@@ -1,7 +1,8 @@
-import 'package:flutter/material.dart';
-import 'package:http/http.dart';
 import 'package:cuba_weather/src/models/models.dart';
 import 'package:cuba_weather/src/utils/weather_client.dart';
+import 'package:flutter/material.dart';
+import 'package:http/http.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ForecastPage extends StatefulWidget {
   final String forecastType;
@@ -23,8 +24,22 @@ class _ForecastPageState extends State<ForecastPage> {
   var client = Client();
   bool showImage = false;
 
+  Future<bool> recoverValueShowImage() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    bool value = prefs.getBool('showImageForecastPage') ?? false;
+    this.showImage = value;
+    return value;
+  }
+
+  Future<void> setValueShowImage(bool newValue) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setBool('showImageForecastPage', newValue);
+    this.showImage = newValue;
+  }
+
   @override
   Widget build(BuildContext context) {
+    recoverValueShowImage();
     if (_forecast == null) {
       switch (widget.forecastType) {
         case 'today':
@@ -173,7 +188,7 @@ class _ForecastPageState extends State<ForecastPage> {
                                 value: showImage,
                                 onChanged: (value) {
                                   setState(() {
-                                    showImage = value;
+                                    setValueShowImage(value);
                                   });
                                 },
                                 activeTrackColor: Colors.lightBlueAccent,
