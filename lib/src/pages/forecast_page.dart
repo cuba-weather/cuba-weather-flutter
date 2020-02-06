@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:cuba_weather/src/models/models.dart';
 import 'package:cuba_weather/src/utils/weather_client.dart';
-import 'package:transparent_image/transparent_image.dart';
 
 class ForecastPage extends StatefulWidget {
   final String forecastType;
@@ -185,8 +184,8 @@ class _ForecastPageState extends State<ForecastPage> {
                         : Container(),
                     _forecast.imageUrl != null
                         ? showImage
-                            ? FadeInImage.memoryNetwork(
-                                placeholder: kTransparentImage,
+                            ? FadeInImage.assetNetwork(
+                                placeholder: 'images/loading.gif',
                                 image: _forecast.imageUrl,
                               )
                             : Container()
