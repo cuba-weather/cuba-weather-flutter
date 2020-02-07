@@ -460,9 +460,17 @@ class _WeatherWidgetState extends State<WeatherWidget> {
     return UserAccountsDrawerHeader(
       accountName: Text(
         appName,
-        style: TextStyle(fontSize: 20.0),
+        style: TextStyle(
+          fontSize: 20,
+          fontWeight: FontWeight.bold,
+        ),
       ),
-      accountEmail: Text("De Cuba para Cuba"),
+      accountEmail: Text(
+        "De Cuba para Cuba",
+        style: TextStyle(
+          fontWeight: FontWeight.w500,
+        ),
+      ),
       currentAccountPicture: CircleAvatar(
         backgroundImage: ExactAssetImage('images/logo.png'),
       ),
