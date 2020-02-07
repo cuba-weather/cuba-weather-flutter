@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:cuba_weather/src/widgets/donors_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
@@ -7,6 +8,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 
 import 'package:cuba_weather/src/widgets/widgets.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class DonateWidget extends StatefulWidget {
   @override
@@ -38,13 +40,14 @@ class DonateWidgetState extends State<DonateWidget> {
             Container(
               margin: EdgeInsets.all(20),
               child: Icon(
-                Icons.card_giftcard,
+                FontAwesomeIcons.donate,
                 color: Colors.white,
-                size: 200,
+                size: 150,
               ),
             ),
             Container(
-              margin: EdgeInsets.all(20),
+              margin: EdgeInsets.only(
+                  bottom: 20.0, left: 20.0, right: 20.0, top: 5),
               child: Center(
                 child: Text(
                   'Para donar puede realizar una transferencia bancaria '
@@ -66,6 +69,7 @@ class DonateWidgetState extends State<DonateWidget> {
                 ),
               ),
             ),
+            DonorWidget(),
           ],
         ),
       ),
