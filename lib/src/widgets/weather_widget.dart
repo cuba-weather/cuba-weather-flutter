@@ -168,7 +168,7 @@ class _WeatherWidgetState extends State<WeatherWidget> {
             ),
             _createDrawerItem(
               context,
-              icon: Icons.card_giftcard,
+              icon: FontAwesomeIcons.donate,
               text: 'Donar',
               onTap: () {
                 Navigator.of(context).pop();
