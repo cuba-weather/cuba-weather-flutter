@@ -14,6 +14,7 @@ class DonorWidget extends StatelessWidget {
 
 class ListPage extends StatefulWidget {
   ListPage({Key key}) : super(key: key);
+
   @override
   _ListPageState createState() => _ListPageState();
 }
@@ -31,31 +32,27 @@ class _ListPageState extends State<ListPage> {
   Widget build(BuildContext context) {
     Widget makeTrailing(Donor donor) {
       return donor.url != null
-          ? Icon(
-              getSocialIcon(donor.url),
-              color: Colors.white,
-            )
+          ? Icon(getSocialIcon(donor.url), color: Colors.blue)
           : Container();
     }
 
     ListTile makeListTile(Donor donor) => ListTile(
-          contentPadding:
-              EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
-          leading: Icon(
-            FontAwesomeIcons.donate,
-            color: Colors.yellow,
-            size: 40,
-          ),
+          contentPadding: EdgeInsets.symmetric(horizontal: 20.0),
           title: Text(
             donor.name,
             style: TextStyle(
-                color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20),
+              color: Colors.blue,
+              fontWeight: FontWeight.bold,
+              fontSize: 20,
+            ),
           ),
           subtitle: Text(
-            "\$" + donor.value.toString() + " CUC",
-            textAlign: TextAlign.right,
+            "${donor.value.toStringAsFixed(2)} CUC",
             style: TextStyle(
-                color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20),
+              color: Colors.blue,
+              fontWeight: FontWeight.normal,
+              fontSize: 15,
+            ),
           ),
           trailing: makeTrailing(donor),
           onTap: () async {
@@ -68,10 +65,11 @@ class _ListPageState extends State<ListPage> {
         );
 
     Card makeCard(Donor donor) => Card(
-          elevation: 8.0,
-          margin: new EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
+          margin: EdgeInsets.symmetric(
+            horizontal: 10.0,
+            vertical: 6.0,
+          ),
           child: Container(
-            decoration: BoxDecoration(color: Colors.lightBlue),
             child: makeListTile(donor),
           ),
         );
@@ -80,18 +78,21 @@ class _ListPageState extends State<ListPage> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Padding(
-          padding: const EdgeInsets.only(left: 20),
-          child: Text('Donantes',
-              style: TextStyle(color: Colors.white, fontSize: 20),
-              textAlign: TextAlign.left),
+          padding: const EdgeInsets.only(left: 20, bottom: 5, top: 10),
+          child: Text(
+            'Donantes:',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+            ),
+            textAlign: TextAlign.left,
+          ),
         ),
-        ListView.builder(
-          scrollDirection: Axis.vertical,
-          shrinkWrap: true,
-          itemCount: donors.length,
-          itemBuilder: (BuildContext context, int index) {
-            return makeCard(donors[index]);
-          },
+        Column(
+          children: donors.map((item) {
+            return makeCard(item);
+          }).toList(),
         ),
         Padding(padding: EdgeInsets.only(bottom: 30))
       ],
@@ -104,31 +105,50 @@ class _ListPageState extends State<ListPage> {
 List getDonors() {
   return [
     Donor(
-        name: "BacheCubano",
-        value: 10.00,
-        url: 'https://twitter.com/BacheCubano'),
+      name: "BacheCubano",
+      value: 10.00,
+      url: 'https://twitter.com/BacheCubano',
+    ),
     Donor(
-        name: "DatosCuba", value: 10.00, url: 'https://twitter.com/DatosCuba'),
+      name: "DatosCuba",
+      value: 10.00,
+      url: 'https://twitter.com/DatosCuba',
+    ),
     Donor(
-        name: "Publicitaria",
-        value: 4.00,
-        url: 'https://twitter.com/cmolinaf96'),
-    Donor(name: "Daxslab", value: 20.00, url: 'https://twitter.com/daxslab'),
+      name: "Publicitaria",
+      value: 4.00,
+      url: 'https://twitter.com/cmolinaf96',
+    ),
     Donor(
-        name: "Tecnolike+",
-        value: 10.00,
-        url: 'https://twitter.com/tecnolikeplus'),
-    Donor(name: "Anónimo", value: 1.00, url: ''),
+      name: "Daxslab",
+      value: 20.00,
+      url: 'https://twitter.com/daxslab',
+    ),
     Donor(
-        name: "Proyecto Numerazo", value: 2.00, url: 'https://t.me/Akyra0212'),
+      name: "Tecnolike+",
+      value: 10.00,
+      url: 'https://twitter.com/tecnolikeplus',
+    ),
     Donor(
-        name: "Móvil JA Cuba",
-        value: 5.00,
-        url: 'https://twitter.com/moviljacuba'),
+      name: "Anónimo",
+      value: 1.00,
+      url: '',
+    ),
     Donor(
-        name: "St. Pauli Bar",
-        value: 40.00,
-        url: 'https://www.facebook.com/Stpaulirestaurantstgo'),
+      name: "Proyecto Numerazo",
+      value: 2.00,
+      url: 'https://t.me/Akyra0212',
+    ),
+    Donor(
+      name: "Móvil JA Cuba",
+      value: 5.00,
+      url: 'https://twitter.com/moviljacuba',
+    ),
+    Donor(
+      name: "St. Pauli Bar",
+      value: 40.00,
+      url: 'https://www.facebook.com/Stpaulirestaurantstgo',
+    ),
   ];
 }
 

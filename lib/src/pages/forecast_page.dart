@@ -25,14 +25,14 @@ class _ForecastPageState extends State<ForecastPage> {
   bool showImage = false;
 
   Future<bool> recoverValueShowImage() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    bool value = prefs.getBool('showImageForecastPage') ?? false;
+    var prefs = await SharedPreferences.getInstance();
+    var value = prefs.getBool('showImageForecastPage') ?? false;
     this.showImage = value;
     return value;
   }
 
   Future<void> setValueShowImage(bool newValue) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var prefs = await SharedPreferences.getInstance();
     prefs.setBool('showImageForecastPage', newValue);
     this.showImage = newValue;
   }

@@ -168,7 +168,7 @@ class _WeatherWidgetState extends State<WeatherWidget> {
             ),
             _createDrawerItem(
               context,
-              icon: Icons.card_giftcard,
+              icon: FontAwesomeIcons.donate,
               text: 'Donar',
               onTap: () {
                 Navigator.of(context).pop();
@@ -197,7 +197,7 @@ class _WeatherWidgetState extends State<WeatherWidget> {
               children: <Widget>[
                 _createDrawerItem(
                   context,
-                  icon: FontAwesomeIcons.internetExplorer,
+                  icon: FontAwesomeIcons.chrome,
                   text: 'Web',
                   onTap: () async {
                     const url = 'https:cubaweather.app';
@@ -330,21 +330,38 @@ class _WeatherWidgetState extends State<WeatherWidget> {
               if (state is WeatherEmpty) {
                 return GradientContainerWidget(
                   color: Colors.blue,
-                  child: Center(
-                    child: Container(
-                      margin: EdgeInsets.all(20),
-                      padding: EdgeInsets.only(bottom: 200),
-                      child: Text(
-                        'Por favor, seleccione un municipio presionando '
-                        'sobre el ícono de una lupa en la parte superior '
-                        'derecha de la pantalla.',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
+                  child: ListView(
+                    children: <Widget>[
+                      Container(
+                        margin: EdgeInsets.only(left: 20, right: 20, top: 50),
+                        child: Text(
+                          'Bienvenido',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 30,
+                          ),
                         ),
-                        textAlign: TextAlign.center,
                       ),
-                    ),
+                      Card(
+                        margin: EdgeInsets.all(20),
+                        child: Container(
+                          padding: EdgeInsets.all(10),
+                          child: Text(
+                            'Por favor, seleccione un municipio presionando '
+                            'sobre el ícono de una lupa en la parte superior '
+                            'derecha de la pantalla.',
+                            textAlign: TextAlign.justify,
+                            style: TextStyle(
+                              color: Colors.blue,
+                              fontWeight: FontWeight.w600,
+                              fontSize: 20,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 );
               }
@@ -393,19 +410,41 @@ class _WeatherWidgetState extends State<WeatherWidget> {
               if (state is WeatherError) {
                 return GradientContainerWidget(
                   color: Colors.blue,
-                  child: Center(
-                    child: Container(
-                      margin: EdgeInsets.all(20),
-                      padding: EdgeInsets.only(bottom: 200),
-                      child: Text(
-                        'Error: ${state.errorMessage}',
-                        style: TextStyle(
-                          color: Colors.red,
-                          fontWeight: FontWeight.bold,
+                  child: ListView(
+                    children: <Widget>[
+                      Container(
+                        margin: EdgeInsets.all(10),
+                        child: Icon(
+                          Icons.error_outline,
+                          color: Colors.white,
+                          size: 150,
                         ),
-                        textAlign: TextAlign.center,
                       ),
-                    ),
+                      Text(
+                        'Ha ocurrido un error',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 30,
+                        ),
+                      ),
+                      Card(
+                        margin: EdgeInsets.all(20),
+                        child: Container(
+                          padding: EdgeInsets.all(10),
+                          child: Text(
+                            state.errorMessage,
+                            textAlign: TextAlign.justify,
+                            style: TextStyle(
+                              color: Colors.blue,
+                              fontWeight: FontWeight.w600,
+                              fontSize: 20,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 );
               }
@@ -421,9 +460,17 @@ class _WeatherWidgetState extends State<WeatherWidget> {
     return UserAccountsDrawerHeader(
       accountName: Text(
         appName,
-        style: TextStyle(fontSize: 20.0),
+        style: TextStyle(
+          fontSize: 20,
+          fontWeight: FontWeight.bold,
+        ),
       ),
-      accountEmail: Text("De Cuba para Cuba"),
+      accountEmail: Text(
+        "De Cuba para Cuba",
+        style: TextStyle(
+          fontWeight: FontWeight.w500,
+        ),
+      ),
       currentAccountPicture: CircleAvatar(
         backgroundImage: ExactAssetImage('images/logo.png'),
       ),

@@ -199,7 +199,7 @@ class WeatherClient {
       } catch (e) {}
 
       forecast.dataSource = 'www.insmet.cu';
-      int hour = DateTime.now().hour;
+      var hour = DateTime.now().hour;
       if (hour >= 4 && hour < 12) {
         forecast.imageUrl = 'http://www.insmet.cu/Pronostico/tv06.jpg';
       } else if (hour >= 12 && hour < 16) {
