@@ -197,7 +197,7 @@ class _WeatherWidgetState extends State<WeatherWidget> {
               children: <Widget>[
                 _createDrawerItem(
                   context,
-                  icon: FontAwesomeIcons.internetExplorer,
+                  icon: FontAwesomeIcons.chrome,
                   text: 'Web',
                   onTap: () async {
                     const url = 'https:cubaweather.app';
