@@ -2,6 +2,7 @@ export 'actual_state_widget.dart';
 export 'combined_weather_widget.dart';
 export 'divider_widget.dart';
 export 'donate_widget.dart';
+export 'donors_widget.dart';
 export 'forecasts_widget.dart';
 export 'gradient_container_widget.dart';
 export 'information_widget.dart';
