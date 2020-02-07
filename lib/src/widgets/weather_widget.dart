@@ -410,19 +410,41 @@ class _WeatherWidgetState extends State<WeatherWidget> {
               if (state is WeatherError) {
                 return GradientContainerWidget(
                   color: Colors.blue,
-                  child: Center(
-                    child: Container(
-                      margin: EdgeInsets.all(20),
-                      padding: EdgeInsets.only(bottom: 200),
-                      child: Text(
-                        'Error: ${state.errorMessage}',
-                        style: TextStyle(
-                          color: Colors.red,
-                          fontWeight: FontWeight.bold,
+                  child: ListView(
+                    children: <Widget>[
+                      Container(
+                        margin: EdgeInsets.all(10),
+                        child: Icon(
+                          Icons.error_outline,
+                          color: Colors.white,
+                          size: 150,
                         ),
-                        textAlign: TextAlign.center,
                       ),
-                    ),
+                      Text(
+                        'Ha ocurrido un error',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 30,
+                        ),
+                      ),
+                      Card(
+                        margin: EdgeInsets.all(20),
+                        child: Container(
+                          padding: EdgeInsets.all(10),
+                          child: Text(
+                            state.errorMessage,
+                            textAlign: TextAlign.justify,
+                            style: TextStyle(
+                              color: Colors.blue,
+                              fontWeight: FontWeight.w600,
+                              fontSize: 20,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 );
               }
