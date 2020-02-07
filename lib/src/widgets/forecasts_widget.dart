@@ -102,6 +102,9 @@ class ForecastWidget extends StatelessWidget {
       case aux.State.AfternoonStorms:
         result = 'wi-thunderstorm';
         break;
+      case aux.State.MorningScatteredShowers:
+        result = 'wi-rain';
+        break;
       default:
         result = 'wi-na';
     }
