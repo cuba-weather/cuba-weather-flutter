@@ -53,7 +53,7 @@ class InformationWidgetState extends State<InformationWidget> {
                       style: TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
-                        fontSize: 20,
+                        fontSize: 30,
                       ),
                     ),
                   ),
@@ -62,37 +62,43 @@ class InformationWidgetState extends State<InformationWidget> {
                       '$version',
                       style: TextStyle(
                         color: Colors.white,
+                        fontWeight: FontWeight.w500,
+                        fontSize: 20,
                       ),
                     ),
                   ),
                   Center(
                     child: Image.asset(
                       'images/logo.png',
-                      width: 150,
+                      width: 180,
                     ),
                   ),
                 ],
               ),
             ),
-            Container(
-              margin: EdgeInsets.all(20),
-              child: Center(
-                child: Text(
-                  'Está aplicación obtiene datos de las siguientes fuentes:\n\n'
-                  '1. Buscador cubano RedCuba (https://www.redcuba.cu)\n'
-                  '2. Sitio web del Instituto de Meteorología '
-                  '(http://www.insmet.cu)\n\n'
-                  'Debido a que todas las fuentes son nacionales solo es '
-                  'necesario conexión a la red nacional (utiliza el bono '
-                  'nacional de 300 mb).\n\n'
-                  'Los desarrolladores son personas ajenas al estado sin '
-                  'ánimo de lucro.\n\n'
-                  'Para situaciones de tiempo peligrosas consultar las '
-                  'fuentes oficiales de información.',
-                  style: TextStyle(
-                    color: Colors.white,
+            Card(
+              margin: EdgeInsets.only(bottom: 20, left: 20, right: 20),
+              child: Container(
+                margin: EdgeInsets.all(10),
+                child: Center(
+                  child: Text(
+                    'Está aplicación obtiene datos de las siguientes fuentes:\n\n'
+                    '1. Buscador cubano RedCuba (https://www.redcuba.cu)\n'
+                    '2. Sitio web del Instituto de Meteorología '
+                    '(http://www.insmet.cu)\n\n'
+                    'Debido a que todas las fuentes son nacionales solo es '
+                    'necesario conexión a la red nacional (utiliza el bono '
+                    'nacional de 300 mb).\n\n'
+                    'Los desarrolladores son personas ajenas al estado sin '
+                    'ánimo de lucro.\n\n'
+                    'Para situaciones de tiempo peligrosas consultar las '
+                    'fuentes oficiales de información.',
+                    style: TextStyle(
+                      color: Colors.blue,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    textAlign: TextAlign.left,
                   ),
-                  textAlign: TextAlign.left,
                 ),
               ),
             ),
