@@ -82,7 +82,7 @@ class _ListPageState extends State<ListPage> {
           child: Text(
             'Donantes:',
             style: TextStyle(
-              color: Colors.blue,
+              color: Colors.white,
               fontSize: 20,
               fontWeight: FontWeight.bold,
             ),
