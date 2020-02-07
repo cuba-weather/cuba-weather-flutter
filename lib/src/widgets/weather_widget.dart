@@ -330,21 +330,38 @@ class _WeatherWidgetState extends State<WeatherWidget> {
               if (state is WeatherEmpty) {
                 return GradientContainerWidget(
                   color: Colors.blue,
-                  child: Center(
-                    child: Container(
-                      margin: EdgeInsets.all(20),
-                      padding: EdgeInsets.only(bottom: 200),
-                      child: Text(
-                        'Por favor, seleccione un municipio presionando '
-                        'sobre el ícono de una lupa en la parte superior '
-                        'derecha de la pantalla.',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
+                  child: ListView(
+                    children: <Widget>[
+                      Container(
+                        margin: EdgeInsets.only(left: 20, right: 20, top: 50),
+                        child: Text(
+                          'Bienvenido',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 30,
+                          ),
                         ),
-                        textAlign: TextAlign.center,
                       ),
-                    ),
+                      Card(
+                        margin: EdgeInsets.all(20),
+                        child: Container(
+                          padding: EdgeInsets.all(10),
+                          child: Text(
+                            'Por favor, seleccione un municipio presionando '
+                            'sobre el ícono de una lupa en la parte superior '
+                            'derecha de la pantalla.',
+                            textAlign: TextAlign.justify,
+                            style: TextStyle(
+                              color: Colors.blue,
+                              fontWeight: FontWeight.w600,
+                              fontSize: 20,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 );
               }
