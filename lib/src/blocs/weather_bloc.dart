@@ -44,9 +44,15 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
       try {
         final weather = await api.get(event.municipality);
         yield WeatherLoaded(weather: weather);
+      } on SocketException catch (e) {
+        log(e.toString());
+        yield WeatherError(
+          errorMessage: 'No se ha podido establecer conexión con la red '
+              'nacional. Por favor, revise su conexión y vuelva a intentarlo.',
+        );
       } catch (e) {
         log(e.toString());
-        yield state;
+        yield WeatherError(errorMessage: e.toString());
       }
     }
   }

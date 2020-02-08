@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:cuba_weather/src/models/forecast_model.dart';
 import 'package:html/dom.dart';
@@ -67,6 +68,9 @@ class WeatherClient {
 
       forecast.dataSource = 'www.insmet.cu';
       return forecast;
+    } on SocketException catch (e) {
+      log(e.toString());
+      throw BadRequestException(e.toString());
     } catch (e) {
       log(e.toString());
       throw ParseException(e.toString());
@@ -131,6 +135,9 @@ class WeatherClient {
 
       forecast.dataSource = 'www.insmet.cu';
       return forecast;
+    } on SocketException catch (e) {
+      log(e.toString());
+      throw BadRequestException(e.toString());
     } catch (e) {
       log(e.toString());
       throw ParseException(e.toString());
@@ -208,6 +215,9 @@ class WeatherClient {
         forecast.imageUrl = 'http://www.insmet.cu/Pronostico/tv18.jpg';
       }
       return forecast;
+    } on SocketException catch (e) {
+      log(e.toString());
+      throw BadRequestException(e.toString());
     } catch (e) {
       log(e.toString());
       throw ParseException(e.toString());
