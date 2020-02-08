@@ -23,6 +23,8 @@ class _ForecastPageState extends State<ForecastPage> {
   ForecastModel _forecast;
   var client = Client();
   bool showImage = false;
+  bool error = false;
+  String errorMessage;
 
   Future<bool> recoverValueShowImage() async {
     var prefs = await SharedPreferences.getInstance();
@@ -40,34 +42,74 @@ class _ForecastPageState extends State<ForecastPage> {
   @override
   Widget build(BuildContext context) {
     recoverValueShowImage();
-    if (_forecast == null) {
+    if (_forecast == null && !error) {
       switch (widget.forecastType) {
         case 'today':
-          WeatherClient().todayForecast(client).then(
-            (onValue) {
-              setState(() {
-                _forecast = onValue;
-              });
-            },
-          );
+          WeatherClient().todayForecast(client).then((onValue) {
+            setState(() {
+              _forecast = onValue;
+            });
+          }).catchError((onError) {
+            setState(() {
+              if (onError is BadRequestException) {
+                errorMessage = 'No se ha podido establecer conexión con la '
+                    'red nacional. Por favor, revise su conexión y vuelva a '
+                    'intentarlo.';
+                error = true;
+              } else {
+                errorMessage = onError.toString();
+                error = true;
+              }
+            });
+          });
           break;
         case 'tomorrow':
-          WeatherClient().tomorrowForecast(client).then(
-            (onValue) {
-              setState(() {
-                _forecast = onValue;
-              });
-            },
-          );
+          WeatherClient().tomorrowForecast(client).then((onValue) {
+            setState(() {
+              _forecast = onValue;
+            });
+          }).catchError((onError) {
+            setState(() {
+              if (onError is BadRequestException) {
+                errorMessage = 'No se ha podido establecer conexión con la '
+                    'red nacional. Por favor, revise su conexión y vuelva a '
+                    'intentarlo.';
+                error = true;
+              } else if (onError is ParseException) {
+                errorMessage = 'La fuente de datos a cambiado el formato. '
+                    'Espere una nueva actualización de la aplicación para '
+                    'adaptarse a este.';
+                error = true;
+              } else {
+                errorMessage = onError.toString();
+                error = true;
+              }
+            });
+          });
           break;
         case 'perspectives':
-          WeatherClient().perspectiveForecast(client).then(
-            (onValue) {
-              setState(() {
-                _forecast = onValue;
-              });
-            },
-          );
+          WeatherClient().perspectiveForecast(client).then((onValue) {
+            setState(() {
+              _forecast = onValue;
+            });
+          }).catchError((onError) {
+            setState(() {
+              if (onError is BadRequestException) {
+                errorMessage = 'No se ha podido establecer conexión con la '
+                    'red nacional. Por favor, revise su conexión y vuelva a '
+                    'intentarlo.';
+                error = true;
+              } else if (onError is ParseException) {
+                errorMessage = 'La fuente de datos a cambiado el formato. '
+                    'Espere una nueva actualización de la aplicación para '
+                    'adaptarse a este.';
+                error = true;
+              } else {
+                errorMessage = onError.toString();
+                error = true;
+              }
+            });
+          });
           break;
       }
     }
@@ -78,137 +120,183 @@ class _ForecastPageState extends State<ForecastPage> {
           widget.pageTitle,
         ),
       ),
-      body: _forecast == null
-          ? Center(
-              child: CircularProgressIndicator(
-                backgroundColor: Colors.white,
-              ),
-            )
-          : SingleChildScrollView(
-              child: Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Column(
-                  children: [
-                    Card(
-                      child: Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              _forecast.centerName,
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            Text(
-                              _forecast.forecastName,
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            Text(
-                              _forecast.forecastDate,
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.all(5),
-                            ),
-                            Divider(),
-                            _forecast.forecastTitle != ""
-                                ? SizedBox(height: 5.0)
-                                : Container(),
-                            _forecast.forecastTitle != ""
-                                ? Text(
-                                    _forecast.forecastTitle,
-                                    style: TextStyle(
-                                      fontStyle: FontStyle.italic,
-                                      color: Colors.blue,
-                                    ),
-                                  )
-                                : Container(),
-                            _forecast.forecastTitle != ""
-                                ? SizedBox(height: 8.0)
-                                : Container(),
-                            Text(
-                              _forecast.forecastText,
-                              textAlign: TextAlign.justify,
-                            ),
-                          ],
-                        ),
+      body: error
+          ? ListView(
+              children: <Widget>[
+                Container(
+                  margin: EdgeInsets.all(10),
+                  child: Icon(
+                    Icons.error_outline,
+                    color: Colors.blue,
+                    size: 150,
+                  ),
+                ),
+                Text(
+                  'Ha ocurrido un error',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Colors.blue,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 30,
+                  ),
+                ),
+                Card(
+                  margin: EdgeInsets.all(20),
+                  child: Container(
+                    padding: EdgeInsets.all(10),
+                    child: Text(
+                      errorMessage,
+                      textAlign: TextAlign.justify,
+                      style: TextStyle(
+                        color: Colors.blue,
+                        fontWeight: FontWeight.w600,
+                        fontSize: 20,
                       ),
                     ),
-                    Container(
-                      padding: EdgeInsets.only(top: 10),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 5, horizontal: 10),
-                            child: Text(
-                              'Autores',
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ),
-                          Card(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: _buildAuthors(),
-                            ),
-                          ),
-                          Padding(
+                  ),
+                ),
+              ],
+            )
+          : _forecast == null
+              ? Center(
+                  child: CircularProgressIndicator(
+                    backgroundColor: Colors.white,
+                  ),
+                )
+              : SingleChildScrollView(
+                  child: Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Column(
+                      children: [
+                        Card(
+                          child: Padding(
                             padding: const EdgeInsets.all(10.0),
-                            child: Center(
-                              child: Text(
-                                'Fuente: ${_forecast.dataSource}',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w200,
-                                  fontSize: 13,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  _forecast.centerName,
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.blue,
+                                  ),
+                                ),
+                                Text(
+                                  _forecast.forecastName,
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.blue,
+                                  ),
+                                ),
+                                Text(
+                                  _forecast.forecastDate,
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.blue,
+                                  ),
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.all(5),
+                                ),
+                                Divider(),
+                                _forecast.forecastTitle != ""
+                                    ? SizedBox(height: 5.0)
+                                    : Container(),
+                                _forecast.forecastTitle != ""
+                                    ? Text(
+                                        _forecast.forecastTitle,
+                                        style: TextStyle(
+                                          fontStyle: FontStyle.italic,
+                                          color: Colors.grey,
+                                        ),
+                                      )
+                                    : Container(),
+                                _forecast.forecastTitle != ""
+                                    ? SizedBox(height: 8.0)
+                                    : Container(),
+                                Text(
+                                  _forecast.forecastText,
+                                  textAlign: TextAlign.justify,
+                                  style: TextStyle(
+                                    color: Colors.blue,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        Container(
+                          padding: EdgeInsets.only(top: 10),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    vertical: 5, horizontal: 10),
+                                child: Text(
+                                  'Autores',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.blue,
+                                  ),
                                 ),
                               ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    _forecast.imageUrl != null
-                        ? Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: <Widget>[
-                              Text(
-                                'Mostrar imagen',
+                              Card(
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                  children: _buildAuthors(),
+                                ),
                               ),
-                              Switch(
-                                value: showImage,
-                                onChanged: (value) {
-                                  setState(() {
-                                    setValueShowImage(value);
-                                  });
-                                },
-                                activeTrackColor: Colors.lightBlueAccent,
-                                activeColor: Colors.blue,
+                              Padding(
+                                padding: const EdgeInsets.all(10.0),
+                                child: Center(
+                                  child: Text(
+                                    'Fuente: ${_forecast.dataSource}',
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w200,
+                                      fontSize: 13,
+                                    ),
+                                  ),
+                                ),
                               ),
                             ],
-                          )
-                        : Container(),
-                    _forecast.imageUrl != null
-                        ? showImage
-                            ? FadeInImage.assetNetwork(
-                                placeholder: 'images/loading.gif',
-                                image: _forecast.imageUrl,
+                          ),
+                        ),
+                        _forecast.imageUrl != null
+                            ? Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: <Widget>[
+                                  Text('Mostrar imagen',
+                                      style: TextStyle(
+                                        color: Colors.blue,
+                                      )),
+                                  Switch(
+                                    value: showImage,
+                                    onChanged: (value) {
+                                      setState(() {
+                                        setValueShowImage(value);
+                                      });
+                                    },
+                                    activeTrackColor: Colors.lightBlueAccent,
+                                    activeColor: Colors.blue,
+                                  ),
+                                ],
                               )
+                            : Container(),
+                        _forecast.imageUrl != null
+                            ? showImage
+                                ? FadeInImage.assetNetwork(
+                                    placeholder: 'images/loading.gif',
+                                    image: _forecast.imageUrl,
+                                  )
+                                : Container()
                             : Container()
-                        : Container()
-                  ],
+                      ],
+                    ),
+                  ),
                 ),
-              ),
-            ),
     );
   }
 
@@ -235,6 +323,7 @@ class _ForecastPageState extends State<ForecastPage> {
                       _forecast.authors[0],
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
+                        color: Colors.blue,
                       ),
                     ),
                   ),
@@ -258,6 +347,7 @@ class _ForecastPageState extends State<ForecastPage> {
                       _forecast.authors[1],
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
+                        color: Colors.blue,
                       ),
                     ),
                   ),
