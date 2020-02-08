@@ -89,7 +89,7 @@ class InformationWidgetState extends State<InformationWidget> {
                     'Debido a que todas las fuentes son nacionales solo es '
                     'necesario conexión a la red nacional (utiliza el bono '
                     'nacional de 300 mb).\n\n'
-                    'Los desarrolladores son personas ajenas al estado sin '
+                    'Los desarrolladores son personas independientes sin '
                     'ánimo de lucro.\n\n'
                     'Para situaciones de tiempo peligrosas consultar las '
                     'fuentes oficiales de información.',
