@@ -12,6 +12,8 @@ abstract class WeatherState extends Equatable {
 
 class WeatherEmpty extends WeatherState {}
 
+class WeatherFindingLocation extends WeatherState {}
+
 class WeatherLoading extends WeatherState {}
 
 class WeatherLoaded extends WeatherState {
