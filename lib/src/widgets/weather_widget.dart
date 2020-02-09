@@ -4,6 +4,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:getflutter/getflutter.dart';
 import 'package:package_info/package_info.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:share/share.dart';
@@ -134,6 +135,17 @@ class _WeatherWidgetState extends State<WeatherWidget> {
                   },
                 ),
               ],
+            ),
+            _createDrawerItem(
+              context,
+              icon: Icons.my_location,
+              text: 'Municipio actual',
+              onTap: () {
+                Navigator.of(context).pop();
+                BlocProvider.of<WeatherBloc>(context).add(
+                  FindLocationWeather(),
+                );
+              },
             ),
             _createDrawerItem(
               context,
@@ -327,36 +339,141 @@ class _WeatherWidgetState extends State<WeatherWidget> {
           },
           child: BlocBuilder<WeatherBloc, WeatherState>(
             builder: (context, state) {
+              if (state is WeatherFindingLocation) {
+                return GradientContainerWidget(
+                  color: Colors.blue,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Stack(
+                            alignment: Alignment.center,
+                            children: <Widget>[
+                              Container(
+                                margin: EdgeInsets.symmetric(
+                                  horizontal: 20,
+                                  vertical: 10,
+                                ),
+                                child: Icon(
+                                  Icons.my_location,
+                                  color: Colors.white,
+                                  size: 100,
+                                ),
+                              ),
+                              Container(
+                                margin: EdgeInsets.symmetric(
+                                  horizontal: 20,
+                                  vertical: 10,
+                                ),
+                                child: CircularProgressIndicator(
+                                  backgroundColor: Colors.white,
+                                ),
+                              ),
+                            ],
+                          ),
+                          Container(
+                            margin: EdgeInsets.symmetric(
+                              horizontal: 20,
+                              vertical: 10,
+                            ),
+                            child: Text(
+                              'Buscando el municipio actual',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16,
+                              ),
+                            ),
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
+                );
+              }
               if (state is WeatherEmpty) {
                 return GradientContainerWidget(
                   color: Colors.blue,
-                  child: ListView(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       Container(
-                        margin: EdgeInsets.only(left: 20, right: 20, top: 50),
+                        margin: EdgeInsets.only(
+                          left: 20,
+                          right: 20,
+                          top: 50,
+                          bottom: 50,
+                        ),
                         child: Text(
-                          'Bienvenido',
+                          '¡Bienvenido a Cuba Weather!',
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
-                            fontSize: 30,
+                            fontSize: 22,
                           ),
                         ),
                       ),
+                      GestureDetector(
+                        child: Container(
+                          margin: EdgeInsets.symmetric(
+                            horizontal: 20,
+                            vertical: 10,
+                          ),
+                          child: Icon(
+                            Icons.my_location,
+                            color: Colors.white,
+                            size: 100,
+                          ),
+                        ),
+                        onTap: () {
+                          BlocProvider.of<WeatherBloc>(context).add(
+                            FindLocationWeather(),
+                          );
+                        },
+                      ),
+                      Container(
+                        margin: EdgeInsets.symmetric(
+                          horizontal: 20,
+                          vertical: 10,
+                        ),
+                        child: GFButton(
+                          text: 'BUSCAR MUNICIPIO ACTUAL',
+                          textColor: Colors.white,
+                          color: Colors.white,
+                          size: GFSize.large,
+                          shape: GFButtonShape.pills,
+                          type: GFButtonType.outline2x,
+                          fullWidthButton: true,
+                          onPressed: () {
+                            BlocProvider.of<WeatherBloc>(context).add(
+                              FindLocationWeather(),
+                            );
+                          },
+                        ),
+                      ),
                       Card(
-                        margin: EdgeInsets.all(20),
+                        margin: EdgeInsets.symmetric(
+                          horizontal: 20,
+                          vertical: 50,
+                        ),
                         child: Container(
                           padding: EdgeInsets.all(10),
                           child: Text(
-                            'Por favor, seleccione un municipio presionando '
-                            'sobre el ícono de una lupa en la parte superior '
-                            'derecha de la pantalla.',
-                            textAlign: TextAlign.justify,
+                            'Nota: Este calculo se hace con respecto '
+                            'al centro del municipio, por lo que si se '
+                            'encuentra en la periferia de un municipio '
+                            'puede que la aplicación diga que se '
+                            'encuentra en un municipio aledaño al que se '
+                            'encuentra realmente.',
+                            textAlign: TextAlign.left,
                             style: TextStyle(
                               color: Colors.blue,
                               fontWeight: FontWeight.w600,
-                              fontSize: 20,
+                              fontSize: 15,
                             ),
                           ),
                         ),
@@ -435,11 +552,11 @@ class _WeatherWidgetState extends State<WeatherWidget> {
                           padding: EdgeInsets.all(10),
                           child: Text(
                             state.errorMessage,
-                            textAlign: TextAlign.justify,
+                            textAlign: TextAlign.left,
                             style: TextStyle(
                               color: Colors.blue,
                               fontWeight: FontWeight.w600,
-                              fontSize: 20,
+                              fontSize: 16,
                             ),
                           ),
                         ),
