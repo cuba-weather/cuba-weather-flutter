@@ -28,8 +28,6 @@ dependencies:
   flutter_speed_dial: ^1.2.5
   geolocator: ^5.2.1
 
-dev_dependencies:
-
 flutter:
 
   uses-material-design: true

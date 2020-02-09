@@ -136,7 +136,7 @@ packages:
       name: getflutter
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.4"
+    version: "1.0.5"
   google_api_availability:
     dependency: transitive
     description:
@@ -234,7 +234,7 @@ packages:
       name: provider
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "4.0.2"
+    version: "4.0.3"
   quiver:
     dependency: transitive
     description:
@@ -358,7 +358,7 @@ packages:
       name: url_launcher_web
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.1.0+2"
+    version: "0.1.1"
   vector_math:
     dependency: transitive
     description:
