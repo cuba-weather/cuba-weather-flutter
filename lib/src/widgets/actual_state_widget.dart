@@ -12,8 +12,10 @@ class ActualStateWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Icon icon = Icon(WeatherIcons.direction_down,);
-    double size = 30.0;
+    Icon icon = Icon(
+      WeatherIcons.direction_down,
+    );
+    double screen_width = MediaQuery.of(context).size.width;
     return Column(
       children: <Widget>[
         Container(
@@ -22,7 +24,7 @@ class ActualStateWidget extends StatelessWidget {
           child: Text(
             "Estado actual:",
             style: TextStyle(
-              fontSize: 16,
+              fontSize: screen_width * 0.045,
               fontWeight: FontWeight.bold,
               color: Colors.white,
             ),
@@ -36,7 +38,7 @@ class ActualStateWidget extends StatelessWidget {
             Text(
               '${weather.temperature.round()}',
               style: TextStyle(
-                fontSize: 70,
+                fontSize: screen_width * 0.2,
                 fontWeight: FontWeight.w600,
                 color: Colors.white,
               ),
@@ -50,7 +52,7 @@ class ActualStateWidget extends StatelessWidget {
                   Text(
                     '°C',
                     style: TextStyle(
-                      fontSize: 20,
+                      fontSize: screen_width * 0.07,
                       fontWeight: FontWeight.w600,
                       color: Colors.white,
                     ),
@@ -58,13 +60,12 @@ class ActualStateWidget extends StatelessWidget {
                   BoxedIcon(
                     WeatherIcons.thermometer,
                     color: Colors.white,
-                    size: 20,
+                    size: screen_width * 0.06,
                   ),
                 ],
               ),
             ),
-            Padding(
-              padding: EdgeInsets.only(right: 0),
+            Container(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -73,11 +74,12 @@ class ActualStateWidget extends StatelessWidget {
                       BoxedIcon(
                         WeatherIcons.barometer,
                         color: Colors.white,
+                        size: screen_width * 0.07,
                       ),
                       Text(
                         'Presión: ${weather.pressure.round()} hPa',
                         style: TextStyle(
-                          fontSize: 14,
+                          fontSize: screen_width * 0.04,
                           fontWeight: FontWeight.w300,
                           color: Colors.white,
                         ),
@@ -89,11 +91,12 @@ class ActualStateWidget extends StatelessWidget {
                       BoxedIcon(
                         WeatherIcons.humidity,
                         color: Colors.white,
+                        size: screen_width * 0.07,
                       ),
                       Text(
                         'Humedad: ${weather.humidity.round()}%',
                         style: TextStyle(
-                          fontSize: 14,
+                          fontSize: screen_width * 0.04,
                           fontWeight: FontWeight.w300,
                           color: Colors.white,
                         ),
@@ -115,7 +118,7 @@ class ActualStateWidget extends StatelessWidget {
                 Text(
                   'Viento:',
                   style: TextStyle(
-                    fontSize: 16,
+                    fontSize: screen_width * 0.045,
                     fontWeight: FontWeight.w300,
                     color: Colors.white,
                   ),
@@ -133,13 +136,14 @@ class ActualStateWidget extends StatelessWidget {
                   IconButton(
                       icon: _parseWindVelocity(weather.windVelocity),
                       color: Colors.white,
-                      iconSize: size,
+                      iconSize: screen_width * 0.09,
                       onPressed: () {}),
                   Text(
                     '${weather.windVelocity.round()} Km/h',
                     style: TextStyle(
                       fontWeight: FontWeight.w300,
                       color: Colors.white,
+                      fontSize: screen_width * 0.04,
                     ),
                   ),
                 ],
@@ -156,7 +160,7 @@ class ActualStateWidget extends StatelessWidget {
                         child: IconButton(
                           icon: icon,
                           color: Colors.white,
-                          iconSize: size,
+                          iconSize: screen_width * 0.09,
                           onPressed: () {},
                         ),
                       ),
@@ -167,6 +171,7 @@ class ActualStateWidget extends StatelessWidget {
                           style: TextStyle(
                             fontWeight: FontWeight.w300,
                             color: Colors.white,
+                            fontSize: screen_width * 0.04,
                           ),
                         ),
                       ),
@@ -180,8 +185,6 @@ class ActualStateWidget extends StatelessWidget {
       ],
     );
   }
-
-
 
   static Icon _parseWindVelocity(double x) {
     if (x < 2)
