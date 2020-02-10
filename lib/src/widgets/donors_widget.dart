@@ -8,7 +8,7 @@ import 'package:url_launcher/url_launcher.dart';
 class DonorWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return new ListPage();
+    return ListPage();
   }
 }
 
@@ -47,7 +47,7 @@ class _ListPageState extends State<ListPage> {
             ),
           ),
           subtitle: Text(
-            "${donor.value.toStringAsFixed(2)} CUC",
+            donor.value,
             style: TextStyle(
               color: Colors.blue,
               fontWeight: FontWeight.normal,
@@ -77,24 +77,13 @@ class _ListPageState extends State<ListPage> {
     final makeBody = Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Padding(
-          padding: const EdgeInsets.only(left: 20, bottom: 5, top: 10),
-          child: Text(
-            'Donantes:',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-            ),
-            textAlign: TextAlign.left,
-          ),
-        ),
+        Padding(padding: EdgeInsets.only(bottom: 10)),
         Column(
           children: donors.map((item) {
             return makeCard(item);
           }).toList(),
         ),
-        Padding(padding: EdgeInsets.only(bottom: 30))
+        Padding(padding: EdgeInsets.only(bottom: 10)),
       ],
     );
 
@@ -106,54 +95,69 @@ List getDonors() {
   return [
     Donor(
       name: "BacheCubano",
-      value: 10.00,
-      url: 'https://twitter.com/BacheCubano',
+      value: '250.00 CUP',
+      url: 'https://www.bachecubano.com',
     ),
     Donor(
       name: "DatosCuba",
-      value: 10.00,
-      url: 'https://twitter.com/DatosCuba',
+      value: '10.00 CUC (Saldo)',
+      url: 'https://play.google.com/store/apps/details?id=com.cjamcu.datoscuba',
     ),
     Donor(
       name: "Publicitaria",
-      value: 4.00,
+      value: '100.00 CUP',
       url: 'https://twitter.com/cmolinaf96',
     ),
     Donor(
       name: "Daxslab",
-      value: 20.00,
-      url: 'https://twitter.com/daxslab',
+      value: '20.00 CUC',
+      url: 'https://www.daxslab.com',
     ),
     Donor(
       name: "Tecnolike+",
-      value: 10.00,
-      url: 'https://twitter.com/tecnolikeplus',
+      value: '125.00 CUP',
+      url: 'https://tecnolikecuba.com',
     ),
     Donor(
       name: "Anónimo",
-      value: 1.00,
+      value: '25.00 CUP',
       url: '',
     ),
     Donor(
       name: "Proyecto Numerazo",
-      value: 2.00,
+      value: '2.00 CUC (Saldo)',
       url: 'https://t.me/Akyra0212',
     ),
     Donor(
       name: "Móvil JA Cuba",
-      value: 5.00,
-      url: 'https://twitter.com/moviljacuba',
+      value: '125.00 CUP',
+      url: 'https://moviljacuba.wordpress.com',
     ),
     Donor(
       name: "St. Pauli Bar",
-      value: 40.00,
+      value: '960.00 CUP',
       url: 'https://www.facebook.com/Stpaulirestaurantstgo',
+    ),
+    Donor(
+      name: "Tecnolike+",
+      value: '125.00 CUP',
+      url: 'https://tecnolikecuba.com',
+    ),
+    Donor(
+      name: "Anónimo",
+      value: '75.00 CUP',
+      url: '',
+    ),
+    Donor(
+      name: "Juventud Técnica",
+      value: '125.00 CUP',
+      url: 'https://medium.com/juventud-t%C3%A9cnica',
     ),
   ];
 }
 
 IconData getSocialIcon(String url) {
-  if (url == null) {
+  if (url == null || url.isEmpty) {
     return null;
   }
   if (url.contains('https://www.facebook.com')) {
@@ -170,7 +174,11 @@ IconData getSocialIcon(String url) {
     return FontAwesomeIcons.youtube;
   } else if (url.contains('https://www.instagram.com')) {
     return FontAwesomeIcons.instagram;
+  } else if (url.contains('https://medium.com')) {
+    return FontAwesomeIcons.medium;
+  } else if (url.contains('https://play.google.com')) {
+    return FontAwesomeIcons.android;
   } else {
-    return null;
+    return FontAwesomeIcons.chrome;
   }
 }

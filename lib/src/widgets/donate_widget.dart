@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:ui';
 
 import 'package:cuba_weather/src/widgets/widgets.dart';
@@ -8,6 +9,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:getflutter/getflutter.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class DonateWidget extends StatefulWidget {
   @override
@@ -61,7 +64,7 @@ class DonateWidgetState extends State<DonateWidget> {
                       fontSize: 15,
                       fontWeight: FontWeight.w600,
                     ),
-                    textAlign: TextAlign.justify,
+                    textAlign: TextAlign.left,
                   ),
                 ),
               ),
@@ -104,7 +107,7 @@ class DonateWidgetState extends State<DonateWidget> {
                       fontSize: 15,
                       fontWeight: FontWeight.w600,
                     ),
-                    textAlign: TextAlign.justify,
+                    textAlign: TextAlign.left,
                   ),
                 ),
               ),
@@ -127,7 +130,7 @@ class DonateWidgetState extends State<DonateWidget> {
                       fontSize: 15,
                       fontWeight: FontWeight.w600,
                     ),
-                    textAlign: TextAlign.justify,
+                    textAlign: TextAlign.left,
                   ),
                 ),
               ),
@@ -149,12 +152,178 @@ class DonateWidgetState extends State<DonateWidget> {
                       fontSize: 15,
                       fontWeight: FontWeight.w600,
                     ),
-                    textAlign: TextAlign.justify,
+                    textAlign: TextAlign.left,
                   ),
                 ),
               ),
             ),
-            DonorWidget(),
+            Card(
+              margin: EdgeInsets.symmetric(
+                horizontal: 10.0,
+                vertical: 6.0,
+              ),
+              child: Container(
+                padding: EdgeInsets.all(10),
+                child: Center(
+                  child: Text(
+                    'Si lo desea puede darnos información sobre usted '
+                    '(o negocio, etc; si representa a más de una persona) '
+                    'para aparecer en la lista de donantes públicamente y '
+                    'enviarle nuestros agradecimientos en las redes sociales.',
+                    style: TextStyle(
+                      color: Colors.blue,
+                      fontSize: 15,
+                      fontWeight: FontWeight.w600,
+                    ),
+                    textAlign: TextAlign.left,
+                  ),
+                ),
+              ),
+            ),
+            Card(
+              margin: EdgeInsets.symmetric(
+                horizontal: 10.0,
+                vertical: 6.0,
+              ),
+              child: Container(
+                padding: EdgeInsets.all(10),
+                child: Center(
+                  child: Text(
+                    'La información debe ser enviada mediante alguno de '
+                    'estos medios:',
+                    style: TextStyle(
+                      color: Colors.blue,
+                      fontSize: 15,
+                      fontWeight: FontWeight.w600,
+                    ),
+                    textAlign: TextAlign.left,
+                  ),
+                ),
+              ),
+            ),
+            Container(
+              margin: EdgeInsets.symmetric(horizontal: 20),
+              child: GFButton(
+                text: 'Gmail',
+                textColor: Colors.white,
+                color: Colors.white,
+                size: GFSize.large,
+                shape: GFButtonShape.pills,
+                type: GFButtonType.outline2x,
+                fullWidthButton: true,
+                onPressed: () async {
+                  const url = 'mailto:leynier41@gmail.com';
+                  if (await canLaunch(url)) {
+                    await launch(url);
+                  } else {
+                    log('Could not launch $url');
+                  }
+                },
+              ),
+            ),
+            Container(
+              margin: EdgeInsets.symmetric(horizontal: 20),
+              child: GFButton(
+                text: 'Telegram',
+                textColor: Colors.white,
+                color: Colors.white,
+                size: GFSize.large,
+                shape: GFButtonShape.pills,
+                type: GFButtonType.outline2x,
+                fullWidthButton: true,
+                onPressed: () async {
+                  const url = 'https://t.me/leynier';
+                  if (await canLaunch(url)) {
+                    await launch(url);
+                  } else {
+                    log('Could not launch $url');
+                  }
+                },
+              ),
+            ),
+            Container(
+              margin: EdgeInsets.symmetric(horizontal: 20),
+              child: GFButton(
+                text: 'Twitter',
+                textColor: Colors.white,
+                color: Colors.white,
+                size: GFSize.large,
+                shape: GFButtonShape.pills,
+                type: GFButtonType.outline2x,
+                fullWidthButton: true,
+                onPressed: () async {
+                  const url = 'https://twitter.com/leynier41';
+                  if (await canLaunch(url)) {
+                    await launch(url);
+                  } else {
+                    log('Could not launch $url');
+                  }
+                },
+              ),
+            ),
+            Container(
+              margin: EdgeInsets.symmetric(horizontal: 20),
+              child: GFButton(
+                text: 'Facebook',
+                textColor: Colors.white,
+                color: Colors.white,
+                size: GFSize.large,
+                shape: GFButtonShape.pills,
+                type: GFButtonType.outline2x,
+                fullWidthButton: true,
+                onPressed: () async {
+                  const url = 'https://www.facebook.com/leynier41';
+                  if (await canLaunch(url)) {
+                    await launch(url);
+                  } else {
+                    log('Could not launch $url');
+                  }
+                },
+              ),
+            ),
+            Card(
+              margin: EdgeInsets.symmetric(
+                horizontal: 10.0,
+                vertical: 6.0,
+              ),
+              child: Container(
+                padding: EdgeInsets.all(10),
+                child: Center(
+                  child: Text(
+                    'La información puede ser un enlace a algún sitio web, '
+                    'los enlaces de redes sociales como Facebook, Telegram, '
+                    'Twitter, WhatsApp, Instagram, etc.',
+                    style: TextStyle(
+                      color: Colors.blue,
+                      fontSize: 15,
+                      fontWeight: FontWeight.w600,
+                    ),
+                    textAlign: TextAlign.left,
+                  ),
+                ),
+              ),
+            ),
+            Card(
+              margin: EdgeInsets.symmetric(
+                horizontal: 10.0,
+                vertical: 6.0,
+              ),
+              child: Container(
+                padding: EdgeInsets.all(10),
+                child: Center(
+                  child: Text(
+                    'También puede permanecer en el anonimato, en ese caso '
+                    'lo incluiremos como donación anónima.',
+                    style: TextStyle(
+                      color: Colors.blue,
+                      fontSize: 15,
+                      fontWeight: FontWeight.w600,
+                    ),
+                    textAlign: TextAlign.left,
+                  ),
+                ),
+              ),
+            ),
           ],
         ),
       ),
