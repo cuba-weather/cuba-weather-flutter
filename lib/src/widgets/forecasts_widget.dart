@@ -10,7 +10,7 @@ class ForecastWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double screen_width = MediaQuery.of(context).size.width;
+    double screenWidth = MediaQuery.of(context).size.width;
     return Column(
       children: <Widget>[
         Container(
@@ -19,7 +19,7 @@ class ForecastWidget extends StatelessWidget {
           child: Text(
             "Pronóstico para los siguientes días:",
             style: TextStyle(
-              fontSize: screen_width * 0.04,
+              fontSize: screenWidth * 0.04,
               fontWeight: FontWeight.w400,
               color: Colors.white,
             ),
@@ -29,14 +29,14 @@ class ForecastWidget extends StatelessWidget {
           margin: EdgeInsets.symmetric(horizontal: 30, vertical: 20),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: weather.forecasts.map((forecast) => _buildForecast(forecast, screen_width)).toList(),
+            children: weather.forecasts.map((forecast) => _buildForecast(forecast, screenWidth)).toList(),
           ),
         )
       ],
     );
   }
 
-  Widget _buildForecast(WeatherForecastModel forecast, double screen_width) {
+  Widget _buildForecast(WeatherForecastModel forecast, double screenWidth) {
     String weatherIconCode =
         _weatherIconCodeByState(forecast.state);
     return Column(
@@ -52,7 +52,7 @@ class ForecastWidget extends StatelessWidget {
         ),
         BoxedIcon(
           WeatherIcons.fromString(weatherIconCode, fallback: WeatherIcons.na),
-          size: screen_width * 0.1,
+          size: screenWidth * 0.1,
           color: Colors.white,
         ),
         Text(
@@ -61,7 +61,7 @@ class ForecastWidget extends StatelessWidget {
           '${forecast.temperatureMax.round()}'
           ' °C',
           style: TextStyle(
-            fontSize: screen_width * 0.04,
+            fontSize: screenWidth * 0.04,
             fontWeight: FontWeight.w600,
             color: Colors.white,
           ),

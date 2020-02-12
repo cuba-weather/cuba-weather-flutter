@@ -10,7 +10,7 @@ class LastUpdatedWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double screen_width = MediaQuery.of(context).size.width;
+    double screenWidth = MediaQuery.of(context).size.width;
     return Container(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -19,7 +19,7 @@ class LastUpdatedWidget extends StatelessWidget {
             child: Text(
               'Actualizado: ${TimeOfDay.fromDateTime(dateTime).format(context)}',
               style: TextStyle(
-                fontSize: screen_width * 0.04,
+                fontSize: screenWidth * 0.04,
                 fontWeight: FontWeight.w300,
                 color: Colors.white,
               ),
@@ -29,7 +29,7 @@ class LastUpdatedWidget extends StatelessWidget {
           BoxedIcon(
             TimeIcon.fromHour(dateTime.hour),
             color: Colors.white,
-            size: screen_width * 0.065,
+            size: screenWidth * 0.065,
           ),
         ],
       ),
