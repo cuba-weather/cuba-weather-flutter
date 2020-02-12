@@ -136,6 +136,28 @@ class _WeatherWidgetState extends State<WeatherWidget> {
                 ),
               ],
             ),
+            ExpansionTile(
+              title: Text('Pronóstico marino'),
+              children: <Widget>[
+                _createDrawerItem(
+                  context,
+                  icon: Icons.line_style,
+                  text: 'Mares adyacentes',
+                  onTap: () {
+                    Navigator.of(context).pop();
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => MarineForecastPage(
+                          forecastType: 'marine',
+                          pageTitle: 'Pronóstico marino',
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ],
+            ),
             _createDrawerItem(
               context,
               icon: Icons.my_location,

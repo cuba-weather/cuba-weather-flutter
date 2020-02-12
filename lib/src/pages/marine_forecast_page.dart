@@ -5,11 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class ForecastPage extends StatefulWidget {
+class MarineForecastPage extends StatefulWidget {
   final String forecastType;
   final String pageTitle;
 
-  ForecastPage({
+  MarineForecastPage({
     Key key,
     @required this.forecastType,
     @required this.pageTitle,
@@ -17,73 +17,27 @@ class ForecastPage extends StatefulWidget {
         super(key: key);
 
   @override
-  _ForecastPageState createState() => _ForecastPageState();
+  _MarineForecastPageState createState() => _MarineForecastPageState();
 }
 
-class _ForecastPageState extends State<ForecastPage> {
-  ForecastModel _forecast;
+class _MarineForecastPageState extends State<MarineForecastPage> {
+  MarineForecastModel _forecast;
   var client = Client();
-  bool showImage = false;
+
   bool error = false;
   String errorMessage;
-
-  Future<bool> recoverValueShowImage() async {
-    var prefs = await SharedPreferences.getInstance();
-    var value = prefs.getBool('showImageForecastPage') ?? false;
-    this.showImage = value;
-    return value;
-  }
 
   Future<void> setValueShowImage(bool newValue) async {
     var prefs = await SharedPreferences.getInstance();
     prefs.setBool('showImageForecastPage', newValue);
-    this.showImage = newValue;
   }
 
   @override
   Widget build(BuildContext context) {
-    recoverValueShowImage();
     if (_forecast == null && !error) {
       switch (widget.forecastType) {
-        case 'today':
-          WeatherClient().todayForecast(client).then((onValue) {
-            setState(() {
-              _forecast = onValue;
-            });
-          }).catchError((onError) {
-            setState(() {
-              if (onError is BadRequestException) {
-                errorMessage = Constants.errorMessageBadRequestException;
-                error = true;
-              } else {
-                errorMessage = onError.toString();
-                error = true;
-              }
-            });
-          });
-          break;
-        case 'tomorrow':
-          WeatherClient().tomorrowForecast(client).then((onValue) {
-            setState(() {
-              _forecast = onValue;
-            });
-          }).catchError((onError) {
-            setState(() {
-              if (onError is BadRequestException) {
-                errorMessage = Constants.errorMessageBadRequestException;
-                error = true;
-              } else if (onError is ParseException) {
-                errorMessage = Constants.errorMessageParseException;
-                error = true;
-              } else {
-                errorMessage = onError.toString();
-                error = true;
-              }
-            });
-          });
-          break;
-        case 'perspectives':
-          WeatherClient().perspectiveForecast(client).then((onValue) {
+        case 'marine':
+          WeatherClient().marineForecast(client).then((onValue) {
             setState(() {
               _forecast = onValue;
             });
@@ -189,24 +143,19 @@ class _ForecastPageState extends State<ForecastPage> {
                                 Padding(
                                   padding: EdgeInsets.all(5),
                                 ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        Card(
+                          child: Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
                                 Divider(),
-                                _forecast.forecastTitle != ""
-                                    ? SizedBox(height: 5.0)
-                                    : Container(),
-                                _forecast.forecastTitle != ""
-                                    ? Text(
-                                        _forecast.forecastTitle,
-                                        style: TextStyle(
-                                          fontStyle: FontStyle.italic,
-                                          color: Colors.grey,
-                                        ),
-                                      )
-                                    : Container(),
-                                _forecast.forecastTitle != ""
-                                    ? SizedBox(height: 8.0)
-                                    : Container(),
                                 Text(
-                                  _forecast.forecastText,
+                                  _forecast.significantSituation,
                                   textAlign: TextAlign.justify,
                                   style: TextStyle(
                                     color: Colors.blue,
@@ -215,6 +164,65 @@ class _ForecastPageState extends State<ForecastPage> {
                               ],
                             ),
                           ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.all(10),
+                        ),
+                        Card(
+                          child: Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'GOLFO DE MÉXICO:',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.blue,
+                                  ),
+                                ),
+                                Divider(),
+                                Text(
+                                  _forecast.areaGulfOfMexico,
+                                  textAlign: TextAlign.justify,
+                                  style: TextStyle(
+                                    color: Colors.blue,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.all(10),
+                        ),
+                        Card(
+                          child: Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'PUERTO RICO Y LA FLORIDA HASTA LAS BERMUDAS:',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.blue,
+                                  ),
+                                ),
+                                Divider(),
+                                Text(
+                                  _forecast.areaRest,
+                                  textAlign: TextAlign.justify,
+                                  style: TextStyle(
+                                    color: Colors.blue,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.all(10),
                         ),
                         Container(
                           padding: EdgeInsets.only(top: 10),
@@ -255,35 +263,6 @@ class _ForecastPageState extends State<ForecastPage> {
                             ],
                           ),
                         ),
-                        _forecast.imageUrl != null
-                            ? Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: <Widget>[
-                                  Text('Mostrar imagen',
-                                      style: TextStyle(
-                                        color: Colors.blue,
-                                      )),
-                                  Switch(
-                                    value: showImage,
-                                    onChanged: (value) {
-                                      setState(() {
-                                        setValueShowImage(value);
-                                      });
-                                    },
-                                    activeTrackColor: Colors.lightBlueAccent,
-                                    activeColor: Colors.blue,
-                                  ),
-                                ],
-                              )
-                            : Container(),
-                        _forecast.imageUrl != null
-                            ? showImage
-                                ? FadeInImage.assetNetwork(
-                                    placeholder: Constants.loadingPlaceholder,
-                                    image: _forecast.imageUrl,
-                                  )
-                                : Container()
-                            : Container()
                       ],
                     ),
                   ),
@@ -300,11 +279,8 @@ class _ForecastPageState extends State<ForecastPage> {
                 children: [
                   _forecast.authors[0] != ""
                       ? CircleAvatar(
-                          backgroundImage:
-                              meteorologistImg(_forecast.authors[0]) != null
-                                  ? NetworkImage(
-                                      meteorologistImg(_forecast.authors[0]))
-                                  : ExactAssetImage(Constants.authorsPlaceHolderImageAssetURL),
+                          backgroundImage: ExactAssetImage(
+                              Constants.authorsPlaceHolderImageAssetURL),
                           radius: 30.0,
                         )
                       : Container(),
@@ -326,10 +302,8 @@ class _ForecastPageState extends State<ForecastPage> {
               child: Column(
                 children: [
                   CircleAvatar(
-                    backgroundImage: meteorologistImg(_forecast.authors[1]) !=
-                            null
-                        ? NetworkImage(meteorologistImg(_forecast.authors[1]))
-                        : ExactAssetImage(Constants.authorsPlaceHolderImageAssetURL),
+                    backgroundImage: ExactAssetImage(
+                        Constants.authorsPlaceHolderImageAssetURL),
                     radius: 30.0,
                   ),
                   Padding(
@@ -352,10 +326,8 @@ class _ForecastPageState extends State<ForecastPage> {
               child: Column(
                 children: [
                   CircleAvatar(
-                    backgroundImage: meteorologistImg(_forecast.authors[1]) !=
-                            null
-                        ? NetworkImage(meteorologistImg(_forecast.authors[1]))
-                        : ExactAssetImage(Constants.authorsPlaceHolderImageAssetURL),
+                    backgroundImage: ExactAssetImage(
+                        Constants.authorsPlaceHolderImageAssetURL),
                     radius: 30.0,
                   ),
                   Padding(
@@ -371,96 +343,5 @@ class _ForecastPageState extends State<ForecastPage> {
               ),
             ),
           ];
-  }
-
-  String meteorologistImg(String name) {
-    name = name.replaceAll(' ', '');
-    name = name.replaceAll('.', '');
-    String url = Constants.insmetUrlAuthorsImg;
-    switch (name) {
-      case 'AVarela':
-        return url + 'A.Varela.jpg';
-        break;
-      case 'YBermúdez':
-        return url + 'Yinelis.jpg';
-        break;
-      case 'MAHernández':
-        return url + 'MAHernandez.jpg';
-        break;
-      case 'MAHernandez':
-        return url + 'MAHernandez.jpg';
-        break;
-      case 'AJustiz':
-        return url + 'A.Justiz.jpg';
-        break;
-      case 'YArias':
-        return url + 'Y.Arias.jpg';
-        break;
-      case 'JRubiera':
-        return url + 'JRubiera.jpg';
-        break;
-      case 'GAcosta':
-        return url + 'G.Acosta.jpg';
-        break;
-      case 'ACaymares':
-        return url + 'ACaymares.jpg';
-        break;
-      case 'ASanchez':
-        return url + 'ASanchez.jpg';
-        break;
-      case 'ALima':
-        return url + 'ALima.jpg';
-        break;
-      case 'JASerrano':
-        return url + 'JASerrano.jpg';
-        break;
-      case 'GAguilar':
-        return url + 'GAguilar.jpg';
-        break;
-      case 'NFournier':
-        return url + 'NFournier.jpg';
-        break;
-      case 'JGonzález':
-        return url + 'JGonzález.jpg';
-        break;
-      case 'Amengana':
-        return url + 'Amengana.jpg';
-        break;
-      case 'Miri':
-        return url + 'Miri.jpg';
-        break;
-      case 'Yinelis':
-        return url + 'Yinelis.jpg';
-        break;
-      case 'GEstevez':
-        return url + 'GEstevez.jpg';
-        break;
-      case 'YCedeno':
-        return url + 'YCedeno.jpg';
-        break;
-      case 'JPalacios':
-        return url + 'JPalacios.jpg';
-        break;
-      case 'AEspinosa':
-        return url + 'A.Espinosa.jpg';
-        break;
-      case 'YMartinez':
-        return url + 'Y.Martinez.jpg';
-        break;
-      case 'EVázquez':
-        return url + 'E. Vázquez.JPG';
-        break;
-      case 'AOtero':
-        return url + 'A.Otero.jpg';
-        break;
-      case 'AMiro':
-        return url + 'A.Miro.jpg';
-        break;
-      case 'AWong':
-        return url + 'A.Wong.jpg';
-        break;
-      default:
-        return null;
-    }
   }
 }
