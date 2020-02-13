@@ -153,6 +153,13 @@ class _MarineForecastPageState extends State<MarineForecastPage> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
+                                Text(
+                                  'SITUACIÓN METEOROLÓGICA SIGNIFICATIVA:',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.blue,
+                                  ),
+                                ),
                                 Divider(),
                                 Text(
                                   _forecast.significantSituation,
@@ -271,7 +278,7 @@ class _MarineForecastPageState extends State<MarineForecastPage> {
   }
 
   List<Widget> _buildAuthors() {
-    return _forecast.authors[0] != ""
+    return _forecast.authors.length > 1
         ? [
             Padding(
               padding: const EdgeInsets.all(15),
@@ -333,7 +340,7 @@ class _MarineForecastPageState extends State<MarineForecastPage> {
                   Padding(
                     padding: const EdgeInsets.only(top: 8.0),
                     child: Text(
-                      _forecast.authors[1],
+                      _forecast.authors[0],
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                       ),

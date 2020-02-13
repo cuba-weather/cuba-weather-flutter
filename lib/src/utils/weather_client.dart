@@ -273,6 +273,8 @@ class WeatherClient {
           forecast.significantSituation.replaceAll("</tbody>", "");
       forecast.significantSituation =
           forecast.significantSituation.replaceAll("</table>", "");
+      forecast.significantSituation = forecast.significantSituation
+          .replaceAll("SITUACIÓN METEOROLÓGICA SIGNIFICATIVA:", "");
 
       index = leading.indexOf('contenidopagina');
       leading = leading.replaceRange(0, index + 20, '');
@@ -296,7 +298,7 @@ class WeatherClient {
       leading = leading.replaceRange(0, index, '');
       index = leading.indexOf('contenidopagina');
       leading = leading.replaceRange(0, index + 20, '');
-      index = leading.indexOf('Pronosticador: ');
+      index = leading.indexOf('Pronosticador');
       forecast.areaRest = leading.substring(0, index);
       forecast.areaRest = forecast.areaRest.replaceAll("<br>", "\n");
       forecast.areaRest = forecast.areaRest.replaceAll("</b>", "");
@@ -304,9 +306,10 @@ class WeatherClient {
       forecast.areaRest = forecast.areaRest.replaceAll("</tr>", "");
       forecast.areaRest = forecast.areaRest.replaceAll("</tbody>", "");
       forecast.areaRest = forecast.areaRest.replaceAll("</table>", "");
-      forecast.areaRest = forecast.areaRest.replaceAll("PUERTO RICO Y LA FLORIDA HASTA LAS BERMUDAS:", "");
+      forecast.areaRest = forecast.areaRest
+          .replaceAll("PUERTO RICO Y LA FLORIDA HASTA LAS BERMUDAS:", "");
 
-      leading = leading.replaceRange(0, index + 15, '');
+      leading = leading.replaceRange(0, index + 14, '');
       leading = leading.replaceAll("<br>", "");
       leading = leading.replaceAll("</b>", "");
       leading = leading.replaceAll("</td>", "");

@@ -36,6 +36,7 @@ class App extends StatelessWidget {
     );
     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: appName,
       theme: ThemeData(primaryColor: Colors.blue),
       home: BlocProvider(
