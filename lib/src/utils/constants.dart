@@ -4,6 +4,9 @@ class Constants {
   static final String errorMessageBadRequestException = 'No se ha podido establecer conexión con la red nacional. Por favor, revise su conexión y vuelva a intentarlo.';
   static final String errorMessageParseException = 'La fuente de datos a cambiado el formato. Espere una nueva actualización de la aplicación para adaptarse a este.';
 
+
+  static final String appLogo = 'images/logo.png';
+  static final String appSlogan= 'De Cuba para Cuba';
   static final String authorsPlaceHolderImageAssetURL = 'images/no-image.png';
   static final String loadingPlaceholder = 'images/loading.gif';
 

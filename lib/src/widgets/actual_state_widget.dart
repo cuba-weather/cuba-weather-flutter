@@ -139,7 +139,7 @@ class ActualStateWidget extends StatelessWidget {
                       iconSize: screenWidth * 0.09,
                       onPressed: () {}),
                   Text(
-                    '${weather.windVelocity.round()} Km/h',
+                    '${weather.windVelocity.round()} km/h',
                     style: TextStyle(
                       fontWeight: FontWeight.w300,
                       color: Colors.white,

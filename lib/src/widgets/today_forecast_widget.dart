@@ -37,7 +37,7 @@ class TodayForecastWidget extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 Text(
-                  'Mínima',
+                  'Máxima',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     color: Colors.white,
@@ -48,7 +48,7 @@ class TodayForecastWidget extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text(
-                      '${weather.temperatureMin.round()}',
+                      '${weather.temperatureMax.round()}',
                       style: TextStyle(
                         fontSize: 40,
                         fontWeight: FontWeight.w600,
@@ -92,7 +92,7 @@ class TodayForecastWidget extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 Text(
-                  'Máxima',
+                  'Mínima',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     color: Colors.white,
@@ -103,7 +103,7 @@ class TodayForecastWidget extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text(
-                      '${weather.temperatureMax.round()}',
+                      '${weather.temperatureMin.round()}',
                       style: TextStyle(
                         fontSize: 40,
                         fontWeight: FontWeight.w600,
@@ -157,10 +157,10 @@ class TodayForecastWidget extends StatelessWidget {
     String result = '';
     switch (state) {
       case aux.State.OccasionalShowers:
-        result = itsDay ? 'wi-day-rain': 'wi-night-alt-rain';
+        result = itsDay ? 'wi-day-rain' : 'wi-night-alt-rain';
         break;
       case aux.State.ScatteredShowers:
-        result = itsDay ? 'wi-rain': 'wi-rain';
+        result = itsDay ? 'wi-rain' : 'wi-rain';
         break;
       case aux.State.IsolatedShowers:
         result = itsDay ? 'wi-day-rain' : 'wi-night-alt-rain';
