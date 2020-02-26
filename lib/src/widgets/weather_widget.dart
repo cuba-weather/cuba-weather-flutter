@@ -234,9 +234,9 @@ class _WeatherWidgetState extends State<WeatherWidget> {
               text: 'Compartir',
               onTap: () async {
                 Share.share(
-                  'Yo uso Cuba Weather: la app meteorológica de '
+                  'Yo uso $appName: la app meteorológica de '
                   'Cuba para Cuba. https://cubaweather.app',
-                  subject: 'Cuba Weather App',
+                  subject: '$appName App',
                 );
               },
             ),
@@ -444,7 +444,7 @@ class _WeatherWidgetState extends State<WeatherWidget> {
                           bottom: 50,
                         ),
                         child: Text(
-                          '¡Bienvenido a Cuba Weather!',
+                          '¡Bienvenido a $appName!',
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             color: Colors.white,
@@ -499,10 +499,10 @@ class _WeatherWidgetState extends State<WeatherWidget> {
                         child: Container(
                           padding: EdgeInsets.all(10),
                           child: Text(
-                            'Nota: Este calculo se hace con respecto '
+                            'Nota: Este cálculo se hace con respecto '
                             'al centro del municipio, por lo que si se '
                             'encuentra en la periferia de un municipio '
-                            'puede que la aplicación diga que se '
+                            'puede que la aplicación le indique que se '
                             'encuentra en un municipio aledaño al que se '
                             'encuentra realmente.',
                             textAlign: TextAlign.left,

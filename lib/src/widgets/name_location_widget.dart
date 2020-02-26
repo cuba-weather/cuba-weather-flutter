@@ -1,8 +1,5 @@
-import 'package:cuba_weather/src/blocs/blocs.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'location_selection_widget.dart';
 
 class NameMunicipalityWidget extends StatelessWidget {
   final String municipality;
@@ -31,29 +28,6 @@ class NameMunicipalityWidget extends StatelessWidget {
                 color: Colors.white,
               ),
             ),
-          ),
-          IconButton(
-            icon: Icon(
-              Icons.arrow_drop_down,
-              color: Colors.white,
-              size: 40,
-            ),
-            color: Colors.white,
-            onPressed: () async {
-              final municipality = await Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => MunicipalitySelectionWidget(
-                    municipalities: this.municipalities,
-                  ),
-                ),
-              );
-              if (municipality != null) {
-                BlocProvider.of<WeatherBloc>(context).add(FetchWeather(
-                  municipality: municipality,
-                ));
-              }
-            },
           ),
         ],
       ),
