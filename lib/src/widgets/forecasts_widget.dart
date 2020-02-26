@@ -56,9 +56,9 @@ class ForecastWidget extends StatelessWidget {
           color: Colors.white,
         ),
         Text(
-          '${forecast.temperatureMin.round()}'
-          ' / '
           '${forecast.temperatureMax.round()}'
+          '/'
+          '${forecast.temperatureMin.round()}'
           ' °C',
           style: TextStyle(
             fontSize: screenWidth * 0.04,

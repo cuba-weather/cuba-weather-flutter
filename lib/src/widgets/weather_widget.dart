@@ -12,6 +12,7 @@ import 'package:share/share.dart';
 import 'package:cuba_weather/src/blocs/blocs.dart';
 import 'package:cuba_weather/src/widgets/widgets.dart';
 import 'package:cuba_weather/src/pages/pages.dart';
+import 'package:cuba_weather/src/utils/constants.dart';
 
 class WeatherWidget extends StatefulWidget {
   final String initialMunicipality;
@@ -334,7 +335,7 @@ class _WeatherWidgetState extends State<WeatherWidget> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Image.asset(
-              'images/logo.png',
+              Constants.appLogo,
               fit: BoxFit.cover,
               height: 35.0,
             ),
@@ -574,7 +575,7 @@ class _WeatherWidgetState extends State<WeatherWidget> {
                         ),
                       ),
                       Text(
-                        'Ha ocurrido un error',
+                        Constants.errorMessage,
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           color: Colors.white,
@@ -619,13 +620,13 @@ class _WeatherWidgetState extends State<WeatherWidget> {
         ),
       ),
       accountEmail: Text(
-        "De Cuba para Cuba",
+        Constants.appSlogan,
         style: TextStyle(
           fontWeight: FontWeight.w500,
         ),
       ),
       currentAccountPicture: CircleAvatar(
-        backgroundImage: ExactAssetImage('images/logo.png'),
+        backgroundImage: ExactAssetImage(Constants.appLogo),
       ),
       otherAccountsPictures: <Widget>[
         IconButton(
