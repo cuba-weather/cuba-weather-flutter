@@ -1,6 +1,8 @@
+import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:cuba_weather/src/utils/constants.dart';
 import 'package:cuba_weather_dart/cuba_weather_dart.dart';
 import 'package:cuba_weather_insmet_dart/cuba_weather_insmet_dart.dart' as aux;
-import 'package:flutter/material.dart';
 import 'package:weather_icons/weather_icons.dart';
 
 class ForecastWidget extends StatelessWidget {
@@ -29,7 +31,9 @@ class ForecastWidget extends StatelessWidget {
           margin: EdgeInsets.symmetric(horizontal: 30, vertical: 20),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: weather.forecasts.map((forecast) => _buildForecast(forecast, screenWidth)).toList(),
+            children: weather.forecasts
+                .map((forecast) => _buildForecast(forecast, screenWidth))
+                .toList(),
           ),
         )
       ],
@@ -37,14 +41,28 @@ class ForecastWidget extends StatelessWidget {
   }
 
   Widget _buildForecast(WeatherForecastModel forecast, double screenWidth) {
-    String weatherIconCode =
-        _weatherIconCodeByState(forecast.state);
+    String weatherIconCode = _weatherIconCodeByState(forecast.state);
+
+    DateTime now = DateTime.now();
+    DateTime lastCurrentDateOfMonth = new DateTime(now.year, now.month + 1, 0);
+    DateTime current1day = new DateTime(now.year, now.month, 1);
+    DateTime next1day =
+        current1day.add(Duration(days: lastCurrentDateOfMonth.day));
+    DateTime currentForecastDate =
+        new DateTime(now.year, now.month, forecast.day);
+    if (forecast.day < now.day) {
+      currentForecastDate =
+          new DateTime(next1day.year, next1day.month, forecast.day);
+    }
+    String dateString =
+        _spanishWeekDayString(DateFormat('EEEE').format(currentForecastDate));
+
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
         Text(
-          'Día: ${forecast.day}',
+          '$dateString ' '${forecast.day}',
           textAlign: TextAlign.center,
           style: TextStyle(
             color: Colors.white,
@@ -108,6 +126,37 @@ class ForecastWidget extends StatelessWidget {
         break;
       default:
         result = 'wi-na';
+    }
+    return result;
+  }
+
+  String _spanishWeekDayString(String weekDay) {
+    String result = '';
+    weekDay = weekDay.toLowerCase();
+    switch (weekDay) {
+      case 'sunday':
+        result = 'Domingo';
+        break;
+      case 'monday':
+        result = 'Lunes';
+        break;
+      case 'tuesday':
+        result = 'Martes';
+        break;
+      case 'wednesday':
+        result = 'Miércoles';
+        break;
+      case 'thursday':
+        result = 'Jueves';
+        break;
+      case 'friday':
+        result = 'Viernes';
+        break;
+      case 'saturday':
+        result = 'Sábado';
+        break;
+      default:
+        result = '';
     }
     return result;
   }
