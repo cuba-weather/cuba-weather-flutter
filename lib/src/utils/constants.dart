@@ -9,6 +9,7 @@ class Constants {
   static final String appSlogan= 'De Cuba para Cuba';
   static final String authorsPlaceHolderImageAssetURL = 'images/no-image.png';
   static final String loadingPlaceholder = 'images/loading.gif';
+  static final String locale = "es_ES";
 
   static final String insmetForecastSource = 'www.insmet.cu';
 

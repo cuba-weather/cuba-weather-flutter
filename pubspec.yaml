@@ -27,6 +27,7 @@ dependencies:
   font_awesome_flutter: ^8.5.0
   flutter_speed_dial: ^1.2.5
   geolocator: ^5.2.1
+  intl:
 
 flutter:
 
