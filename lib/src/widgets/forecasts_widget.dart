@@ -11,7 +11,10 @@ class ForecastWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
+    var screenWidth = MediaQuery.of(context).size.width;
+    var now = DateTime.now();
+    var lastDayOfMonth = new DateTime(now.year, now.month + 1, 0);
+    var isNewMoth = false;
     return Column(
       children: <Widget>[
         Container(
@@ -29,8 +32,18 @@ class ForecastWidget extends StatelessWidget {
         Container(
           margin: EdgeInsets.symmetric(horizontal: 30, vertical: 20),
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: weather.forecasts
+                .where((forecast) {
+                  var result = false;
+                  if (forecast.day > now.day || isNewMoth) {
+                    result = true;
+                  }
+                  if (forecast.day == lastDayOfMonth.day) {
+                    isNewMoth = true;
+                  }
+                  return result;
+                })
                 .map((forecast) => _buildForecast(forecast, screenWidth))
                 .toList(),
           ),

@@ -27,7 +27,6 @@ class CombinedWeatherWidget extends StatelessWidget {
     if (forecasts.length > 0) {
       weather.forecasts = forecasts;
     }
-
     return Column(
       children: [
         DividerWidget(),
