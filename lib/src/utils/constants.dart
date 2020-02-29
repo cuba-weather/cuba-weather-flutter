@@ -1,15 +1,19 @@
+import 'package:flutter/material.dart';
 class Constants {
   //errors
   static final String errorMessage = 'Ha ocurrido un error';
   static final String errorMessageBadRequestException = 'No se ha podido establecer conexión con la red nacional. Por favor, revise su conexión y vuelva a intentarlo.';
   static final String errorMessageParseException = 'La fuente de datos a cambiado el formato. Espere una nueva actualización de la aplicación para adaptarse a este.';
 
-
+  static final String appName = 'Cuba Weather';
   static final String appLogo = 'images/logo.png';
-  static final String appSlogan= 'De Cuba para Cuba';
+  static final String appSlogan = 'De CUBA para CUBA';
+  static final String appSloganLong = 'Tu app meteorológica de CUBA para CUBA';
   static final String authorsPlaceHolderImageAssetURL = 'images/no-image.png';
   static final String loadingPlaceholder = 'images/loading.gif';
   static final String locale = "es_ES";
+  //static final String fontFamily = "Exo2";
+  static final String fontFamily = "GoogleSans";
 
   static final String insmetForecastSource = 'www.insmet.cu';
 
@@ -20,4 +24,15 @@ class Constants {
   static final String insmetUrlTomorrowForecst = 'http://www.insmet.cu/asp/genesis.asp?TB0=PLANTILLAS&TB1=PTM&TB2=/Pronostico/Ptm.txt';
   static final String insmetUrlPerspectives = 'http://www.insmet.cu/asp/genesis.asp?TB0=PLANTILLAS&TB1=PERSPECTIVASTT';
   static final String insmetUrlMarineForecst = 'http://www.insmet.cu/asp/genesis.asp?TB0=PLANTILLAS&TB1=MAR&TB2=/Pronostico/Marady.txt';
+
+
+  //colors
+  static const Color clr_gradient_min = const Color(0xFF64B5F6);
+  static const Color clr_gradient_max = const Color(0xFF1976D2);
+
+  //SharedPreferences
+  static String isOnBoard = 'isOnboard';
+  static String municipality = 'municipality';
+  static String municipality2 = 'municipality2';
+  static String showImageForecastPage = 'showImageForecastPage';
 }

@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:cuba_weather/src/utils/constants.dart';
 import 'package:flutter/services.dart';
 
 import 'package:geolocator/geolocator.dart';
@@ -26,7 +27,7 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
       yield WeatherLoading();
       try {
         var prefs = await SharedPreferences.getInstance();
-        await prefs.setString('municipality', event.municipality);
+        await prefs.setString(Constants.municipality, event.municipality);
       } catch (e) {
         log(e.toString());
       }
@@ -130,7 +131,7 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
         }
         try {
           var prefs = await SharedPreferences.getInstance();
-          await prefs.setString('municipality', bestMunicipality.name);
+          await prefs.setString(Constants.municipality, bestMunicipality.name);
         } catch (e) {
           log(e.toString());
         }

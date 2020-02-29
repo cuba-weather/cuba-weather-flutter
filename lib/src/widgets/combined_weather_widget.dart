@@ -24,8 +24,9 @@ class CombinedWeatherWidget extends StatelessWidget {
         isNewMoth = true;
       }
     }
-
-    weather.forecasts = forecasts;
+    if (forecasts.length > 0) {
+      weather.forecasts = forecasts;
+    }
 
     return Column(
       children: [

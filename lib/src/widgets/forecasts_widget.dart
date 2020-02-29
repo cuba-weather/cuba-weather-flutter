@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:cuba_weather/src/utils/constants.dart';
 import 'package:cuba_weather_dart/cuba_weather_dart.dart';
 import 'package:cuba_weather_insmet_dart/cuba_weather_insmet_dart.dart' as aux;
 import 'package:weather_icons/weather_icons.dart';
