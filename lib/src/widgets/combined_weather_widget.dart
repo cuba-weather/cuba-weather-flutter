@@ -13,20 +13,6 @@ class CombinedWeatherWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    DateTime now = DateTime.now();
-    DateTime lastDayOfMonth = new DateTime(now.year, now.month + 1, 0);
-    bool isNewMoth = false;
-    for (var f in weather.forecasts) {
-      if (f.day > now.day || isNewMoth) {
-        forecasts.add(f);
-      }
-      if (f.day == lastDayOfMonth.day) {
-        isNewMoth = true;
-      }
-    }
-
-    weather.forecasts = forecasts;
-
     return Column(
       children: [
         DividerWidget(),
