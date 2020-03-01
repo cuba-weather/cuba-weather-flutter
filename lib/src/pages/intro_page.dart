@@ -1,86 +1,110 @@
+import 'dart:developer';
+
+import 'package:cuba_weather/src/pages/pages.dart';
 import 'package:cuba_weather/src/utils/constants.dart';
 import 'package:cuba_weather/src/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:cuba_weather/src/widgets/responsive_screen.dart';
+import 'package:getflutter/getflutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class IntroPage extends StatelessWidget {
   final String assetImage;
   final String text;
   final String title;
+  final String initialMunicipality;
+  final bool isLast;
 
-  IntroPage(this.assetImage, this.title, this.text);
+  IntroPage(
+    this.assetImage,
+    this.title,
+    this.text,
+    this.initialMunicipality,
+    this.isLast,
+  );
 
   @override
   Widget build(BuildContext context) {
-    ResponsiveScreen size = ResponsiveScreen(MediaQuery.of(context).size);
+    var size = ResponsiveScreen(MediaQuery.of(context).size);
+    var children = <Widget>[
+      Center(
+        child: Image.asset(
+          assetImage,
+          width: size.getWidthPx(300),
+        ),
+      ),
+      Padding(
+        padding: EdgeInsets.all(size.getWidthPx(10)),
+        child: Center(
+          child: Text(
+            title,
+            style: TextStyle(
+              fontFamily: Constants.fontFamily,
+              fontWeight: FontWeight.bold,
+              fontSize: 22,
+              color: Colors.white,
+            ),
+            textAlign: TextAlign.center,
+          ),
+        ),
+      ),
+      Padding(
+        padding: EdgeInsets.only(
+          bottom: size.getWidthPx(80),
+          left: size.getWidthPx(30),
+          right: size.getWidthPx(30),
+        ),
+        child: Text(
+          text,
+          style: TextStyle(
+            fontFamily: Constants.fontFamily,
+            fontWeight: FontWeight.normal,
+            fontSize: 16,
+            color: Colors.white,
+          ),
+          textAlign: TextAlign.center,
+        ),
+      ),
+    ];
+
+    if (isLast) {
+      children.add(
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 50),
+          child: GFButton(
+              text: 'Comenzar',
+              textColor: Colors.white,
+              color: Colors.white,
+              size: GFSize.large,
+              shape: GFButtonShape.pills,
+              type: GFButtonType.outline2x,
+              fullWidthButton: true,
+              onPressed: () async {
+                try {
+                  var prefs = await SharedPreferences.getInstance();
+                  await prefs.setBool(Constants.isOnBoard, true);
+                } catch (e) {
+                  log(e.toString());
+                }
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => HomePage(
+                      initialMunicipality: initialMunicipality,
+                    ),
+                  ),
+                );
+              }),
+        ),
+      );
+    }
 
     return SafeArea(
       child: GradientContainerWidget(
         color: Colors.blue,
-        child: ListView(
-          children: <Widget>[
-            Container(
-              margin: EdgeInsets.only(top: 50),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Center(
-                    child: Text(
-                      '${Constants.appName}',
-                      style: TextStyle(
-                          fontFamily: Constants.fontFamily,
-                          fontWeight: FontWeight.w500,
-                          fontSize: 26,
-                          color: Colors.white),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                  Center(
-                    child: Image.asset(
-                      assetImage,
-                      width: size.getWidthPx(250),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.all(size.getWidthPx(10)),
-              child: Center(
-                child: Text(
-                  title,
-                  style: TextStyle(
-                      fontFamily: Constants.fontFamily,
-                      fontWeight: FontWeight.w500,
-                      fontSize: 20,
-                      color: Colors.white),
-                  textAlign: TextAlign.center,
-                ),
-              ),
-            ),
-            Center(
-              child: Column(
-                verticalDirection: VerticalDirection.up,
-                children: <Widget>[
-                  Padding(
-                    padding: EdgeInsets.only(
-                        bottom: size.getWidthPx(80),
-                        left: size.getWidthPx(30),
-                        right: size.getWidthPx(20)),
-                    child: Text(
-                      text,
-                      style: TextStyle(
-                          fontFamily: Constants.fontFamily,
-                          fontWeight: FontWeight.w500,
-                          fontSize: 16,
-                          color: Colors.white70),
-                      textAlign: TextAlign.justify,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: children,
         ),
       ),
     );

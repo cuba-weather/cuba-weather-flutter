@@ -1,42 +1,67 @@
-import 'dart:developer';
-
-import 'package:cuba_weather/src/pages/home_page.dart';
 import 'package:flutter/material.dart';
-import 'package:cuba_weather/src/utils/constants.dart';
 import 'package:cuba_weather/src/widgets/dots_indicator.dart';
-import 'package:cuba_weather/src/pages/intro_page.dart';
+import 'package:cuba_weather/src/pages/pages.dart';
 import 'package:cuba_weather/src/widgets/responsive_screen.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class OnBoardingPage extends StatefulWidget {
   final String initialMunicipality;
+
   OnBoardingPage({
     Key key,
     @required this.initialMunicipality,
   }) : super(key: key);
 
   @override
-  _OnBoardingPageState createState() => _OnBoardingPageState();
+  _OnBoardingPageState createState() => _OnBoardingPageState(
+        initialMunicipality: initialMunicipality,
+      );
 }
 
 class _OnBoardingPageState extends State<OnBoardingPage> {
   final _controller = PageController();
-  bool leadingVisibility = false;
+  final String initialMunicipality;
   ResponsiveScreen size;
-
-  final List<Widget> _pages = [
-    IntroPage("images/logo.png", "",
-        "Cuba Weather es un proyecto pionero en Cuba de código abierto, multiplataforma y sin ánimo de lucro, cuyo objetivo es brindar a los residentes en Cuba una manera cómoda de acceder a información meteorológica obtenida de fuentes nacionales utilizando solo navegación nacional (por ejemplo, el bono de 300 megabytes nacionales de los paquetes de datos)."),
-    IntroPage("images/logo.png", "Estado actual",
-        "Visualización de los valores actuales las principales variables meteorológicas."),
-    IntroPage("images/logo.png", "Pronósticos",
-        "Pronósticos extendidos para los próximos 5 días"),
-    IntroPage("images/logo.png", "Alertas",
-        "Proximamente...\n\nAvisos Especiales y Notas Informativas."),
-    IntroPage("images/logo.png", "Noticias",
-        "Proximamente...\n\nNoticias del acontecer meteorológico en Cuba y el resto mundo."),
-  ];
   int currentPageIndex = 0;
+  List<Widget> _pages;
+
+  _OnBoardingPageState({
+    @required this.initialMunicipality,
+  }) {
+    _pages = [
+      IntroPage(
+        "images/image5.png",
+        "Cuba Weather",
+        "Es un proyecto pionero en Cuba de código abierto, multiplataforma y "
+            "sin ánimo de lucro.",
+        initialMunicipality,
+        false,
+      ),
+      IntroPage(
+        "images/image3.png",
+        "Los objetivos son",
+        "Brindar a los residentes en Cuba una manera cómoda de acceder a "
+            "información meteorológica utilizando solo navegación nacional.",
+        initialMunicipality,
+        false,
+      ),
+      IntroPage(
+        "images/image1.png",
+        "Mostramos información",
+        "De las principales variables meteorológicas como la temperatura"
+            ", la presión atmosférica, la humedad, etc.",
+        initialMunicipality,
+        false,
+      ),
+      IntroPage(
+        "images/image4.png",
+        "Pronósticos oficiales",
+        "Para los próximos días, perpéctivas del tiempo, estado de los mares, "
+            "etc obtenidos del Instituto de Meteorología de Cuba.",
+        initialMunicipality,
+        true,
+      ),
+    ];
+  }
 
   @override
   void initState() {
@@ -46,7 +71,6 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
   @override
   Widget build(BuildContext context) {
     size = ResponsiveScreen(MediaQuery.of(context).size);
-    bool isLastPage = currentPageIndex == _pages.length - 1;
     return Scaffold(
         backgroundColor: Colors.transparent,
         body: SafeArea(
@@ -55,8 +79,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
           child: Stack(
             children: <Widget>[
               pageViewFillWidget(),
-              appBarWithButton(isLastPage, context),
-              bottomDotsWidget()
+              bottomDotsWidget(),
             ],
           ),
         ));
@@ -64,86 +87,20 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
 
   Positioned bottomDotsWidget() {
     return Positioned(
-        bottom: size.getWidthPx(20),
-        left: 0.0,
-        right: 0.0,
-        child: DotsIndicator(
-          controller: _controller,
-          itemCount: _pages.length,
-          color: Constants.clr_gradient_max,
-          onPageSelected: (int page) {
-            _controller.animateToPage(
-              page,
-              duration: const Duration(milliseconds: 300),
-              curve: Curves.ease,
-            );
-          },
-        ));
-  }
-
-  Positioned appBarWithButton(bool isLastPage, BuildContext context) {
-    return Positioned(
-      top: 0.0,
-      left: 0.0,
-      right: 0.0,
-      child: new SafeArea(
-        child: AppBar(
-          backgroundColor: Colors.transparent,
-          elevation: 0.0,
-          primary: false,
-          centerTitle: true,
-          leading: Visibility(
-              visible: leadingVisibility,
-              child: IconButton(
-                icon: const Icon(Icons.arrow_back),
-                onPressed: () {
-                  _controller.animateToPage(currentPageIndex - 1,
-                      duration: Duration(milliseconds: 300),
-                      curve: Curves.easeOut);
-                },
-              )),
-          actions: <Widget>[
-            Padding(
-              padding: EdgeInsets.only(
-                  top: size.getWidthPx(16),
-                  right: size.getWidthPx(12),
-                  bottom: size.getWidthPx(12)),
-              child: RaisedButton(
-                child: Text(
-                  isLastPage ? 'LISTO' : 'SIGUIENTE',
-                  style: TextStyle(
-                      fontFamily: Constants.fontFamily,
-                      fontWeight: FontWeight.w500,
-                      fontSize: 14,
-                      color: Colors.grey.shade700),
-                ),
-                onPressed: isLastPage
-                    ? () async {
-                        // Last Page Done Click
-                        try {
-                          var prefs = await SharedPreferences.getInstance();
-                          await prefs.setString(Constants.isOnBoard, "1");
-                        } catch (e) {
-                          log(e.toString());
-                        }
-                        Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => HomePage(
-                                    initialMunicipality:
-                                        widget.initialMunicipality)));
-                      }
-                    : () {
-                        _controller.animateToPage(currentPageIndex + 1,
-                            duration: Duration(milliseconds: 300),
-                            curve: Curves.easeIn);
-                      },
-                shape: new RoundedRectangleBorder(
-                    borderRadius: new BorderRadius.circular(30.0)),
-              ),
-            )
-          ],
-        ),
+      bottom: size.getWidthPx(20),
+      left: 0,
+      right: 0,
+      child: DotsIndicator(
+        controller: _controller,
+        itemCount: _pages.length,
+        color: Colors.white,
+        onPageSelected: (int page) {
+          _controller.animateToPage(
+            page,
+            duration: const Duration(milliseconds: 300),
+            curve: Curves.ease,
+          );
+        },
       ),
     );
   }
@@ -159,11 +116,6 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
       onPageChanged: (int p) {
         setState(() {
           currentPageIndex = p;
-          if (currentPageIndex == 0) {
-            leadingVisibility = false;
-          } else {
-            leadingVisibility = true;
-          }
         });
       },
     ));
