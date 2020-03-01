@@ -5,7 +5,7 @@ class MarineForecastModel {
   String validSince;
   String validUntil;
   String significantSituation;
-  List<String> authors = new List<String>();
+  List<String> authors = List<String>();
   String dataSource;
   String areaGulfOfMexico;
   String areaRest;
