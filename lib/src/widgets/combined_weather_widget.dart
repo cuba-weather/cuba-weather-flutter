@@ -12,7 +12,7 @@ class CombinedWeatherWidget extends StatelessWidget {
         super(key: key);
 
   @override
-  Widget build(BuildContext context) {    
+  Widget build(BuildContext context) {
     return Column(
       children: [
         DividerWidget(),
