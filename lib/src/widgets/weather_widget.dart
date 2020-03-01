@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:getflutter/getflutter.dart';
 import 'package:package_info/package_info.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:share/share.dart';
 
@@ -33,7 +34,7 @@ class WeatherWidget extends StatefulWidget {
 }
 
 class _WeatherWidgetState extends State<WeatherWidget> {
-  final String initialMunicipality;
+  String initialMunicipality;
   final List<String> municipalities;
   Completer<void> _refreshCompleter;
   String appName = '';
@@ -62,6 +63,12 @@ class _WeatherWidgetState extends State<WeatherWidget> {
       appName = packageInfo.appName;
       version = packageInfo.version;
     });
+    try {
+      var prefs = await SharedPreferences.getInstance();
+      this.initialMunicipality = prefs.getString(Constants.municipality);
+    } catch (e) {
+      log(e.toString());
+    }
   }
 
   @override

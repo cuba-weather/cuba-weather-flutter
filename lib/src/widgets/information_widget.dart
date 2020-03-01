@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'dart:ui';
 
+import 'package:cuba_weather/src/utils/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
@@ -69,7 +70,7 @@ class InformationWidgetState extends State<InformationWidget> {
                   ),
                   Center(
                     child: Image.asset(
-                      'images/logo.png',
+                      Constants.appLogo,
                       width: 180,
                     ),
                   ),

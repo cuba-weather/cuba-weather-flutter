@@ -29,7 +29,7 @@ class _MarineForecastPageState extends State<MarineForecastPage> {
 
   Future<void> setValueShowImage(bool newValue) async {
     var prefs = await SharedPreferences.getInstance();
-    prefs.setBool('showImageForecastPage', newValue);
+    prefs.setBool(Constants.showImageForecastPage, newValue);
   }
 
   @override

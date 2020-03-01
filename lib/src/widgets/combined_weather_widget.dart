@@ -5,9 +5,8 @@ import 'package:cuba_weather/src/widgets/widgets.dart';
 
 class CombinedWeatherWidget extends StatelessWidget {
   final WeatherModel weather;
-  final forecasts = new List<WeatherForecastModel>();
 
-  CombinedWeatherWidget({Key key, @required this.weather, forecasts})
+  CombinedWeatherWidget({Key key, @required this.weather})
       : assert(weather != null),
         super(key: key);
 

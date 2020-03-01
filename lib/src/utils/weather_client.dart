@@ -15,7 +15,7 @@ class WeatherClient {
 
     forecast.authors = new List<String>();
     try {
-      var url = Constants.insmetUrlTodayForecst;
+      var url = Constants.insmetUrlTodayForecast;
 
       var response = await client.get(url);
 
@@ -82,7 +82,7 @@ class WeatherClient {
     var forecast = new ForecastModel();
     forecast.authors = new List<String>();
     try {
-      var url = Constants.insmetUrlTomorrowForecst;
+      var url = Constants.insmetUrlTomorrowForecast;
       var response = await client.get(url);
 
       if (response.statusCode != 200) {
@@ -232,7 +232,7 @@ class WeatherClient {
         "PRONÓSTICO HIDROMETEOROLÓGICO MARINO PARA LOS MARES ADYACENTES A CUBA";
 
     try {
-      var url = Constants.insmetUrlMarineForecst;
+      var url = Constants.insmetUrlMarineForecast;
       var response = await client.get(url);
 
       if (response.statusCode != 200) {
