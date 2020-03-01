@@ -20,11 +20,10 @@ class Constants {
   //INSMET Urls
   static final String insmetURL = 'http://www.insmet.cu';
   static final String insmetUrlAuthorsImg = 'http://www.insmet.cu/Imagenes/Meteorologos/';
-  static final String insmetUrlTodayForecst = 'http://www.insmet.cu/asp/link.asp?PRONOSTICO';
-  static final String insmetUrlTomorrowForecst = 'http://www.insmet.cu/asp/genesis.asp?TB0=PLANTILLAS&TB1=PTM&TB2=/Pronostico/Ptm.txt';
+  static final String insmetUrlTodayForecast = 'http://www.insmet.cu/asp/link.asp?PRONOSTICO';
+  static final String insmetUrlTomorrowForecast = 'http://www.insmet.cu/asp/genesis.asp?TB0=PLANTILLAS&TB1=PTM&TB2=/Pronostico/Ptm.txt';
   static final String insmetUrlPerspectives = 'http://www.insmet.cu/asp/genesis.asp?TB0=PLANTILLAS&TB1=PERSPECTIVASTT';
-  static final String insmetUrlMarineForecst = 'http://www.insmet.cu/asp/genesis.asp?TB0=PLANTILLAS&TB1=MAR&TB2=/Pronostico/Marady.txt';
-
+  static final String insmetUrlMarineForecast = 'http://www.insmet.cu/asp/genesis.asp?TB0=PLANTILLAS&TB1=MAR&TB2=/Pronostico/Marady.txt';
 
   //colors
   static const Color clr_gradient_min = const Color(0xFF64B5F6);
@@ -33,6 +32,5 @@ class Constants {
   //SharedPreferences
   static String isOnBoard = 'isOnboard';
   static String municipality = 'municipality';
-  static String municipality2 = 'municipality2';
   static String showImageForecastPage = 'showImageForecastPage';
 }
