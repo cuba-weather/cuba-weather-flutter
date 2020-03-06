@@ -5,10 +5,12 @@ import 'package:cuba_weather/src/widgets/responsive_screen.dart';
 
 class OnBoardingPage extends StatefulWidget {
   final String initialMunicipality;
+  final bool darkMode;
 
   OnBoardingPage({
     Key key,
     @required this.initialMunicipality,
+    @required this.darkMode,
   }) : super(key: key);
 
   @override
@@ -35,6 +37,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
             "sin ánimo de lucro.",
         initialMunicipality,
         false,
+        widget.darkMode
       ),
       IntroPage(
         "images/image3.png",
@@ -43,6 +46,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
             "información meteorológica utilizando solo navegación nacional.",
         initialMunicipality,
         false,
+        widget.darkMode
       ),
       IntroPage(
         "images/image1.png",
@@ -51,6 +55,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
             ", la presión atmosférica, la humedad, etc.",
         initialMunicipality,
         false,
+        widget.darkMode
       ),
       IntroPage(
         "images/image4.png",
@@ -59,6 +64,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
             "etc obtenidos del Instituto de Meteorología de Cuba.",
         initialMunicipality,
         true,
+        widget.darkMode
       ),
     ];
   }

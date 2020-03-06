@@ -15,7 +15,6 @@ class DonorsListWidgetState extends State<DonorsListWidget> {
         title: Text('Donantes'),
       ),
       body: GradientContainerWidget(
-        color: Colors.blue,
         child: ListView(
           children: <Widget>[
             DonorWidget(),

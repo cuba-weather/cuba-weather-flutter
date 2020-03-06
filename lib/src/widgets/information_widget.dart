@@ -40,7 +40,6 @@ class InformationWidgetState extends State<InformationWidget> {
         title: Text('Información'),
       ),
       body: GradientContainerWidget(
-        color: Colors.blue,
         child: ListView(
           children: <Widget>[
             Container(
