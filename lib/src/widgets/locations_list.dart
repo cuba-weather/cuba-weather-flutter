@@ -48,7 +48,6 @@ class MunicipalityListState extends State<MunicipalityList> {
         ],
       ),
       body: GradientContainerWidget(
-        color: Colors.blue,
         child: ListView.separated(
           itemBuilder: (context, index) {
             var p = 10.0;

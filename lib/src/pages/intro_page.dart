@@ -14,6 +14,7 @@ class IntroPage extends StatelessWidget {
   final String title;
   final String initialMunicipality;
   final bool isLast;
+  final bool darkMode;
 
   IntroPage(
     this.assetImage,
@@ -21,6 +22,7 @@ class IntroPage extends StatelessWidget {
     this.text,
     this.initialMunicipality,
     this.isLast,
+    this.darkMode,
   );
 
   @override
@@ -91,6 +93,7 @@ class IntroPage extends StatelessWidget {
                   MaterialPageRoute(
                     builder: (context) => HomePage(
                       initialMunicipality: initialMunicipality,
+                      darkMode: darkMode,
                     ),
                   ),
                 );
@@ -101,7 +104,6 @@ class IntroPage extends StatelessWidget {
 
     return SafeArea(
       child: GradientContainerWidget(
-        color: Colors.blue,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: children,

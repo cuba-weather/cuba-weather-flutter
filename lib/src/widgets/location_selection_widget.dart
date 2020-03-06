@@ -59,7 +59,6 @@ class _MunicipalitySelectionWidgetState
         ],
       ),
       body: GradientContainerWidget(
-        color: Colors.blue,
         child: Column(
           children: [
             Row(
