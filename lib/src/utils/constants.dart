@@ -1,6 +1,5 @@
-import 'package:flutter/material.dart';
 class Constants {
-  //errors
+  // Errors
   static final String errorMessage = 'Ha ocurrido un error';
   static final String errorMessageBadRequestException = 'No se ha podido establecer conexión con la red nacional. Por favor, revise su conexión y vuelva a intentarlo.';
   static final String errorMessageParseException = 'La fuente de datos a cambiado el formato. Espere una nueva actualización de la aplicación para adaptarse a este.';
@@ -12,12 +11,12 @@ class Constants {
   static final String authorsPlaceHolderImageAssetURL = 'images/no-image.png';
   static final String loadingPlaceholder = 'images/loading.gif';
   static final String locale = "es_ES";
-  //static final String fontFamily = "Exo2";
+  // static final String fontFamily = "Exo2";
   static final String fontFamily = "GoogleSans";
 
   static final String insmetForecastSource = 'www.insmet.cu';
 
-  //INSMET Urls
+  // INSMET Urls
   static final String insmetURL = 'http://www.insmet.cu';
   static final String insmetUrlAuthorsImg = 'http://www.insmet.cu/Imagenes/Meteorologos/';
   static final String insmetUrlTodayForecast = 'http://www.insmet.cu/asp/link.asp?PRONOSTICO';
@@ -25,11 +24,7 @@ class Constants {
   static final String insmetUrlPerspectives = 'http://www.insmet.cu/asp/genesis.asp?TB0=PLANTILLAS&TB1=PERSPECTIVASTT';
   static final String insmetUrlMarineForecast = 'http://www.insmet.cu/asp/genesis.asp?TB0=PLANTILLAS&TB1=MAR&TB2=/Pronostico/Marady.txt';
 
-  //colors
-  static const Color clr_gradient_min = const Color(0xFF64B5F6);
-  static const Color clr_gradient_max = const Color(0xFF1976D2);
-
-  //SharedPreferences
+  // SharedPreferences
   static String isOnBoard = 'isOnboard';
   static String municipality = 'municipality';
   static String showImageForecastPage = 'showImageForecastPage';

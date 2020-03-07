@@ -1,9 +1,6 @@
 import 'dart:async';
 import 'dart:developer';
 
-import 'package:cuba_weather/src/pages/preferences_page.dart';
-import 'package:cuba_weather/src/utils/app_state_notifier.dart';
-import 'package:cuba_weather/src/utils/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -15,9 +12,9 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:share/share.dart';
 
 import 'package:cuba_weather/src/blocs/blocs.dart';
-import 'package:cuba_weather/src/widgets/widgets.dart';
 import 'package:cuba_weather/src/pages/pages.dart';
-import 'package:cuba_weather/src/utils/constants.dart';
+import 'package:cuba_weather/src/utils/utils.dart';
+import 'package:cuba_weather/src/widgets/widgets.dart';
 
 class WeatherWidget extends StatefulWidget {
   final String initialMunicipality;
@@ -251,7 +248,7 @@ class _WeatherWidgetState extends State<WeatherWidget> {
                     onTap: () async {
                       var fbProtocolUrl = 'fb://page/113097883578567';
                       var fallbackUrl =
-                          "https://www.facebook.com/cubaweatherapp";
+                          'https://www.facebook.com/cubaweatherapp';
                       try {
                         await launch(fbProtocolUrl, forceSafariVC: false);
                       } catch (e) {

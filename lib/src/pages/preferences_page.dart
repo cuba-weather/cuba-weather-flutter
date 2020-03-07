@@ -1,12 +1,9 @@
-import 'package:cuba_weather/src/utils/app_theme.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:preferences/preferences.dart';
 
-import 'package:cuba_weather/src/utils/constants.dart';
-
-import 'package:cuba_weather/src/utils/app_state_notifier.dart';
+import 'package:cuba_weather/src/utils/utils.dart';
 
 class PreferencesPage extends StatefulWidget {
   PreferencesPage({Key key}) : super(key: key);

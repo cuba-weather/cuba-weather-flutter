@@ -1,17 +1,13 @@
 import 'dart:async';
 import 'dart:developer';
 
-import 'package:cuba_weather/src/utils/app_state_notifier.dart';
-import 'package:cuba_weather/src/utils/app_theme.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'package:cuba_weather/src/pages/home_page.dart';
 import 'package:cuba_weather/src/pages/pages.dart';
-import 'package:cuba_weather/src/utils/constants.dart';
+import 'package:cuba_weather/src/utils/utils.dart';
 import 'package:cuba_weather/src/widgets/widgets.dart';
-import 'package:cuba_weather/src/widgets/responsive_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   static const String routeName = 'splash';
