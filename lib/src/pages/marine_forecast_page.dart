@@ -8,11 +8,13 @@ import 'package:shared_preferences/shared_preferences.dart';
 class MarineForecastPage extends StatefulWidget {
   final String forecastType;
   final String pageTitle;
+  final bool darkMode;
 
   MarineForecastPage({
     Key key,
     @required this.forecastType,
     @required this.pageTitle,
+    @required this.darkMode,
   })  : assert(forecastType != null),
         super(key: key);
 
@@ -72,7 +74,7 @@ class _MarineForecastPageState extends State<MarineForecastPage> {
                   margin: EdgeInsets.all(10),
                   child: Icon(
                     Icons.error_outline,
-                    color: Colors.blue,
+                    color: widget.darkMode ? Colors.white : Colors.blue,
                     size: 150,
                   ),
                 ),
@@ -80,7 +82,7 @@ class _MarineForecastPageState extends State<MarineForecastPage> {
                   Constants.errorMessage,
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    color: Colors.blue,
+                    color: widget.darkMode ? Colors.white : Colors.blue,
                     fontWeight: FontWeight.bold,
                     fontSize: 30,
                   ),
@@ -93,7 +95,7 @@ class _MarineForecastPageState extends State<MarineForecastPage> {
                       errorMessage,
                       textAlign: TextAlign.justify,
                       style: TextStyle(
-                        color: Colors.blue,
+                        color: widget.darkMode ? Colors.white : Colors.blue,
                         fontWeight: FontWeight.w600,
                         fontSize: 20,
                       ),
@@ -123,21 +125,21 @@ class _MarineForecastPageState extends State<MarineForecastPage> {
                                   _forecast.centerName,
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
-                                    color: Colors.blue,
+                                    color: widget.darkMode ? Colors.white : Colors.blue,
                                   ),
                                 ),
                                 Text(
                                   _forecast.forecastName,
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
-                                    color: Colors.blue,
+                                    color: widget.darkMode ? Colors.white : Colors.blue,
                                   ),
                                 ),
                                 Text(
                                   _forecast.forecastDate,
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
-                                    color: Colors.blue,
+                                    color: widget.darkMode ? Colors.white : Colors.blue,
                                   ),
                                 ),
                                 Padding(
@@ -157,7 +159,7 @@ class _MarineForecastPageState extends State<MarineForecastPage> {
                                   'SITUACIÓN METEOROLÓGICA SIGNIFICATIVA:',
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
-                                    color: Colors.blue,
+                                    color: widget.darkMode ? Colors.white : Colors.blue,
                                   ),
                                 ),
                                 Divider(),
@@ -165,7 +167,7 @@ class _MarineForecastPageState extends State<MarineForecastPage> {
                                   _forecast.significantSituation,
                                   textAlign: TextAlign.justify,
                                   style: TextStyle(
-                                    color: Colors.blue,
+                                    color: widget.darkMode ? Colors.white : Colors.blue,
                                   ),
                                 ),
                               ],
@@ -185,7 +187,7 @@ class _MarineForecastPageState extends State<MarineForecastPage> {
                                   'GOLFO DE MÉXICO:',
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
-                                    color: Colors.blue,
+                                    color: widget.darkMode ? Colors.white : Colors.blue,
                                   ),
                                 ),
                                 Divider(),
@@ -193,7 +195,7 @@ class _MarineForecastPageState extends State<MarineForecastPage> {
                                   _forecast.areaGulfOfMexico,
                                   textAlign: TextAlign.justify,
                                   style: TextStyle(
-                                    color: Colors.blue,
+                                    color: widget.darkMode ? Colors.white : Colors.blue,
                                   ),
                                 ),
                               ],
@@ -213,7 +215,7 @@ class _MarineForecastPageState extends State<MarineForecastPage> {
                                   'PUERTO RICO Y LA FLORIDA HASTA LAS BERMUDAS:',
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
-                                    color: Colors.blue,
+                                    color: widget.darkMode ? Colors.white : Colors.blue,
                                   ),
                                 ),
                                 Divider(),
@@ -221,7 +223,7 @@ class _MarineForecastPageState extends State<MarineForecastPage> {
                                   _forecast.areaRest,
                                   textAlign: TextAlign.justify,
                                   style: TextStyle(
-                                    color: Colors.blue,
+                                    color: widget.darkMode ? Colors.white : Colors.blue,
                                   ),
                                 ),
                               ],
@@ -243,7 +245,7 @@ class _MarineForecastPageState extends State<MarineForecastPage> {
                                   'Autores',
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
-                                    color: Colors.blue,
+                                    color: widget.darkMode ? Colors.white : Colors.blue,
                                   ),
                                 ),
                               ),
@@ -297,7 +299,7 @@ class _MarineForecastPageState extends State<MarineForecastPage> {
                       _forecast.authors[0],
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        color: Colors.blue,
+                        color: widget.darkMode ? Colors.white : Colors.blue,
                       ),
                     ),
                   ),
@@ -319,7 +321,7 @@ class _MarineForecastPageState extends State<MarineForecastPage> {
                       _forecast.authors[1],
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        color: Colors.blue,
+                        color: widget.darkMode ? Colors.white : Colors.blue,
                       ),
                     ),
                   ),
