@@ -1,22 +1,22 @@
 import 'dart:developer';
 
-import 'package:cuba_weather/src/utils/app_state_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:cuba_weather/src/blocs/blocs.dart';
 import 'package:cuba_weather/src/widgets/weather_widget.dart';
 import 'package:cuba_weather_municipality_dart/cuba_weather_municipality_dart.dart';
 import 'package:cuba_weather_dart/cuba_weather_dart.dart';
-import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
   final String initialMunicipality;
   final bool darkMode;
+
   HomePage({
     Key key,
     @required this.initialMunicipality,
     @required this.darkMode,
   }) : super(key: key);
+
   @override
   _HomePageState createState() => _HomePageState();
 }

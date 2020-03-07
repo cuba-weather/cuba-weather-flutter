@@ -13,10 +13,7 @@ class GradientContainerWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Brightness brightnessValue =
-        MediaQuery.of(context).platformBrightness;
-    bool isDarkSystem = brightnessValue == Brightness.dark;
-    if (Provider.of<AppStateNotifier>(context).isDarkModeOn || isDarkSystem) {
+    if (Provider.of<AppStateNotifier>(context).isDarkModeOn) {
       return Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
@@ -25,8 +22,8 @@ class GradientContainerWidget extends StatelessWidget {
             stops: [0.6, 0.8, 1.0],
             colors: [
               Colors.black,
-              Colors.grey[850],
-              Colors.grey[800],
+              Colors.black,
+              Colors.black,
             ],
           ),
         ),
@@ -41,8 +38,8 @@ class GradientContainerWidget extends StatelessWidget {
             stops: [0.6, 0.8, 1.0],
             colors: [
               Colors.blue[700],
-              Colors.blue[500],
-              Colors.blue[300],
+              Colors.blue[700],
+              Colors.blue[700],
             ],
           ),
         ),

@@ -1,14 +1,15 @@
 import 'dart:async';
 import 'dart:developer';
+
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:cuba_weather/src/pages/home_page.dart';
 import 'package:cuba_weather/src/pages/pages.dart';
 import 'package:cuba_weather/src/utils/constants.dart';
 import 'package:cuba_weather/src/widgets/widgets.dart';
 import 'package:cuba_weather/src/widgets/responsive_screen.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashScreen extends StatefulWidget {
   static const String routeName = 'splash';
@@ -42,14 +43,17 @@ class _SplashScreenState extends State<SplashScreen> {
       SystemChrome.setSystemUIOverlayStyle(
         SystemUiOverlayStyle.dark.copyWith(
           systemNavigationBarIconBrightness: Brightness.light,
-          systemNavigationBarColor: Colors.grey[800],
+          systemNavigationBarColor: Colors.black,
         ),
       );
     } else {
       SystemChrome.setSystemUIOverlayStyle(
         SystemUiOverlayStyle.light.copyWith(
+          statusBarColor: Colors.blue[700],
+          statusBarBrightness: Brightness.light,
+          statusBarIconBrightness: Brightness.light,
           systemNavigationBarIconBrightness: Brightness.dark,
-          systemNavigationBarColor: Colors.blue[300],
+          systemNavigationBarColor: Colors.blue[700],
         ),
       );
     }
@@ -96,27 +100,26 @@ class _SplashScreenState extends State<SplashScreen> {
     bool isOnBoard = false;
     try {
       var prefs = await SharedPreferences.getInstance();
-      isOnBoard = prefs.getBool(Constants.isOnBoard);
+      isOnBoard = prefs.getBool(Constants.isOnBoard) ?? false;
     } catch (e) {
       log(e.toString());
     }
-    print("isOnBoard  $isOnBoard");
-    if (isOnBoard == null || !isOnBoard) {
-      //Navigate to OnBoarding Screen.
+    if (isOnBoard) {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => OnBoardingPage(
+          builder: (context) => HomePage(
             initialMunicipality: widget.initialMunicipality,
             darkMode: widget.darkMode,
           ),
         ),
       );
     } else {
+      //Navigate to OnBoarding Screen.
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => HomePage(
+          builder: (context) => OnBoardingPage(
             initialMunicipality: widget.initialMunicipality,
             darkMode: widget.darkMode,
           ),

@@ -16,56 +16,55 @@ class OnBoardingPage extends StatefulWidget {
   @override
   _OnBoardingPageState createState() => _OnBoardingPageState(
         initialMunicipality: initialMunicipality,
+        darkMode: darkMode,
       );
 }
 
 class _OnBoardingPageState extends State<OnBoardingPage> {
   final _controller = PageController();
   final String initialMunicipality;
+  final bool darkMode;
   ResponsiveScreen size;
   int currentPageIndex = 0;
   List<Widget> _pages;
 
   _OnBoardingPageState({
     @required this.initialMunicipality,
+    @required this.darkMode,
   }) {
     _pages = [
       IntroPage(
-        "images/image5.png",
-        "Cuba Weather",
-        "Es un proyecto pionero en Cuba de código abierto, multiplataforma y "
-            "sin ánimo de lucro.",
-        initialMunicipality,
-        false,
-        widget.darkMode
-      ),
+          "images/image5.png",
+          "Cuba Weather",
+          "Es un proyecto pionero en Cuba de código abierto, multiplataforma y "
+              "sin ánimo de lucro.",
+          initialMunicipality,
+          false,
+          darkMode),
       IntroPage(
-        "images/image3.png",
-        "Los objetivos son",
-        "Brindar a los residentes en Cuba una manera cómoda de acceder a "
-            "información meteorológica utilizando solo navegación nacional.",
-        initialMunicipality,
-        false,
-        widget.darkMode
-      ),
+          "images/image3.png",
+          "Los objetivos son",
+          "Brindar a los residentes en Cuba una manera cómoda de acceder a "
+              "información meteorológica utilizando solo navegación nacional.",
+          initialMunicipality,
+          false,
+          darkMode),
       IntroPage(
-        "images/image1.png",
-        "Mostramos información",
-        "De las principales variables meteorológicas como la temperatura"
-            ", la presión atmosférica, la humedad, etc.",
-        initialMunicipality,
-        false,
-        widget.darkMode
-      ),
+          "images/image1.png",
+          "Mostramos información",
+          "De las principales variables meteorológicas como la temperatura"
+              ", la presión atmosférica, la humedad, etc.",
+          initialMunicipality,
+          false,
+          darkMode),
       IntroPage(
-        "images/image4.png",
-        "Pronósticos oficiales",
-        "Para los próximos días, perpéctivas del tiempo, estado de los mares, "
-            "etc obtenidos del Instituto de Meteorología de Cuba.",
-        initialMunicipality,
-        true,
-        widget.darkMode
-      ),
+          "images/image4.png",
+          "Pronósticos oficiales",
+          "Para los próximos días, perpéctivas del tiempo, estado de los mares, "
+              "etc obtenidos del Instituto de Meteorología de Cuba.",
+          initialMunicipality,
+          true,
+          darkMode),
     ];
   }
 

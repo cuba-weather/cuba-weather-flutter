@@ -1,10 +1,11 @@
-import 'package:cuba_weather/src/pages/pages.dart';
-import 'package:cuba_weather/src/utils/app_state_notifier.dart';
-import 'package:cuba_weather/src/utils/app_theme.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+
+import 'package:cuba_weather/src/pages/pages.dart';
+import 'package:cuba_weather/src/utils/app_state_notifier.dart';
+import 'package:cuba_weather/src/utils/app_theme.dart';
 
 class App extends StatelessWidget {
   final String initialMunicipality;
@@ -24,7 +25,7 @@ class App extends StatelessWidget {
       SystemChrome.setSystemUIOverlayStyle(
         SystemUiOverlayStyle.dark.copyWith(
           systemNavigationBarIconBrightness: Brightness.light,
-          systemNavigationBarColor: Colors.grey[800],
+          systemNavigationBarColor: Colors.black,
         ),
       );
     } else {
@@ -34,7 +35,7 @@ class App extends StatelessWidget {
           statusBarBrightness: Brightness.light,
           statusBarIconBrightness: Brightness.light,
           systemNavigationBarIconBrightness: Brightness.dark,
-          systemNavigationBarColor: Colors.blue[300],
+          systemNavigationBarColor: Colors.blue[700],
         ),
       );
     }
