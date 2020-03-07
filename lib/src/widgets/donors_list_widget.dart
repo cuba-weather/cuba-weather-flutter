@@ -1,11 +1,10 @@
-import 'package:cuba_weather/src/widgets/widgets.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class DonorsListWidget extends StatefulWidget {
-  final bool darkMode;
+import 'package:cuba_weather/src/widgets/widgets.dart';
 
-  const DonorsListWidget(this.darkMode);
+class DonorsListWidget extends StatefulWidget {
+  const DonorsListWidget();
 
   @override
   State<StatefulWidget> createState() => DonorsListWidgetState();
@@ -21,7 +20,7 @@ class DonorsListWidgetState extends State<DonorsListWidget> {
       body: GradientContainerWidget(
         child: ListView(
           children: <Widget>[
-            DonorWidget(widget.darkMode),
+            DonorWidget(),
             Padding(padding: EdgeInsets.only(bottom: 20)),
             Center(
               child: Text(

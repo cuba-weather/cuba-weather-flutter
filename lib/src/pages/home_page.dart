@@ -2,19 +2,17 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:cuba_weather/src/blocs/blocs.dart';
-import 'package:cuba_weather/src/widgets/weather_widget.dart';
-import 'package:cuba_weather_municipality_dart/cuba_weather_municipality_dart.dart';
+import 'package:cuba_weather/src/widgets/widgets.dart';
 import 'package:cuba_weather_dart/cuba_weather_dart.dart';
 
 class HomePage extends StatefulWidget {
   final String initialMunicipality;
-  final bool darkMode;
 
   HomePage({
     Key key,
     @required this.initialMunicipality,
-    @required this.darkMode,
   }) : super(key: key);
 
   @override
@@ -22,7 +20,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-
   @override
   void initState() {
     super.initState();
@@ -47,7 +44,6 @@ class _HomePageState extends State<HomePage> {
       child: WeatherWidget(
         municipalities: _municipalities,
         initialMunicipality: widget.initialMunicipality,
-        darkMode: widget.darkMode,
       ),
     );
   }

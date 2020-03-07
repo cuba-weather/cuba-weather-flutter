@@ -1,12 +1,12 @@
 import 'dart:developer';
 
+import 'package:flutter/material.dart';
+import 'package:getflutter/getflutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
 import 'package:cuba_weather/src/pages/pages.dart';
 import 'package:cuba_weather/src/utils/constants.dart';
 import 'package:cuba_weather/src/widgets/widgets.dart';
-import 'package:flutter/material.dart';
-import 'package:cuba_weather/src/widgets/responsive_screen.dart';
-import 'package:getflutter/getflutter.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class IntroPage extends StatelessWidget {
   final String assetImage;
@@ -14,7 +14,6 @@ class IntroPage extends StatelessWidget {
   final String title;
   final String initialMunicipality;
   final bool isLast;
-  final bool darkMode;
 
   IntroPage(
     this.assetImage,
@@ -22,7 +21,6 @@ class IntroPage extends StatelessWidget {
     this.text,
     this.initialMunicipality,
     this.isLast,
-    this.darkMode,
   );
 
   @override
@@ -93,7 +91,6 @@ class IntroPage extends StatelessWidget {
                   MaterialPageRoute(
                     builder: (context) => HomePage(
                       initialMunicipality: initialMunicipality,
-                      darkMode: darkMode,
                     ),
                   ),
                 );

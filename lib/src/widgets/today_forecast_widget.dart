@@ -1,5 +1,4 @@
 import 'package:cuba_weather_dart/cuba_weather_dart.dart';
-import 'package:cuba_weather_insmet_dart/cuba_weather_insmet_dart.dart' as aux;
 import 'package:flutter/material.dart';
 import 'package:weather_icons/weather_icons.dart';
 
@@ -152,41 +151,41 @@ class TodayForecastWidget extends StatelessWidget {
     );
   }
 
-  String _weatherIconCodeByState(aux.State state, DateTime dateTime) {
+  String _weatherIconCodeByState(InsmetState state, DateTime dateTime) {
     bool itsDay = dateTime.hour > 6 && dateTime.hour < 19;
     String result = '';
     switch (state) {
-      case aux.State.OccasionalShowers:
+      case InsmetState.OccasionalShowers:
         result = itsDay ? 'wi-day-rain' : 'wi-night-alt-rain';
         break;
-      case aux.State.ScatteredShowers:
+      case InsmetState.ScatteredShowers:
         result = itsDay ? 'wi-rain' : 'wi-rain';
         break;
-      case aux.State.IsolatedShowers:
+      case InsmetState.IsolatedShowers:
         result = itsDay ? 'wi-day-rain' : 'wi-night-alt-rain';
         break;
-      case aux.State.AfternoonShowers:
+      case InsmetState.AfternoonShowers:
         result = itsDay ? 'wi-showers' : 'wi-showers';
         break;
-      case aux.State.RainShowers:
+      case InsmetState.RainShowers:
         result = itsDay ? 'wi-showers' : 'wi-night-alt-showers';
         break;
-      case aux.State.PartlyCloudy:
+      case InsmetState.PartlyCloudy:
         result = itsDay ? 'wi-day-cloudy' : 'wi-night-alt-cloudy';
         break;
-      case aux.State.Cloudy:
+      case InsmetState.Cloudy:
         result = 'wi-cloudy';
         break;
-      case aux.State.Sunny:
+      case InsmetState.Sunny:
         result = 'wi-day-sunny';
         break;
-      case aux.State.Storms:
+      case InsmetState.Storms:
         result = itsDay ? 'wi-day-thunderstorm' : 'wi-night-alt-thunderstorm';
         break;
-      case aux.State.AfternoonStorms:
+      case InsmetState.AfternoonStorms:
         result = 'wi-thunderstorm';
         break;
-      case aux.State.MorningScatteredShowers:
+      case InsmetState.MorningScatteredShowers:
         result = 'wi-rain';
         break;
       default:

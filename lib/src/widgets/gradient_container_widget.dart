@@ -38,8 +38,8 @@ class GradientContainerWidget extends StatelessWidget {
             stops: [0.6, 0.8, 1.0],
             colors: [
               Colors.blue[700],
-              Colors.blue[700],
-              Colors.blue[700],
+              Colors.blue[500],
+              Colors.blue[300],
             ],
           ),
         ),

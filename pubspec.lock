@@ -56,28 +56,7 @@ packages:
       name: cuba_weather_dart
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.5.1"
-  cuba_weather_insmet_dart:
-    dependency: transitive
-    description:
-      name: cuba_weather_insmet_dart
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.2.2"
-  cuba_weather_municipality_dart:
-    dependency: transitive
-    description:
-      name: cuba_weather_municipality_dart
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.1.3"
-  cuba_weather_redcuba_dart:
-    dependency: transitive
-    description:
-      name: cuba_weather_redcuba_dart
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.3.1"
+    version: "3.0.3"
   cupertino_icons:
     dependency: "direct main"
     description:

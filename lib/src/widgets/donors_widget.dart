@@ -1,27 +1,23 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:cuba_weather/src/models/models.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class DonorWidget extends StatelessWidget {
-  final bool darkMode;
+import 'package:cuba_weather/src/models/models.dart';
+import 'package:cuba_weather/src/utils/utils.dart';
 
-  const DonorWidget(this.darkMode);
+class DonorWidget extends StatelessWidget {
+  const DonorWidget();
 
   @override
   Widget build(BuildContext context) {
-    return ListPage(darkMode: darkMode);
+    return ListPage();
   }
 }
 
 class ListPage extends StatefulWidget {
-  bool darkMode;
-
-  ListPage({Key key, bool darkMode}) : super(key: key) {
-    this.darkMode = darkMode;
-  }
+  ListPage({Key key}) : super(key: key);
 
   @override
   _ListPageState createState() => _ListPageState();
@@ -38,10 +34,11 @@ class _ListPageState extends State<ListPage> {
 
   @override
   Widget build(BuildContext context) {
+    var darkMode = Provider.of<AppStateNotifier>(context).isDarkModeOn;
     Widget makeTrailing(Donor donor) {
       return donor.url != null
           ? Icon(getSocialIcon(donor.url),
-              color: widget.darkMode ? Colors.white : Colors.blue)
+              color: darkMode ? Colors.white : Colors.blue)
           : Container();
     }
 
@@ -50,7 +47,7 @@ class _ListPageState extends State<ListPage> {
           title: Text(
             donor.name,
             style: TextStyle(
-              color: widget.darkMode ? Colors.white : Colors.blue,
+              color: darkMode ? Colors.white : Colors.blue,
               fontWeight: FontWeight.bold,
               fontSize: 20,
             ),
@@ -58,7 +55,7 @@ class _ListPageState extends State<ListPage> {
           subtitle: Text(
             donor.value,
             style: TextStyle(
-              color: widget.darkMode ? Colors.white : Colors.blue,
+              color: darkMode ? Colors.white : Colors.blue,
               fontWeight: FontWeight.normal,
               fontSize: 15,
             ),

@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'dart:developer';
 
+import 'package:cuba_weather/src/utils/app_state_notifier.dart';
+import 'package:cuba_weather/src/utils/app_theme.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -14,12 +16,10 @@ import 'package:cuba_weather/src/widgets/responsive_screen.dart';
 class SplashScreen extends StatefulWidget {
   static const String routeName = 'splash';
   final String initialMunicipality;
-  final bool darkMode;
 
   SplashScreen({
     Key key,
     @required this.initialMunicipality,
-    @required this.darkMode,
   }) : super(key: key);
 
   @override
@@ -39,23 +39,11 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.darkMode) {
-      SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle.dark.copyWith(
-          systemNavigationBarIconBrightness: Brightness.light,
-          systemNavigationBarColor: Colors.black,
-        ),
-      );
+    var darkMode = Provider.of<AppStateNotifier>(context).isDarkModeOn;
+    if (darkMode) {
+      SystemChrome.setSystemUIOverlayStyle(AppTheme.darkOverlayStyle);
     } else {
-      SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle.light.copyWith(
-          statusBarColor: Colors.blue[700],
-          statusBarBrightness: Brightness.light,
-          statusBarIconBrightness: Brightness.light,
-          systemNavigationBarIconBrightness: Brightness.dark,
-          systemNavigationBarColor: Colors.blue[700],
-        ),
-      );
+      SystemChrome.setSystemUIOverlayStyle(AppTheme.lightOverlayStyle);
     }
     size = ResponsiveScreen(MediaQuery.of(context).size);
     return Scaffold(
@@ -110,7 +98,6 @@ class _SplashScreenState extends State<SplashScreen> {
         MaterialPageRoute(
           builder: (context) => HomePage(
             initialMunicipality: widget.initialMunicipality,
-            darkMode: widget.darkMode,
           ),
         ),
       );
@@ -121,7 +108,6 @@ class _SplashScreenState extends State<SplashScreen> {
         MaterialPageRoute(
           builder: (context) => OnBoardingPage(
             initialMunicipality: widget.initialMunicipality,
-            darkMode: widget.darkMode,
           ),
         ),
       );
