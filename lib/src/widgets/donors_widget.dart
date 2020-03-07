@@ -6,14 +6,22 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class DonorWidget extends StatelessWidget {
+  final bool darkMode;
+
+  const DonorWidget(this.darkMode);
+
   @override
   Widget build(BuildContext context) {
-    return ListPage();
+    return ListPage(darkMode: darkMode);
   }
 }
 
 class ListPage extends StatefulWidget {
-  ListPage({Key key}) : super(key: key);
+  bool darkMode;
+
+  ListPage({Key key, bool darkMode}) : super(key: key) {
+    this.darkMode = darkMode;
+  }
 
   @override
   _ListPageState createState() => _ListPageState();
@@ -32,7 +40,8 @@ class _ListPageState extends State<ListPage> {
   Widget build(BuildContext context) {
     Widget makeTrailing(Donor donor) {
       return donor.url != null
-          ? Icon(getSocialIcon(donor.url), color: Colors.blue)
+          ? Icon(getSocialIcon(donor.url),
+              color: widget.darkMode ? Colors.white : Colors.blue)
           : Container();
     }
 
@@ -41,7 +50,7 @@ class _ListPageState extends State<ListPage> {
           title: Text(
             donor.name,
             style: TextStyle(
-              color: Colors.blue,
+              color: widget.darkMode ? Colors.white : Colors.blue,
               fontWeight: FontWeight.bold,
               fontSize: 20,
             ),
@@ -49,7 +58,7 @@ class _ListPageState extends State<ListPage> {
           subtitle: Text(
             donor.value,
             style: TextStyle(
-              color: Colors.blue,
+              color: widget.darkMode ? Colors.white : Colors.blue,
               fontWeight: FontWeight.normal,
               fontSize: 15,
             ),

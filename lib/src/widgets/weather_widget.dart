@@ -33,9 +33,9 @@ class WeatherWidget extends StatefulWidget {
 
   @override
   State<WeatherWidget> createState() => _WeatherWidgetState(
-        municipalities: this.municipalities,
-        initialMunicipality: this.initialMunicipality,
-        darkMode: this.darkMode,
+        municipalities: municipalities,
+        initialMunicipality: initialMunicipality,
+        darkMode: darkMode,
       );
 }
 
@@ -43,7 +43,7 @@ class _WeatherWidgetState extends State<WeatherWidget> {
   SystemUiOverlayStyle _currentStyle = SystemUiOverlayStyle.light;
   String initialMunicipality;
   bool darkMode;
-  final List<String> municipalities;
+  List<String> municipalities;
   Completer<void> _refreshCompleter;
   String appName = '';
   String version = '';
@@ -58,9 +58,9 @@ class _WeatherWidgetState extends State<WeatherWidget> {
   void initState() {
     super.initState();
     _refreshCompleter = Completer<void>();
-    if (this.initialMunicipality != null) {
+    if (initialMunicipality != null) {
       BlocProvider.of<WeatherBloc>(context).add(FetchWeather(
-        municipality: this.initialMunicipality,
+        municipality: initialMunicipality,
       ));
     }
     start();
@@ -69,7 +69,7 @@ class _WeatherWidgetState extends State<WeatherWidget> {
   Future<void> setValueDarkMode(bool newValue) async {
     var prefs = await SharedPreferences.getInstance();
     prefs.setBool(Constants.darkMode, newValue);
-    this.darkMode = newValue;
+    darkMode = newValue;
   }
 
   void start() async {
@@ -80,7 +80,7 @@ class _WeatherWidgetState extends State<WeatherWidget> {
     });
     try {
       var prefs = await SharedPreferences.getInstance();
-      this.initialMunicipality = prefs.getString(Constants.municipality);
+      initialMunicipality = prefs.getString(Constants.municipality);
     } catch (e) {
       log(e.toString());
     }
@@ -92,14 +92,14 @@ class _WeatherWidgetState extends State<WeatherWidget> {
       SystemChrome.setSystemUIOverlayStyle(
         SystemUiOverlayStyle.dark.copyWith(
           systemNavigationBarIconBrightness: Brightness.light,
-          systemNavigationBarColor: Colors.grey[800],
+          systemNavigationBarColor: Colors.black,
         ),
       );
     } else {
       SystemChrome.setSystemUIOverlayStyle(
         SystemUiOverlayStyle.light.copyWith(
           systemNavigationBarIconBrightness: Brightness.dark,
-          systemNavigationBarColor: Colors.blue[300],
+          systemNavigationBarColor: Colors.blue[700],
         ),
       );
     }
@@ -129,6 +129,7 @@ class _WeatherWidgetState extends State<WeatherWidget> {
                           builder: (context) => ForecastPage(
                             forecastType: 'today',
                             pageTitle: 'Pronóstico para hoy',
+                            darkMode: darkMode,
                           ),
                         ),
                       );
@@ -147,6 +148,7 @@ class _WeatherWidgetState extends State<WeatherWidget> {
                                 builder: (context) => ForecastPage(
                                   forecastType: 'tomorrow',
                                   pageTitle: 'Pronóstico para mañana',
+                                  darkMode: darkMode,
                                 ),
                               ),
                             );
@@ -170,6 +172,7 @@ class _WeatherWidgetState extends State<WeatherWidget> {
                           builder: (context) => ForecastPage(
                             forecastType: 'perspectives',
                             pageTitle: 'Perspectivas del Tiempo',
+                            darkMode: darkMode,
                           ),
                         ),
                       );
@@ -192,6 +195,7 @@ class _WeatherWidgetState extends State<WeatherWidget> {
                           builder: (context) => MarineForecastPage(
                             forecastType: 'marine',
                             pageTitle: 'Pronóstico marino',
+                            darkMode: darkMode,
                           ),
                         ),
                       );
@@ -236,7 +240,7 @@ class _WeatherWidgetState extends State<WeatherWidget> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => InformationWidget(),
+                      builder: (context) => InformationWidget(darkMode),
                     ),
                   );
                 },
@@ -250,7 +254,7 @@ class _WeatherWidgetState extends State<WeatherWidget> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => DonateWidget(),
+                      builder: (context) => DonateWidget(darkMode),
                     ),
                   );
                 },
@@ -264,7 +268,7 @@ class _WeatherWidgetState extends State<WeatherWidget> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => DonorsListWidget(),
+                      builder: (context) => DonorsListWidget(darkMode),
                     ),
                   );
                 },
@@ -389,6 +393,7 @@ class _WeatherWidgetState extends State<WeatherWidget> {
           actions: <Widget>[
             Switch(
               value: Provider.of<AppStateNotifier>(context).isDarkModeOn,
+              activeColor: Colors.white,
               onChanged: (boolVal) {
                 Provider.of<AppStateNotifier>(context, listen: false)
                     .updateTheme(boolVal);
@@ -396,12 +401,15 @@ class _WeatherWidgetState extends State<WeatherWidget> {
                   if (boolVal) {
                     _currentStyle = SystemUiOverlayStyle.dark.copyWith(
                       systemNavigationBarIconBrightness: Brightness.light,
-                      systemNavigationBarColor: Colors.grey[800],
+                      systemNavigationBarColor: Colors.black,
                     );
                   } else {
                     _currentStyle = SystemUiOverlayStyle.light.copyWith(
+                      statusBarColor: Colors.blue[700],
+                      statusBarBrightness: Brightness.light,
+                      statusBarIconBrightness: Brightness.light,
                       systemNavigationBarIconBrightness: Brightness.dark,
-                      systemNavigationBarColor: Colors.blue[300],
+                      systemNavigationBarColor: Colors.blue[700],
                     );
                   }
                   setValueDarkMode(boolVal);
@@ -465,9 +473,11 @@ class _WeatherWidgetState extends State<WeatherWidget> {
                                     horizontal: 20,
                                     vertical: 10,
                                   ),
-                                  child: CircularProgressIndicator(
-                                    backgroundColor: Colors.white,
-                                  ),
+                                  child: darkMode
+                                      ? CircularProgressIndicator()
+                                      : CircularProgressIndicator(
+                                          backgroundColor: Colors.white,
+                                        ),
                                 ),
                               ],
                             ),
@@ -568,7 +578,9 @@ class _WeatherWidgetState extends State<WeatherWidget> {
                               'encuentra realmente.',
                               textAlign: TextAlign.left,
                               style: TextStyle(
-                                color: Colors.blue,
+                                color: darkMode
+                                    ? Colors.white
+                                    : Colors.blue,
                                 fontWeight: FontWeight.w600,
                                 fontSize: 15,
                               ),
@@ -582,9 +594,11 @@ class _WeatherWidgetState extends State<WeatherWidget> {
                 if (state is WeatherLoading) {
                   return GradientContainerWidget(
                     child: Center(
-                      child: CircularProgressIndicator(
-                        backgroundColor: Colors.white,
-                      ),
+                      child: darkMode
+                          ? CircularProgressIndicator()
+                          : CircularProgressIndicator(
+                              backgroundColor: Colors.white,
+                            ),
                     ),
                   );
                 }
@@ -648,7 +662,9 @@ class _WeatherWidgetState extends State<WeatherWidget> {
                               state.errorMessage,
                               textAlign: TextAlign.left,
                               style: TextStyle(
-                                color: Colors.blue,
+                                color: darkMode
+                                    ? Colors.white
+                                    : Colors.blue,
                                 fontWeight: FontWeight.w600,
                                 fontSize: 16,
                               ),

@@ -3,6 +3,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class DonorsListWidget extends StatefulWidget {
+  final bool darkMode;
+
+  const DonorsListWidget(this.darkMode);
+
   @override
   State<StatefulWidget> createState() => DonorsListWidgetState();
 }
@@ -17,7 +21,7 @@ class DonorsListWidgetState extends State<DonorsListWidget> {
       body: GradientContainerWidget(
         child: ListView(
           children: <Widget>[
-            DonorWidget(),
+            DonorWidget(widget.darkMode),
             Padding(padding: EdgeInsets.only(bottom: 20)),
             Center(
               child: Text(
