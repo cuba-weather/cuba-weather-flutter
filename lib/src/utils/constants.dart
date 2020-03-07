@@ -33,5 +33,5 @@ class Constants {
   static String isOnBoard = 'isOnboard';
   static String municipality = 'municipality';
   static String showImageForecastPage = 'showImageForecastPage';
-  static String darkMode = 'darkMode';
+  static String themeMode = 'themeMode';
 }

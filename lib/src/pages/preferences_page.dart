@@ -1,3 +1,4 @@
+import 'package:cuba_weather/src/utils/app_theme.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -5,35 +6,25 @@ import 'package:preferences/preferences.dart';
 
 import 'package:cuba_weather/src/utils/constants.dart';
 
-import '../utils/app_state_notifier.dart';
+import 'package:cuba_weather/src/utils/app_state_notifier.dart';
 
-class PreferencesPage extends StatelessWidget {
-  final bool darkMode;
+class PreferencesPage extends StatefulWidget {
+  PreferencesPage({Key key}) : super(key: key);
 
-  PreferencesPage({
-    Key key,
-    @required this.darkMode,
-  }) : super(key: key);
+  @override
+  State<PreferencesPage> createState() => PreferencesPageState();
+}
+
+class PreferencesPageState extends State<PreferencesPage> {
+  PreferencesPageState();
 
   @override
   Widget build(BuildContext context) {
+    var darkMode = Provider.of<AppStateNotifier>(context).isDarkModeOn;
     if (darkMode) {
-      SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle.dark.copyWith(
-          systemNavigationBarIconBrightness: Brightness.light,
-          systemNavigationBarColor: Colors.grey[800],
-        ),
-      );
+      SystemChrome.setSystemUIOverlayStyle(AppTheme.darkOverlayStyle);
     } else {
-      SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle.light.copyWith(
-          statusBarColor: Colors.blue[700],
-          statusBarBrightness: Brightness.light,
-          statusBarIconBrightness: Brightness.light,
-          systemNavigationBarIconBrightness: Brightness.dark,
-          systemNavigationBarColor: Colors.blue[300],
-        ),
-      );
+      SystemChrome.setSystemUIOverlayStyle(AppTheme.lightOverlayStyle);
     }
     return Scaffold(
       appBar: AppBar(
@@ -41,20 +32,47 @@ class PreferencesPage extends StatelessWidget {
       ),
       body: PreferencePage([
         PreferenceTitle('Personalización'),
-        SwitchPreference(
-          'Tema oscuro',
-          Constants.darkMode,
-          defaultVal: Provider.of<AppStateNotifier>(context).isDarkModeOn,
-          onEnable: () {
-            Provider.of<AppStateNotifier>(context, listen: false)
-                .updateTheme(true);
-          },
-          onDisable: () {
-            Provider.of<AppStateNotifier>(context, listen: false)
-                .updateTheme(false);
-          },
+        PreferenceDialogLink(
+          'Tema',
+          dialog: PreferenceDialog(
+            [
+              RadioPreference(
+                'Claro',
+                'light',
+                Constants.themeMode,
+                onSelect: () {
+                  updateTheme("light");
+                },
+              ),
+              RadioPreference(
+                'Oscuro',
+                'dark',
+                Constants.themeMode,
+                onSelect: () {
+                  updateTheme("dark");
+                },
+              ),
+              RadioPreference(
+                'Sistema',
+                'system',
+                Constants.themeMode,
+                onSelect: () {
+                  updateTheme("system");
+                },
+              ),
+            ],
+            title: 'Tema',
+            cancelText: 'Atrás',
+          ),
         ),
       ]),
     );
+  }
+
+  void updateTheme(String themeMode) {
+    var window = WidgetsBinding.instance.window;
+    var isDarkSystem = window.platformBrightness == Brightness.dark;
+    var _new = themeMode == 'system' ? isDarkSystem : themeMode == 'dark';
+    Provider.of<AppStateNotifier>(context, listen: false).updateTheme(_new);
   }
 }

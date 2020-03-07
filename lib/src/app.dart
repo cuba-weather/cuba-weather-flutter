@@ -10,34 +10,20 @@ import 'package:cuba_weather/src/utils/app_theme.dart';
 class App extends StatelessWidget {
   final String initialMunicipality;
   final String appName;
-  final bool darkMode;
 
   App({
     Key key,
     @required this.initialMunicipality,
     @required this.appName,
-    @required this.darkMode,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    var darkMode = Provider.of<AppStateNotifier>(context).isDarkModeOn;
     if (darkMode) {
-      SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle.dark.copyWith(
-          systemNavigationBarIconBrightness: Brightness.light,
-          systemNavigationBarColor: Colors.black,
-        ),
-      );
+      SystemChrome.setSystemUIOverlayStyle(AppTheme.darkOverlayStyle);
     } else {
-      SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle.light.copyWith(
-          statusBarColor: Colors.blue[700],
-          statusBarBrightness: Brightness.light,
-          statusBarIconBrightness: Brightness.light,
-          systemNavigationBarIconBrightness: Brightness.dark,
-          systemNavigationBarColor: Colors.blue[700],
-        ),
-      );
+      SystemChrome.setSystemUIOverlayStyle(AppTheme.lightOverlayStyle);
     }
     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
     return Consumer<AppStateNotifier>(
@@ -52,7 +38,6 @@ class App extends StatelessWidget {
           routes: {
             'splash': (BuildContext context) => SplashScreen(
                   initialMunicipality: initialMunicipality,
-                  darkMode: appState.isDarkModeOn,
                 ),
           },
         );
