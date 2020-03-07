@@ -28,39 +28,30 @@ class PreferencesPageState extends State<PreferencesPage> {
         title: Text('Configuración'),
       ),
       body: PreferencePage([
-        PreferenceTitle('Personalización'),
-        PreferenceDialogLink(
-          'Tema',
-          dialog: PreferenceDialog(
-            [
-              RadioPreference(
-                'Claro',
-                'light',
-                Constants.themeMode,
-                onSelect: () {
-                  updateTheme("light");
-                },
-              ),
-              RadioPreference(
-                'Oscuro',
-                'dark',
-                Constants.themeMode,
-                onSelect: () {
-                  updateTheme("dark");
-                },
-              ),
-              RadioPreference(
-                'Sistema',
-                'system',
-                Constants.themeMode,
-                onSelect: () {
-                  updateTheme("system");
-                },
-              ),
-            ],
-            title: 'Tema',
-            cancelText: 'Atrás',
-          ),
+        PreferenceTitle('Tema'),
+        RadioPreference(
+          'Claro',
+          'light',
+          Constants.themeMode,
+          onSelect: () {
+            updateTheme("light");
+          },
+        ),
+        RadioPreference(
+          'Oscuro',
+          'dark',
+          Constants.themeMode,
+          onSelect: () {
+            updateTheme("dark");
+          },
+        ),
+        RadioPreference(
+          'Sistema',
+          'system',
+          Constants.themeMode,
+          onSelect: () {
+            updateTheme("system");
+          },
         ),
       ]),
     );
