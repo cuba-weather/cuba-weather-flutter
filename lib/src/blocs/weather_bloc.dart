@@ -8,7 +8,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:meta/meta.dart';
 import 'package:bloc/bloc.dart';
 import 'package:cuba_weather_dart/cuba_weather_dart.dart';
-import 'package:cuba_weather_municipality_dart/cuba_weather_municipality_dart.dart';
+import 'package:cuba_weather_dart/src/data_providers/municipalities.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:cuba_weather/src/blocs/blocs.dart';
