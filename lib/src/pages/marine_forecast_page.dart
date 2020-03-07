@@ -125,27 +125,21 @@ class _MarineForecastPageState extends State<MarineForecastPage> {
                                   _forecast.centerName,
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
-                                    color: widget.darkMode
-                                        ? Colors.white
-                                        : Colors.blue,
+                                    color: widget.darkMode ? Colors.white : Colors.blue,
                                   ),
                                 ),
                                 Text(
                                   _forecast.forecastName,
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
-                                    color: widget.darkMode
-                                        ? Colors.white
-                                        : Colors.blue,
+                                    color: widget.darkMode ? Colors.white : Colors.blue,
                                   ),
                                 ),
                                 Text(
                                   _forecast.forecastDate,
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
-                                    color: widget.darkMode
-                                        ? Colors.white
-                                        : Colors.blue,
+                                    color: widget.darkMode ? Colors.white : Colors.blue,
                                   ),
                                 ),
                                 Padding(
@@ -165,9 +159,7 @@ class _MarineForecastPageState extends State<MarineForecastPage> {
                                   'SITUACIÓN METEOROLÓGICA SIGNIFICATIVA:',
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
-                                    color: widget.darkMode
-                                        ? Colors.white
-                                        : Colors.blue,
+                                    color: widget.darkMode ? Colors.white : Colors.blue,
                                   ),
                                 ),
                                 Divider(),
@@ -175,9 +167,7 @@ class _MarineForecastPageState extends State<MarineForecastPage> {
                                   _forecast.significantSituation,
                                   textAlign: TextAlign.justify,
                                   style: TextStyle(
-                                    color: widget.darkMode
-                                        ? Colors.white
-                                        : Colors.blue,
+                                    color: widget.darkMode ? Colors.white : Colors.blue,
                                   ),
                                 ),
                               ],
@@ -197,9 +187,7 @@ class _MarineForecastPageState extends State<MarineForecastPage> {
                                   'GOLFO DE MÉXICO:',
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
-                                    color: widget.darkMode
-                                        ? Colors.white
-                                        : Colors.blue,
+                                    color: widget.darkMode ? Colors.white : Colors.blue,
                                   ),
                                 ),
                                 Divider(),
@@ -207,9 +195,7 @@ class _MarineForecastPageState extends State<MarineForecastPage> {
                                   _forecast.areaGulfOfMexico,
                                   textAlign: TextAlign.justify,
                                   style: TextStyle(
-                                    color: widget.darkMode
-                                        ? Colors.white
-                                        : Colors.blue,
+                                    color: widget.darkMode ? Colors.white : Colors.blue,
                                   ),
                                 ),
                               ],
@@ -229,9 +215,7 @@ class _MarineForecastPageState extends State<MarineForecastPage> {
                                   'PUERTO RICO Y LA FLORIDA HASTA LAS BERMUDAS:',
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
-                                    color: widget.darkMode
-                                        ? Colors.white
-                                        : Colors.blue,
+                                    color: widget.darkMode ? Colors.white : Colors.blue,
                                   ),
                                 ),
                                 Divider(),
@@ -239,9 +223,7 @@ class _MarineForecastPageState extends State<MarineForecastPage> {
                                   _forecast.areaRest,
                                   textAlign: TextAlign.justify,
                                   style: TextStyle(
-                                    color: widget.darkMode
-                                        ? Colors.white
-                                        : Colors.blue,
+                                    color: widget.darkMode ? Colors.white : Colors.blue,
                                   ),
                                 ),
                               ],
@@ -263,9 +245,7 @@ class _MarineForecastPageState extends State<MarineForecastPage> {
                                   'Autores',
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
-                                    color: widget.darkMode
-                                        ? Colors.white
-                                        : Colors.blue,
+                                    color: widget.darkMode ? Colors.white : Colors.blue,
                                   ),
                                 ),
                               ),

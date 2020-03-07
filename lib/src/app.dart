@@ -52,7 +52,7 @@ class App extends StatelessWidget {
           routes: {
             'splash': (BuildContext context) => SplashScreen(
                   initialMunicipality: initialMunicipality,
-                  darkMode: darkMode,
+                  darkMode: appState.isDarkModeOn,
                 ),
           },
         );

@@ -171,27 +171,21 @@ class _ForecastPageState extends State<ForecastPage> {
                                   _forecast.centerName,
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
-                                    color: widget.darkMode
-                                        ? Colors.white
-                                        : Colors.blue,
+                                    color: widget.darkMode ? Colors.white : Colors.blue,
                                   ),
                                 ),
                                 Text(
                                   _forecast.forecastName,
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
-                                    color: widget.darkMode
-                                        ? Colors.white
-                                        : Colors.blue,
+                                    color: widget.darkMode ? Colors.white : Colors.blue,
                                   ),
                                 ),
                                 Text(
                                   _forecast.forecastDate,
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
-                                    color: widget.darkMode
-                                        ? Colors.white
-                                        : Colors.blue,
+                                    color: widget.darkMode ? Colors.white : Colors.blue,
                                   ),
                                 ),
                                 Padding(
@@ -217,9 +211,7 @@ class _ForecastPageState extends State<ForecastPage> {
                                   _forecast.forecastText,
                                   textAlign: TextAlign.justify,
                                   style: TextStyle(
-                                    color: widget.darkMode
-                                        ? Colors.white
-                                        : Colors.blue,
+                                    color: widget.darkMode ? Colors.white : Colors.blue,
                                   ),
                                 ),
                               ],
@@ -238,9 +230,7 @@ class _ForecastPageState extends State<ForecastPage> {
                                   'Autores',
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
-                                    color: widget.darkMode
-                                        ? Colors.white
-                                        : Colors.blue,
+                                    color: widget.darkMode ? Colors.white : Colors.blue,
                                   ),
                                 ),
                               ),
@@ -273,9 +263,7 @@ class _ForecastPageState extends State<ForecastPage> {
                                 children: <Widget>[
                                   Text('Mostrar imagen',
                                       style: TextStyle(
-                                        color: widget.darkMode
-                                            ? Colors.white
-                                            : Colors.blue,
+                                        color: widget.darkMode ? Colors.white : Colors.blue,
                                       )),
                                   Switch(
                                     value: showImage,
@@ -284,12 +272,8 @@ class _ForecastPageState extends State<ForecastPage> {
                                         setValueShowImage(value);
                                       });
                                     },
-                                    activeTrackColor: widget.darkMode
-                                        ? Colors.white
-                                        : Colors.lightBlueAccent,
-                                    activeColor: widget.darkMode
-                                        ? Colors.white
-                                        : Colors.blue,
+                                    activeTrackColor: widget.darkMode ? Colors.white : Colors.lightBlueAccent,
+                                    activeColor: widget.darkMode ? Colors.white : Colors.blue,
                                   ),
                                 ],
                               )

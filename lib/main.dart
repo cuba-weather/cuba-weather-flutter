@@ -22,11 +22,14 @@ void main() async {
     log(e.toString());
     darkMode = false;
   }
+
   await PrefService.init();
+
   var window = WidgetsBinding.instance.window;
   bool isDarkSystem = window.platformBrightness == Brightness.dark;
   darkMode = darkMode || isDarkSystem;
   prefs.setBool(Constants.darkMode, darkMode);
+
   runApp(
     ChangeNotifierProvider<AppStateNotifier>(
       create: (context) => AppStateNotifier(isDarkModeOn: darkMode),
