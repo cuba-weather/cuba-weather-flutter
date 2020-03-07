@@ -13,6 +13,10 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:cuba_weather/src/widgets/widgets.dart';
 
 class InformationWidget extends StatefulWidget {
+  final bool darkMode;
+
+  const InformationWidget(this.darkMode);
+
   @override
   State<StatefulWidget> createState() => InformationWidgetState();
 }
@@ -94,7 +98,9 @@ class InformationWidgetState extends State<InformationWidget> {
                     'Para situaciones de tiempo peligrosas consultar las '
                     'fuentes oficiales de información.',
                     style: TextStyle(
-                      color: Colors.blue,
+                      color: widget.darkMode
+                          ? Colors.white
+                          : Colors.blue,
                       fontWeight: FontWeight.bold,
                     ),
                     textAlign: TextAlign.left,

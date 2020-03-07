@@ -1,36 +1,36 @@
 import 'dart:developer';
+import 'dart:ui';
 
-import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
 import 'package:cuba_weather/src/app.dart';
 import 'package:cuba_weather/src/utils/constants.dart';
 import 'package:cuba_weather/src/utils/app_state_notifier.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  String _initialMunicipality;
-  bool _darkMode;
+  String initialMunicipality;
+  bool darkMode = false;
+  var prefs = await SharedPreferences.getInstance();
   try {
-    var prefs = await SharedPreferences.getInstance();
-    _initialMunicipality = prefs.getString(Constants.municipality);
-    try {
-      _darkMode = prefs.getBool(Constants.darkMode) ?? false;
-      print("_darkMode = " + _darkMode.toString());
-    } catch (e) {
-      log(e.toString());
-    }
+    initialMunicipality = prefs.getString(Constants.municipality);
+    darkMode = prefs.getBool(Constants.darkMode) ?? false;
   } catch (e) {
     log(e.toString());
+    darkMode = false;
   }
-  runApp(
-    ChangeNotifierProvider<AppStateNotifier>(
-      create: (context) => AppStateNotifier(isDarkModeOn: _darkMode),
-      child: App(
-        initialMunicipality: _initialMunicipality,
-        appName: Constants.appName,
-        darkMode: _darkMode,
-      ),
+  var window = WidgetsBinding.instance.window;
+  bool isDarkSystem = window.platformBrightness == Brightness.dark;
+  darkMode = darkMode || isDarkSystem;
+  prefs.setBool(Constants.darkMode, darkMode);
+  runApp(ChangeNotifierProvider<AppStateNotifier>(
+    create: (context) => AppStateNotifier(isDarkModeOn: darkMode),
+    child: App(
+      initialMunicipality: initialMunicipality,
+      appName: Constants.appName,
+      darkMode: darkMode,
     ),
-  );
+  ));
 }
