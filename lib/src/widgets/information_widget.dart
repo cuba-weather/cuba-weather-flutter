@@ -1,8 +1,6 @@
 import 'dart:developer';
 import 'dart:ui';
 
-import 'package:cuba_weather/src/utils/app_state_notifier.dart';
-import 'package:cuba_weather/src/utils/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
@@ -11,6 +9,7 @@ import 'package:getflutter/getflutter.dart';
 import 'package:package_info/package_info.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import 'package:cuba_weather/src/utils/utils.dart';
 import 'package:cuba_weather/src/widgets/widgets.dart';
 
 class InformationWidget extends StatefulWidget {

@@ -4,8 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 import 'package:cuba_weather/src/pages/pages.dart';
-import 'package:cuba_weather/src/utils/app_state_notifier.dart';
-import 'package:cuba_weather/src/utils/app_theme.dart';
+import 'package:cuba_weather/src/utils/utils.dart';
 
 class App extends StatelessWidget {
   final String initialMunicipality;

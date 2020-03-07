@@ -1,11 +1,12 @@
 import 'dart:developer';
 import 'dart:io';
 
-import 'package:cuba_weather/src/models/models.dart';
-import 'package:cuba_weather/src/utils/constants.dart';
 import 'package:html/dom.dart';
 import 'package:http/http.dart';
 import 'package:html/parser.dart' show parse;
+
+import 'package:cuba_weather/src/utils/constants.dart';
+import 'package:cuba_weather/src/models/models.dart';
 
 class WeatherClient {
   Future<ForecastModel> todayForecast(BaseClient client) async {

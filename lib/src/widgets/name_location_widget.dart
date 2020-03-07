@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-
 class NameMunicipalityWidget extends StatelessWidget {
   final String municipality;
   final List<String> municipalities;

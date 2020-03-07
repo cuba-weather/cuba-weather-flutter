@@ -3,9 +3,10 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'package:cuba_weather_dart/cuba_weather_dart.dart';
+
 import 'package:cuba_weather/src/blocs/blocs.dart';
 import 'package:cuba_weather/src/widgets/widgets.dart';
-import 'package:cuba_weather_dart/cuba_weather_dart.dart';
 
 class HomePage extends StatefulWidget {
   final String initialMunicipality;

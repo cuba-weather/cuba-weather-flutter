@@ -1,6 +1,7 @@
-import 'package:cuba_weather_dart/cuba_weather_dart.dart';
 import 'package:flutter/material.dart';
 import 'package:weather_icons/weather_icons.dart';
+
+import 'package:cuba_weather_dart/cuba_weather_dart.dart';
 
 class TodayForecastWidget extends StatelessWidget {
   final WeatherModel weather;

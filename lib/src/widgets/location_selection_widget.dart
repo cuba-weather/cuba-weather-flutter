@@ -1,6 +1,7 @@
 import 'package:autocomplete_textfield/autocomplete_textfield.dart';
 import 'package:flutter/material.dart';
 
+import 'package:cuba_weather/src/utils/utils.dart';
 import 'package:cuba_weather/src/widgets/widgets.dart';
 
 class MunicipalitySelectionWidget extends StatefulWidget {
@@ -33,6 +34,7 @@ class _MunicipalitySelectionWidgetState
 
   @override
   Widget build(BuildContext context) {
+    var darkMode = Provider.of<AppStateNotifier>(context).isDarkModeOn;
     FocusScope.of(context).autofocus(focusNode);
     return Scaffold(
       appBar: AppBar(
@@ -65,7 +67,7 @@ class _MunicipalitySelectionWidgetState
               children: <Widget>[
                 Expanded(
                   child: Card(
-                    color: Colors.blue,
+                    color: darkMode ? Colors.black : Colors.blue,
                     child: Padding(
                       padding:
                           EdgeInsets.symmetric(vertical: 5, horizontal: 20),
