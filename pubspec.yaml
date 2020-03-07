@@ -28,6 +28,7 @@ dependencies:
   flutter_speed_dial: ^1.2.5
   geolocator: ^5.2.1
   intl:
+  preferences: ^5.1.0
 
 flutter:
 

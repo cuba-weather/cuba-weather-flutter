@@ -8,6 +8,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:cuba_weather/src/app.dart';
 import 'package:cuba_weather/src/utils/constants.dart';
 import 'package:cuba_weather/src/utils/app_state_notifier.dart';
+import 'package:preferences/preferences.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -21,16 +22,21 @@ void main() async {
     log(e.toString());
     darkMode = false;
   }
+
+  await PrefService.init();
+
   var window = WidgetsBinding.instance.window;
   bool isDarkSystem = window.platformBrightness == Brightness.dark;
   darkMode = darkMode || isDarkSystem;
   prefs.setBool(Constants.darkMode, darkMode);
-  runApp(ChangeNotifierProvider<AppStateNotifier>(
-    create: (context) => AppStateNotifier(isDarkModeOn: darkMode),
-    child: App(
-      initialMunicipality: initialMunicipality,
-      appName: Constants.appName,
-      darkMode: darkMode,
+
+  runApp(
+    ChangeNotifierProvider<AppStateNotifier>(
+      create: (context) => AppStateNotifier(isDarkModeOn: darkMode),
+      child: App(
+          initialMunicipality: initialMunicipality,
+          appName: Constants.appName,
+          darkMode: darkMode),
     ),
-  ));
+  );
 }
