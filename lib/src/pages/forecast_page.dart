@@ -306,7 +306,8 @@ class _ForecastPageState extends State<ForecastPage> {
                               meteorologistImg(_forecast.authors[0]) != null
                                   ? NetworkImage(
                                       meteorologistImg(_forecast.authors[0]))
-                                  : ExactAssetImage(Constants.authorsPlaceHolderImageAssetURL),
+                                  : ExactAssetImage(Constants
+                                      .authorsPlaceHolderImageAssetURL),
                           radius: 30.0,
                         )
                       : Container(),
@@ -331,7 +332,8 @@ class _ForecastPageState extends State<ForecastPage> {
                     backgroundImage: meteorologistImg(_forecast.authors[1]) !=
                             null
                         ? NetworkImage(meteorologistImg(_forecast.authors[1]))
-                        : ExactAssetImage(Constants.authorsPlaceHolderImageAssetURL),
+                        : ExactAssetImage(
+                            Constants.authorsPlaceHolderImageAssetURL),
                     radius: 30.0,
                   ),
                   Padding(
@@ -357,7 +359,8 @@ class _ForecastPageState extends State<ForecastPage> {
                     backgroundImage: meteorologistImg(_forecast.authors[1]) !=
                             null
                         ? NetworkImage(meteorologistImg(_forecast.authors[1]))
-                        : ExactAssetImage(Constants.authorsPlaceHolderImageAssetURL),
+                        : ExactAssetImage(
+                            Constants.authorsPlaceHolderImageAssetURL),
                     radius: 30.0,
                   ),
                   Padding(

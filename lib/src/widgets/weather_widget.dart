@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:developer';
 
+import 'package:cuba_weather/src/pages/preferences_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -247,31 +248,52 @@ class _WeatherWidgetState extends State<WeatherWidget> {
               ),
               _createDrawerItem(
                 context,
-                icon: FontAwesomeIcons.donate,
-                text: 'Donar',
+                icon: Icons.settings,
+                text: 'Configuración',
                 onTap: () {
                   Navigator.of(context).pop();
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => DonateWidget(darkMode),
+                      builder: (context) => PreferencesPage(
+                        darkMode: darkMode,
+                      ),
                     ),
                   );
                 },
               ),
-              _createDrawerItem(
-                context,
-                icon: Icons.card_giftcard,
-                text: 'Donantes',
-                onTap: () {
-                  Navigator.of(context).pop();
-                  Navigator.push(
+              ExpansionTile(
+                title: Text('Donaciones'),
+                children: <Widget>[
+                  _createDrawerItem(
                     context,
-                    MaterialPageRoute(
-                      builder: (context) => DonorsListWidget(darkMode),
-                    ),
-                  );
-                },
+                    icon: FontAwesomeIcons.donate,
+                    text: 'Donar',
+                    onTap: () {
+                      Navigator.of(context).pop();
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => DonateWidget(darkMode),
+                        ),
+                      );
+                    },
+                  ),
+                  _createDrawerItem(
+                    context,
+                    icon: Icons.card_giftcard,
+                    text: 'Donantes',
+                    onTap: () {
+                      Navigator.of(context).pop();
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => DonorsListWidget(darkMode),
+                        ),
+                      );
+                    },
+                  ),
+                ],
               ),
               _createDrawerItem(
                 context,
@@ -578,9 +600,7 @@ class _WeatherWidgetState extends State<WeatherWidget> {
                               'encuentra realmente.',
                               textAlign: TextAlign.left,
                               style: TextStyle(
-                                color: darkMode
-                                    ? Colors.white
-                                    : Colors.blue,
+                                color: darkMode ? Colors.white : Colors.blue,
                                 fontWeight: FontWeight.w600,
                                 fontSize: 15,
                               ),
@@ -662,9 +682,7 @@ class _WeatherWidgetState extends State<WeatherWidget> {
                               state.errorMessage,
                               textAlign: TextAlign.left,
                               style: TextStyle(
-                                color: darkMode
-                                    ? Colors.white
-                                    : Colors.blue,
+                                color: darkMode ? Colors.white : Colors.blue,
                                 fontWeight: FontWeight.w600,
                                 fontSize: 16,
                               ),
@@ -703,6 +721,23 @@ class _WeatherWidgetState extends State<WeatherWidget> {
         backgroundImage: ExactAssetImage(Constants.appLogo),
       ),
       otherAccountsPictures: <Widget>[
+        IconButton(
+          icon: Icon(
+            Icons.settings,
+            color: Colors.white,
+          ),
+          onPressed: () {
+            Navigator.of(context).pop();
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => PreferencesPage(
+                  darkMode: darkMode,
+                ),
+              ),
+            );
+          },
+        ),
         IconButton(
           icon: Icon(
             Icons.arrow_back,

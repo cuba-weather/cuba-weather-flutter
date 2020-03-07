@@ -98,9 +98,7 @@ class InformationWidgetState extends State<InformationWidget> {
                     'Para situaciones de tiempo peligrosas consultar las '
                     'fuentes oficiales de información.',
                     style: TextStyle(
-                      color: widget.darkMode
-                          ? Colors.white
-                          : Colors.blue,
+                      color: widget.darkMode ? Colors.white : Colors.blue,
                       fontWeight: FontWeight.bold,
                     ),
                     textAlign: TextAlign.left,
