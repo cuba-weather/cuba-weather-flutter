@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:cuba_weather_dart/cuba_weather_dart.dart';
-
+import 'package:cuba_weather/src/models/models.dart';
 import 'package:cuba_weather/src/widgets/widgets.dart';
 
 class CombinedWeatherWidget extends StatelessWidget {
@@ -20,8 +19,10 @@ class CombinedWeatherWidget extends StatelessWidget {
           margin: EdgeInsets.symmetric(horizontal: 30),
           child: ActualStateWidget(weather: weather),
         ),
-        DividerWidget(),
-        TodayForecastWidget(weather: weather),
+        weather.getForecasts() == null ? null : DividerWidget(),
+        weather.getForecasts() == null
+            ? null
+            : TodayForecastWidget(weather: weather),
         DividerWidget(),
         ForecastWidget(weather: weather),
       ],

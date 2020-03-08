@@ -11,6 +11,7 @@ import 'package:cuba_weather_dart/cuba_weather_dart.dart';
 
 import 'package:cuba_weather/src/blocs/blocs.dart';
 import 'package:cuba_weather/src/utils/constants.dart';
+import 'package:cuba_weather/src/models/models.dart' as models;
 
 class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
   final CubaWeather api;
@@ -31,7 +32,8 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
         log(e.toString());
       }
       try {
-        final weather = await api.get(event.municipality);
+        final _weather = await api.get(event.municipality);
+        var weather = models.WeatherModel.getModel(_weather);
         yield WeatherLoaded(weather: weather);
       } on SocketException catch (e) {
         log(e.toString());
@@ -46,7 +48,8 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
     }
     if (event is RefreshWeather) {
       try {
-        final weather = await api.get(event.municipality);
+        final _weather = await api.get(event.municipality);
+        var weather = models.WeatherModel.getModel(_weather);
         yield WeatherLoaded(weather: weather);
       } on SocketException catch (e) {
         log(e.toString());
@@ -134,7 +137,8 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
         } catch (e) {
           log(e.toString());
         }
-        final weather = await api.get(bestMunicipality.name);
+        final _weather = await api.get(bestMunicipality.name);
+        var weather = models.WeatherModel.getModel(_weather);
         yield WeatherLoaded(weather: weather);
       } catch (e) {
         log(e.toString());
