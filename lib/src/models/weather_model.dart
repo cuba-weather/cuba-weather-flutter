@@ -3,10 +3,7 @@ import 'package:cuba_weather_dart/cuba_weather_dart.dart' as cwd;
 class WeatherModel extends cwd.WeatherModel {
   getTodayForecast() {
     var now = DateTime.now();
-    if (forecasts[0].day == now.day) {
-      return forecasts[0];
-    }
-    return null;
+    return forecasts.firstWhere((x) => x.day == now.day, orElse: null);
   }
 
   getForecasts() {
