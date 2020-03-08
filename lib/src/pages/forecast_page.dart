@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'package:cuba_weather/src/models/models.dart';
+import 'package:cuba_weather_dart/cuba_weather_dart.dart';
+
 import 'package:cuba_weather/src/utils/utils.dart';
 
 class ForecastPage extends StatefulWidget {
@@ -21,7 +22,7 @@ class ForecastPage extends StatefulWidget {
 }
 
 class _ForecastPageState extends State<ForecastPage> {
-  ForecastModel _forecast;
+  InsmetForecastModel _forecast;
   var client = Client();
   bool showImage = false;
   bool error = false;
@@ -47,7 +48,7 @@ class _ForecastPageState extends State<ForecastPage> {
     if (_forecast == null && !error) {
       switch (widget.forecastType) {
         case 'today':
-          WeatherClient().todayForecast(client).then((onValue) {
+          CubaWeather().getInsmetTodayForecast().then((onValue) {
             setState(() {
               _forecast = onValue;
             });
@@ -64,7 +65,7 @@ class _ForecastPageState extends State<ForecastPage> {
           });
           break;
         case 'tomorrow':
-          WeatherClient().tomorrowForecast(client).then((onValue) {
+          CubaWeather().getInsmetTomorrowForecast().then((onValue) {
             setState(() {
               _forecast = onValue;
             });
@@ -84,7 +85,7 @@ class _ForecastPageState extends State<ForecastPage> {
           });
           break;
         case 'perspectives':
-          WeatherClient().perspectiveForecast(client).then((onValue) {
+          CubaWeather().getInsmetPerspectiveForecast().then((onValue) {
             setState(() {
               _forecast = onValue;
             });
