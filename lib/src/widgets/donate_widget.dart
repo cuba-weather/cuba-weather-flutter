@@ -325,6 +325,7 @@ class DonateWidgetState extends State<DonateWidget> {
                 ),
               ),
             ),
+            Padding(padding: EdgeInsets.symmetric(vertical: 50))
           ],
         ),
       ),

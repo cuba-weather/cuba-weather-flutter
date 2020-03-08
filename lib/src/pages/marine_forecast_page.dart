@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'package:cuba_weather/src/models/models.dart';
+import 'package:cuba_weather_dart/cuba_weather_dart.dart';
+
 import 'package:cuba_weather/src/utils/utils.dart';
 
 class MarineForecastPage extends StatefulWidget {
@@ -21,7 +22,7 @@ class MarineForecastPage extends StatefulWidget {
 }
 
 class _MarineForecastPageState extends State<MarineForecastPage> {
-  MarineForecastModel _forecast;
+  InsmetMarineForecastModel _forecast;
   var client = Client();
 
   bool error = false;
@@ -38,7 +39,7 @@ class _MarineForecastPageState extends State<MarineForecastPage> {
     if (_forecast == null && !error) {
       switch (widget.forecastType) {
         case 'marine':
-          WeatherClient().marineForecast(client).then((onValue) {
+          CubaWeather().getInsmetMarineForecast().then((onValue) {
             setState(() {
               _forecast = onValue;
             });

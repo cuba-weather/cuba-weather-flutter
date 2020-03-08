@@ -4,30 +4,21 @@ import 'package:weather_icons/weather_icons.dart';
 
 import 'package:cuba_weather_dart/cuba_weather_dart.dart';
 
+import 'package:cuba_weather/src/models/models.dart' as models;
+
 class ForecastWidget extends StatelessWidget {
-  final WeatherModel weather;
+  final models.WeatherModel weather;
 
   ForecastWidget({Key key, this.weather}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     var screenWidth = MediaQuery.of(context).size.width;
-    var now = DateTime.now();
-    var lastDayOfMonth = new DateTime(now.year, now.month + 1, 0);
-    var isNewMoth = false;
-    var list = weather.forecasts
-        .where((forecast) {
-          var result = false;
-          if (forecast.day > now.day || isNewMoth) {
-            result = true;
-          }
-          if (forecast.day == lastDayOfMonth.day) {
-            isNewMoth = true;
-          }
-          return result;
-        })
-        .map((forecast) => _buildForecast(forecast, screenWidth))
-        .toList();
+    var list = List<Widget>();
+    var forecasts = weather.getForecasts();
+    for (var forecast in forecasts) {
+      list.add(_buildForecast(forecast, screenWidth));
+    }
     var children = <Widget>[];
     if (list.length > 0) {
       children = [
@@ -35,7 +26,7 @@ class ForecastWidget extends StatelessWidget {
           margin: EdgeInsets.symmetric(horizontal: 30),
           padding: EdgeInsets.only(top: 16),
           child: Text(
-            "Pronóstico para los siguientes días:",
+            'Pronóstico para los siguientes días:',
             style: TextStyle(
               fontSize: screenWidth * 0.04,
               fontWeight: FontWeight.w400,
@@ -140,6 +131,9 @@ class ForecastWidget extends StatelessWidget {
         break;
       case InsmetState.MorningScatteredShowers:
         result = 'wi-rain';
+        break;
+      case InsmetState.Winds:
+        result = 'wi-strong-wind';
         break;
       default:
         result = 'wi-na';
