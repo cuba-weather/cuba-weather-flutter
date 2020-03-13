@@ -1,28 +1,18 @@
 import 'dart:async';
-import 'dart:developer';
 
-import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:preferences/preferences.dart';
 
 import 'package:cuba_weather/src/pages/pages.dart';
 import 'package:cuba_weather/src/utils/utils.dart';
 import 'package:cuba_weather/src/widgets/widgets.dart';
 
 class SplashScreen extends StatefulWidget {
-  static const String routeName = 'splash';
-  final String initialMunicipality;
-
-  SplashScreen({
-    Key key,
-    @required this.initialMunicipality,
-  }) : super(key: key);
-
   @override
-  _SplashScreenState createState() => _SplashScreenState();
+  SplashScreenState createState() => SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen> {
+class SplashScreenState extends State<SplashScreen> {
   ResponsiveScreen size;
 
   @override
@@ -35,12 +25,6 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    var darkMode = Provider.of<AppStateNotifier>(context).isDarkModeOn;
-    if (darkMode) {
-      SystemChrome.setSystemUIOverlayStyle(AppTheme.darkOverlayStyle);
-    } else {
-      SystemChrome.setSystemUIOverlayStyle(AppTheme.lightOverlayStyle);
-    }
     size = ResponsiveScreen(MediaQuery.of(context).size);
     return Scaffold(
       body: GradientContainerWidget(
@@ -81,32 +65,11 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   Future navigateFromSplash() async {
-    bool isOnBoard = false;
-    try {
-      var prefs = await SharedPreferences.getInstance();
-      isOnBoard = prefs.getBool(Constants.isOnBoard) ?? false;
-    } catch (e) {
-      log(e.toString());
-    }
-    if (isOnBoard) {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (context) => HomePage(
-            initialMunicipality: widget.initialMunicipality,
-          ),
-        ),
-      );
-    } else {
-      //Navigate to OnBoarding Screen.
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (context) => OnBoardingPage(
-            initialMunicipality: widget.initialMunicipality,
-          ),
-        ),
-      );
-    }
+    var isOnBoard = PrefService.getBool(Constants.isOnBoard) ?? false;
+    var page = isOnBoard ? HomePage() : OnBoardingPage();
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => page),
+    );
   }
 }

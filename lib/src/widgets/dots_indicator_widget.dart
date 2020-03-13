@@ -2,8 +2,8 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
-class DotsIndicator extends AnimatedWidget {
-  DotsIndicator({
+class DotsIndicatorWidget extends AnimatedWidget {
+  DotsIndicatorWidget({
     this.controller,
     this.itemCount,
     this.onPageSelected,

@@ -1,27 +1,24 @@
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:getflutter/getflutter.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:preferences/preference_service.dart';
 
 import 'package:cuba_weather/src/pages/pages.dart';
 import 'package:cuba_weather/src/utils/constants.dart';
 import 'package:cuba_weather/src/widgets/widgets.dart';
 
 class IntroPage extends StatelessWidget {
-  final String assetImage;
+  final String image;
   final String text;
   final String title;
-  final String initialMunicipality;
   final bool isLast;
 
-  IntroPage(
-    this.assetImage,
-    this.title,
-    this.text,
-    this.initialMunicipality,
-    this.isLast,
-  );
+  IntroPage({
+    @required this.image,
+    @required this.title,
+    @required this.text,
+    this.isLast = false,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +26,7 @@ class IntroPage extends StatelessWidget {
     var children = <Widget>[
       Center(
         child: Image.asset(
-          assetImage,
+          image,
           width: size.getWidthPx(300),
         ),
       ),
@@ -79,20 +76,11 @@ class IntroPage extends StatelessWidget {
               shape: GFButtonShape.pills,
               type: GFButtonType.outline2x,
               fullWidthButton: true,
-              onPressed: () async {
-                try {
-                  var prefs = await SharedPreferences.getInstance();
-                  await prefs.setBool(Constants.isOnBoard, true);
-                } catch (e) {
-                  log(e.toString());
-                }
+              onPressed: () {
+                PrefService.setBool(Constants.isOnBoard, true);
                 Navigator.pushReplacement(
                   context,
-                  MaterialPageRoute(
-                    builder: (context) => HomePage(
-                      initialMunicipality: initialMunicipality,
-                    ),
-                  ),
+                  MaterialPageRoute(builder: (context) => HomePage()),
                 );
               }),
         ),

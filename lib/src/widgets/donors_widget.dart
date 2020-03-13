@@ -5,7 +5,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'package:cuba_weather/src/models/models.dart';
-import 'package:cuba_weather/src/utils/utils.dart';
 
 class DonorWidget extends StatelessWidget {
   const DonorWidget();
@@ -34,11 +33,9 @@ class _ListPageState extends State<ListPage> {
 
   @override
   Widget build(BuildContext context) {
-    var darkMode = Provider.of<AppStateNotifier>(context).isDarkModeOn;
     Widget makeTrailing(Donor donor) {
       return donor.url != null
-          ? Icon(getSocialIcon(donor.url),
-              color: darkMode ? Colors.white : Colors.blue)
+          ? Icon(getSocialIcon(donor.url), color: Colors.blue)
           : Container();
     }
 
@@ -47,7 +44,7 @@ class _ListPageState extends State<ListPage> {
           title: Text(
             donor.name,
             style: TextStyle(
-              color: darkMode ? Colors.white : Colors.blue,
+              color: Colors.blue,
               fontWeight: FontWeight.bold,
               fontSize: 20,
             ),
@@ -55,7 +52,7 @@ class _ListPageState extends State<ListPage> {
           subtitle: Text(
             donor.value,
             style: TextStyle(
-              color: darkMode ? Colors.white : Colors.blue,
+              color: Colors.blue,
               fontWeight: FontWeight.normal,
               fontSize: 15,
             ),

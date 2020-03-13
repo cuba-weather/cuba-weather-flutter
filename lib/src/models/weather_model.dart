@@ -1,12 +1,12 @@
 import 'package:cuba_weather_dart/cuba_weather_dart.dart' as cwd;
 
 class WeatherModel extends cwd.WeatherModel {
-  getTodayForecast() {
+  cwd.WeatherForecastModel getTodayForecast() {
     var now = DateTime.now();
-    return forecasts.firstWhere((x) => x.day == now.day, orElse: null);
+    return forecasts.firstWhere((x) => x.day == now.day, orElse: () => null);
   }
 
-  getForecasts() {
+  List<cwd.WeatherForecastModel> getForecasts() {
     var now = DateTime.now();
     var day = now.day;
     var ascendant = true;
@@ -43,7 +43,7 @@ class WeatherModel extends cwd.WeatherModel {
     return result;
   }
 
-  static getModel(cwd.WeatherModel _weather) {
+  static WeatherModel getModel(cwd.WeatherModel _weather) {
     var weather = WeatherModel();
     weather.cityName = _weather.cityName;
     weather.temperature = _weather.temperature;

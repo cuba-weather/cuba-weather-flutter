@@ -1,28 +1,21 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:preferences/preferences.dart';
 
 import 'package:cuba_weather/src/utils/utils.dart';
 
-class PreferencesPage extends StatefulWidget {
-  PreferencesPage({Key key}) : super(key: key);
+class SettingsPage extends StatefulWidget {
+  SettingsPage({Key key}) : super(key: key);
 
   @override
-  State<PreferencesPage> createState() => PreferencesPageState();
+  State<SettingsPage> createState() => SettingsPageState();
 }
 
-class PreferencesPageState extends State<PreferencesPage> {
-  PreferencesPageState();
+class SettingsPageState extends State<SettingsPage> {
+  SettingsPageState();
 
   @override
   Widget build(BuildContext context) {
-    var darkMode = Provider.of<AppStateNotifier>(context).isDarkModeOn;
-    if (darkMode) {
-      SystemChrome.setSystemUIOverlayStyle(AppTheme.darkOverlayStyle);
-    } else {
-      SystemChrome.setSystemUIOverlayStyle(AppTheme.lightOverlayStyle);
-    }
     return Scaffold(
       appBar: AppBar(
         title: Text('Configuración'),
@@ -58,9 +51,9 @@ class PreferencesPageState extends State<PreferencesPage> {
   }
 
   void updateTheme(String themeMode) {
-    var window = WidgetsBinding.instance.window;
-    var isDarkSystem = window.platformBrightness == Brightness.dark;
-    var _new = themeMode == 'system' ? isDarkSystem : themeMode == 'dark';
-    Provider.of<AppStateNotifier>(context, listen: false).updateTheme(_new);
+    // var window = WidgetsBinding.instance.window;
+    // var isDarkSystem = window.platformBrightness == Brightness.dark;
+    // var _new = themeMode == 'system' ? isDarkSystem : themeMode == 'dark';
+    // Provider.of<AppStateNotifier>(context, listen: false).updateTheme(_new);
   }
 }

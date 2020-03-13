@@ -1,39 +1,29 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:preferences/preferences.dart';
-import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+
+import 'package:cuba_weather_dart/cuba_weather_dart.dart';
 
 import 'package:cuba_weather/src/app.dart';
-import 'package:cuba_weather/src/utils/utils.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  String initialMunicipality;
-  String themeMode = "light";
-  var prefs = await SharedPreferences.getInstance();
-  try {
-    initialMunicipality = prefs.getString(Constants.municipality);
-    themeMode = prefs.getString(Constants.themeMode) ?? "light";
-  } catch (e) {
-    log(e.toString());
-    themeMode = "light";
-  }
+
+  BlocSupervisor.delegate = SimpleBlocDelegate();
+
+  municipalities.sort((a, b) => a.name.compareTo(b.name));
 
   await PrefService.init();
 
-  var window = WidgetsBinding.instance.window;
-  var isDarkSystem = window.platformBrightness == Brightness.dark;
-  var darkMode = themeMode == 'system' ? isDarkSystem : themeMode == 'dark';
+  runApp(App());
+}
 
-  runApp(
-    ChangeNotifierProvider<AppStateNotifier>(
-      create: (context) => AppStateNotifier(isDarkModeOn: darkMode),
-      child: App(
-        initialMunicipality: initialMunicipality,
-        appName: Constants.appName,
-      ),
-    ),
-  );
+class SimpleBlocDelegate extends BlocDelegate {
+  @override
+  onTransition(Bloc bloc, Transition transition) {
+    super.onTransition(bloc, transition);
+    log(transition.toString());
+  }
 }

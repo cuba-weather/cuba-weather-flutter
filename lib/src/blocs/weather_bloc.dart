@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:meta/meta.dart';
 import 'package:bloc/bloc.dart';
+import 'package:preferences/preference_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:cuba_weather_dart/cuba_weather_dart.dart';
@@ -19,18 +20,17 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
   WeatherBloc({@required this.api}) : assert(api != null);
 
   @override
-  WeatherState get initialState => WeatherEmpty();
+  WeatherState get initialState {
+    var municipality = PrefService.getString(Constants.municipality);
+    if (municipality == null) return WeatherEmpty();
+    return WeatherInitial(municipality: municipality);
+  }
 
   @override
   Stream<WeatherState> mapEventToState(WeatherEvent event) async* {
     if (event is FetchWeather) {
       yield WeatherLoading();
-      try {
-        var prefs = await SharedPreferences.getInstance();
-        await prefs.setString(Constants.municipality, event.municipality);
-      } catch (e) {
-        log(e.toString());
-      }
+      PrefService.setString(Constants.municipality, event.municipality);
       try {
         final _weather = await api.get(event.municipality);
         var weather = models.WeatherModel.getModel(_weather);

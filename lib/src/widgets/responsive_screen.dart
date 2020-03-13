@@ -17,4 +17,8 @@ class ResponsiveScreen {
   double getWidthPx(int pixels) {
     return (pixels / 3.61) / 100 * screenSize.width;
   }
+
+  double getHeightPx(int pixels) {
+    return (pixels / 3.61) / 100 * screenSize.height;
+  }
 }

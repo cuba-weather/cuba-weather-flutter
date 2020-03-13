@@ -1,30 +1,21 @@
 import 'package:autocomplete_textfield/autocomplete_textfield.dart';
 import 'package:flutter/material.dart';
 
-import 'package:cuba_weather/src/utils/utils.dart';
+import 'package:cuba_weather_dart/cuba_weather_dart.dart';
+
+import 'package:cuba_weather/src/pages/pages.dart';
 import 'package:cuba_weather/src/widgets/widgets.dart';
 
-class MunicipalitySelectionWidget extends StatefulWidget {
-  final List<String> municipalities;
-
-  MunicipalitySelectionWidget({Key key, @required this.municipalities})
-      : assert(municipalities != null),
-        super(key: key);
-
+class MunicipalitySelectionPage extends StatefulWidget {
   @override
-  State<MunicipalitySelectionWidget> createState() =>
-      _MunicipalitySelectionWidgetState(municipalities: this.municipalities);
+  State<MunicipalitySelectionPage> createState() =>
+      MunicipalitySelectionPageState();
 }
 
-class _MunicipalitySelectionWidgetState
-    extends State<MunicipalitySelectionWidget> {
+class MunicipalitySelectionPageState extends State<MunicipalitySelectionPage> {
   final GlobalKey<AutoCompleteTextFieldState<String>> key = new GlobalKey();
-  final List<String> municipalities;
-  final _textController = TextEditingController();
+  final textController = TextEditingController();
   final focusNode = FocusNode();
-
-  _MunicipalitySelectionWidgetState({@required this.municipalities})
-      : assert(municipalities != null);
 
   @override
   void dispose() {
@@ -34,7 +25,6 @@ class _MunicipalitySelectionWidgetState
 
   @override
   Widget build(BuildContext context) {
-    var darkMode = Provider.of<AppStateNotifier>(context).isDarkModeOn;
     FocusScope.of(context).autofocus(focusNode);
     return Scaffold(
       appBar: AppBar(
@@ -46,9 +36,7 @@ class _MunicipalitySelectionWidgetState
               final municipality = await Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => MunicipalityList(
-                    municipalities: this.municipalities,
-                  ),
+                  builder: (context) => MunicipalityListPage(),
                 ),
               );
               if (municipality != null) {
@@ -67,14 +55,14 @@ class _MunicipalitySelectionWidgetState
               children: <Widget>[
                 Expanded(
                   child: Card(
-                    color: darkMode ? Colors.black : Colors.blue,
+                    color: Colors.blue,
                     child: Padding(
                       padding:
                           EdgeInsets.symmetric(vertical: 5, horizontal: 20),
                       child: SimpleAutoCompleteTextField(
                         key: key,
-                        controller: _textController,
-                        suggestions: this.municipalities,
+                        controller: textController,
+                        suggestions: municipalities.map((m) => m.name).toList(),
                         focusNode: focusNode,
                         decoration: InputDecoration(
                           border: InputBorder.none,

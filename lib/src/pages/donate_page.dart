@@ -10,15 +10,14 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:getflutter/getflutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import 'package:cuba_weather/src/utils/utils.dart';
 import 'package:cuba_weather/src/widgets/widgets.dart';
 
-class DonateWidget extends StatefulWidget {
+class DonatePage extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => DonateWidgetState();
+  State<StatefulWidget> createState() => DonatePageState();
 }
 
-class DonateWidgetState extends State<DonateWidget> {
+class DonatePageState extends State<DonatePage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   void _showSnackBar(String text) {
@@ -31,7 +30,6 @@ class DonateWidgetState extends State<DonateWidget> {
 
   @override
   Widget build(BuildContext context) {
-    var darkMode = Provider.of<AppStateNotifier>(context).isDarkModeOn;
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
@@ -61,7 +59,7 @@ class DonateWidgetState extends State<DonateWidget> {
                     'utilizando las aplicaciones de Transfermovil, Enzona o '
                     'por las vías tradicionales.',
                     style: TextStyle(
-                      color: darkMode ? Colors.white : Colors.blue,
+                      color: Colors.blue,
                       fontSize: 15,
                       fontWeight: FontWeight.w600,
                     ),
@@ -83,7 +81,7 @@ class DonateWidgetState extends State<DonateWidget> {
                     '\n'
                     'Usuario de Enzona: lgutierrez95',
                     style: TextStyle(
-                      color: darkMode ? Colors.white : Colors.blue,
+                      color: Colors.blue,
                       fontSize: 15,
                       fontWeight: FontWeight.w600,
                     ),
@@ -104,7 +102,7 @@ class DonateWidgetState extends State<DonateWidget> {
                     'Además tiene la posibilidad de donar mediante transferencia '
                     'de saldo al número +5353478301',
                     style: TextStyle(
-                      color: darkMode ? Colors.white : Colors.blue,
+                      color: Colors.blue,
                       fontSize: 15,
                       fontWeight: FontWeight.w600,
                     ),
@@ -127,7 +125,7 @@ class DonateWidgetState extends State<DonateWidget> {
                     'utilizar esas donaciones. Además de información sobre '
                     'el proyecto en general.',
                     style: TextStyle(
-                      color: darkMode ? Colors.white : Colors.blue,
+                      color: Colors.blue,
                       fontSize: 15,
                       fontWeight: FontWeight.w600,
                     ),
@@ -149,7 +147,7 @@ class DonateWidgetState extends State<DonateWidget> {
                     'copiar el número de la cuenta bancaria, el usuario de '
                     'Enzona o el número de teléfono.',
                     style: TextStyle(
-                      color: darkMode ? Colors.white : Colors.blue,
+                      color: Colors.blue,
                       fontSize: 15,
                       fontWeight: FontWeight.w600,
                     ),
@@ -172,7 +170,7 @@ class DonateWidgetState extends State<DonateWidget> {
                     'para aparecer en la lista de donantes públicamente y '
                     'enviarle nuestros agradecimientos en las redes sociales.',
                     style: TextStyle(
-                      color: darkMode ? Colors.white : Colors.blue,
+                      color: Colors.blue,
                       fontSize: 15,
                       fontWeight: FontWeight.w600,
                     ),
@@ -193,7 +191,7 @@ class DonateWidgetState extends State<DonateWidget> {
                     'La información debe ser enviada mediante alguno de '
                     'estos medios:',
                     style: TextStyle(
-                      color: darkMode ? Colors.white : Colors.blue,
+                      color: Colors.blue,
                       fontSize: 15,
                       fontWeight: FontWeight.w600,
                     ),
@@ -295,7 +293,7 @@ class DonateWidgetState extends State<DonateWidget> {
                     'los enlaces de redes sociales como Facebook, Telegram, '
                     'Twitter, WhatsApp, Instagram, etc.',
                     style: TextStyle(
-                      color: darkMode ? Colors.white : Colors.blue,
+                      color: Colors.blue,
                       fontSize: 15,
                       fontWeight: FontWeight.w600,
                     ),
@@ -316,7 +314,7 @@ class DonateWidgetState extends State<DonateWidget> {
                     'También puede permanecer en el anonimato, en ese caso '
                     'lo incluiremos como donación anónima.',
                     style: TextStyle(
-                      color: darkMode ? Colors.white : Colors.blue,
+                      color: Colors.blue,
                       fontSize: 15,
                       fontWeight: FontWeight.w600,
                     ),
@@ -332,13 +330,13 @@ class DonateWidgetState extends State<DonateWidget> {
       floatingActionButton: SpeedDial(
         animatedIcon: AnimatedIcons.menu_close,
         animatedIconTheme: IconThemeData(size: 22),
-        backgroundColor: darkMode ? Colors.white : Colors.blue,
-        foregroundColor: darkMode ? Colors.black : Colors.white,
+        backgroundColor: Colors.blue,
+        foregroundColor: Colors.white,
         children: [
           SpeedDialChild(
             child: Icon(Icons.content_copy),
-            backgroundColor: darkMode ? Colors.white : Colors.blue,
-            foregroundColor: darkMode ? Colors.black : Colors.white,
+            backgroundColor: Colors.blue,
+            foregroundColor: Colors.white,
             onTap: () {
               Clipboard.setData(new ClipboardData(text: '9224959879396073'));
               _showSnackBar('Cuenta bancaria copiada');
@@ -346,15 +344,15 @@ class DonateWidgetState extends State<DonateWidget> {
             label: 'Copiar cuenta bancaria',
             labelStyle: TextStyle(
               fontWeight: FontWeight.w500,
-              color: darkMode ? Colors.black : Colors.white,
+              color: Colors.white,
               fontSize: 16.0,
             ),
-            labelBackgroundColor: darkMode ? Colors.white : Colors.blue,
+            labelBackgroundColor: Colors.blue,
           ),
           SpeedDialChild(
             child: Icon(Icons.content_copy),
-            backgroundColor: darkMode ? Colors.white : Colors.blue,
-            foregroundColor: darkMode ? Colors.black : Colors.white,
+            backgroundColor: Colors.blue,
+            foregroundColor: Colors.white,
             onTap: () {
               Clipboard.setData(new ClipboardData(text: 'lgutierrez95'));
               _showSnackBar('Usuario de Enzona copiado');
@@ -362,15 +360,15 @@ class DonateWidgetState extends State<DonateWidget> {
             label: 'Copiar usuario de Enzona',
             labelStyle: TextStyle(
               fontWeight: FontWeight.w500,
-              color: darkMode ? Colors.black : Colors.white,
+              color: Colors.white,
               fontSize: 16.0,
             ),
-            labelBackgroundColor: darkMode ? Colors.white : Colors.blue,
+            labelBackgroundColor: Colors.blue,
           ),
           SpeedDialChild(
             child: Icon(Icons.content_copy),
-            backgroundColor: darkMode ? Colors.white : Colors.blue,
-            foregroundColor: darkMode ? Colors.black : Colors.white,
+            backgroundColor: Colors.blue,
+            foregroundColor: Colors.white,
             onTap: () {
               Clipboard.setData(new ClipboardData(text: '+5353478301'));
               _showSnackBar('Número de teléfono copiado');
@@ -378,10 +376,10 @@ class DonateWidgetState extends State<DonateWidget> {
             label: 'Copiar número de teléfono',
             labelStyle: TextStyle(
               fontWeight: FontWeight.w500,
-              color: darkMode ? Colors.black : Colors.white,
+              color: Colors.white,
               fontSize: 16.0,
             ),
-            labelBackgroundColor: darkMode ? Colors.white : Colors.blue,
+            labelBackgroundColor: Colors.blue,
           ),
         ],
       ),

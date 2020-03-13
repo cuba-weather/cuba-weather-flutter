@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 
 import 'package:cuba_weather/src/widgets/widgets.dart';
 
-class DonorsListWidget extends StatefulWidget {
-  const DonorsListWidget();
+class DonorsPage extends StatefulWidget {
+  const DonorsPage();
 
   @override
-  State<StatefulWidget> createState() => DonorsListWidgetState();
+  State<StatefulWidget> createState() => DonorsPageState();
 }
 
-class DonorsListWidgetState extends State<DonorsListWidget> {
+class DonorsPageState extends State<DonorsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

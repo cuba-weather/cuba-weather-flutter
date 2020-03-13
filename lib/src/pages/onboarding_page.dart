@@ -4,68 +4,43 @@ import 'package:cuba_weather/src/pages/pages.dart';
 import 'package:cuba_weather/src/widgets/widgets.dart';
 
 class OnBoardingPage extends StatefulWidget {
-  final String initialMunicipality;
-
-  OnBoardingPage({
-    Key key,
-    @required this.initialMunicipality,
-  }) : super(key: key);
-
   @override
-  _OnBoardingPageState createState() => _OnBoardingPageState(
-        initialMunicipality: initialMunicipality,
-      );
+  OnBoardingPageState createState() => OnBoardingPageState();
 }
 
-class _OnBoardingPageState extends State<OnBoardingPage> {
-  final _controller = PageController();
-  final String initialMunicipality;
+class OnBoardingPageState extends State<OnBoardingPage> {
+  final controller = PageController();
   ResponsiveScreen size;
-  int currentPageIndex = 0;
-  List<Widget> _pages;
+  List<Widget> pages;
 
-  _OnBoardingPageState({
-    @required this.initialMunicipality,
-  }) {
-    _pages = [
+  OnBoardingPageState() {
+    pages = [
       IntroPage(
-        "images/image5.png",
-        "Cuba Weather",
-        "Es un proyecto pionero en Cuba de código abierto, multiplataforma y "
-            "sin ánimo de lucro.",
-        initialMunicipality,
-        false,
+        image: 'images/image5.png',
+        title: 'Cuba Weather',
+        text: 'Es un proyecto pionero en Cuba de código abierto, '
+            'multiplataforma y sin ánimo de lucro.',
       ),
       IntroPage(
-        "images/image3.png",
-        "Los objetivos son",
-        "Brindar a los residentes en Cuba una manera cómoda de acceder a "
-            "información meteorológica utilizando solo navegación nacional.",
-        initialMunicipality,
-        false,
+        image: 'images/image3.png',
+        title: 'Los objetivos son',
+        text: 'Brindar a los residentes en Cuba una manera cómoda de acceder '
+            'a información meteorológica utilizando solo navegación nacional.',
       ),
       IntroPage(
-        "images/image1.png",
-        "Mostramos información",
-        "De las principales variables meteorológicas como la temperatura"
-            ", la presión atmosférica, la humedad, etc.",
-        initialMunicipality,
-        false,
+        image: 'images/image1.png',
+        title: 'Mostramos información',
+        text: 'De las principales variables meteorológicas como la temperatura'
+            ', la presión atmosférica, la humedad, etc.',
       ),
       IntroPage(
-        "images/image4.png",
-        "Pronósticos oficiales",
-        "Para los próximos días, perpéctivas del tiempo, estado de los mares, "
-            "etc obtenidos del Instituto de Meteorología de Cuba.",
-        initialMunicipality,
-        true,
+        image: 'images/image4.png',
+        title: 'Pronósticos oficiales',
+        text: 'Para los próximos días, perpéctivas del tiempo, estado de los '
+            'mares, etc obtenidos del Instituto de Meteorología de Cuba.',
+        isLast: true,
       ),
     ];
-  }
-
-  @override
-  void initState() {
-    super.initState();
   }
 
   @override
@@ -74,8 +49,6 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
     return Scaffold(
         backgroundColor: Colors.transparent,
         body: SafeArea(
-          top: false,
-          bottom: false,
           child: Stack(
             children: <Widget>[
               pageViewFillWidget(),
@@ -90,12 +63,12 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
       bottom: size.getWidthPx(20),
       left: 0,
       right: 0,
-      child: DotsIndicator(
-        controller: _controller,
-        itemCount: _pages.length,
+      child: DotsIndicatorWidget(
+        controller: controller,
+        itemCount: pages.length,
         color: Colors.white,
         onPageSelected: (int page) {
-          _controller.animateToPage(
+          controller.animateToPage(
             page,
             duration: const Duration(milliseconds: 300),
             curve: Curves.ease,
@@ -107,17 +80,13 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
 
   Positioned pageViewFillWidget() {
     return Positioned.fill(
-        child: PageView.builder(
-      controller: _controller,
-      itemCount: _pages.length,
-      itemBuilder: (BuildContext context, int index) {
-        return _pages[index % _pages.length];
-      },
-      onPageChanged: (int p) {
-        setState(() {
-          currentPageIndex = p;
-        });
-      },
-    ));
+      child: PageView.builder(
+        controller: controller,
+        itemCount: pages.length,
+        itemBuilder: (BuildContext context, int index) {
+          return pages[index % pages.length];
+        },
+      ),
+    );
   }
 }

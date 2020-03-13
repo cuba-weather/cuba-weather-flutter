@@ -1,26 +1,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import 'package:cuba_weather_dart/cuba_weather_dart.dart';
+
+import 'package:cuba_weather/src/pages/pages.dart';
 import 'package:cuba_weather/src/widgets/widgets.dart';
 
-class MunicipalityList extends StatefulWidget {
-  final List<String> municipalities;
-
-  const MunicipalityList({@required this.municipalities})
-      : assert(municipalities != null);
-
+class MunicipalityListPage extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => MunicipalityListState(
-        municipalities: municipalities,
-      );
+  State<StatefulWidget> createState() => MunicipalityListPageState();
 }
 
-class MunicipalityListState extends State<MunicipalityList> {
-  final List<String> municipalities;
-
-  MunicipalityListState({@required this.municipalities})
-      : assert(municipalities != null);
-
+class MunicipalityListPageState extends State<MunicipalityListPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,9 +24,7 @@ class MunicipalityListState extends State<MunicipalityList> {
               final municipality = await Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => MunicipalitySelectionWidget(
-                    municipalities: this.municipalities,
-                  ),
+                  builder: (context) => MunicipalitySelectionPage(),
                 ),
               );
               if (municipality != null) {
@@ -60,7 +49,7 @@ class MunicipalityListState extends State<MunicipalityList> {
                             left: p, right: p, bottom: p * 2, top: p)
                         : EdgeInsets.all(p),
                 child: Text(
-                  municipalities[index],
+                  municipalities[index].name,
                   style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
@@ -69,7 +58,7 @@ class MunicipalityListState extends State<MunicipalityList> {
               ),
               onPressed: () {
                 setState(() {
-                  Navigator.pop(context, municipalities[index]);
+                  Navigator.pop(context, municipalities[index].name);
                 });
               },
             );
@@ -79,7 +68,7 @@ class MunicipalityListState extends State<MunicipalityList> {
               color: Colors.white,
             );
           },
-          itemCount: this.municipalities.length,
+          itemCount: municipalities.length,
         ),
       ),
     );

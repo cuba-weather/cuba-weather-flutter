@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 
 class NameMunicipalityWidget extends StatelessWidget {
   final String municipality;
-  final List<String> municipalities;
 
-  NameMunicipalityWidget(
-      {Key key, @required this.municipalities, @required this.municipality})
+  NameMunicipalityWidget({Key key, @required this.municipality})
       : assert(municipality != null),
         super(key: key);
 

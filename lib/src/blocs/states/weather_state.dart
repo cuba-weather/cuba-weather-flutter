@@ -12,6 +12,16 @@ abstract class WeatherState extends Equatable {
 
 class WeatherEmpty extends WeatherState {}
 
+class WeatherInitial extends WeatherState {
+  final String municipality;
+
+  const WeatherInitial({@required this.municipality})
+      : assert(municipality != null);
+
+  @override
+  List<Object> get props => [municipality];
+}
+
 class WeatherFindingLocation extends WeatherState {}
 
 class WeatherLoading extends WeatherState {}

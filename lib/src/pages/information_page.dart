@@ -12,18 +12,18 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:cuba_weather/src/utils/utils.dart';
 import 'package:cuba_weather/src/widgets/widgets.dart';
 
-class InformationWidget extends StatefulWidget {
-  const InformationWidget();
+class InformationPage extends StatefulWidget {
+  const InformationPage();
 
   @override
-  State<StatefulWidget> createState() => InformationWidgetState();
+  State<StatefulWidget> createState() => InformationPageState();
 }
 
-class InformationWidgetState extends State<InformationWidget> {
+class InformationPageState extends State<InformationPage> {
   String appName = '';
   String version = '';
 
-  InformationWidgetState() {
+  InformationPageState() {
     start();
   }
 
@@ -37,7 +37,6 @@ class InformationWidgetState extends State<InformationWidget> {
 
   @override
   Widget build(BuildContext context) {
-    var darkMode = Provider.of<AppStateNotifier>(context).isDarkModeOn;
     return Scaffold(
       appBar: AppBar(
         title: Text('Información'),
@@ -97,7 +96,7 @@ class InformationWidgetState extends State<InformationWidget> {
                     'Para situaciones de tiempo peligrosas consultar las '
                     'fuentes oficiales de información.',
                     style: TextStyle(
-                      color: darkMode ? Colors.white : Colors.blue,
+                      color: Colors.blue,
                       fontWeight: FontWeight.bold,
                     ),
                     textAlign: TextAlign.left,
@@ -142,7 +141,7 @@ class InformationWidgetState extends State<InformationWidget> {
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.symmetric(horizontal: 20),
+                  margin: EdgeInsets.only(left: 20, right: 20, bottom: 20),
                   child: GFButton(
                     text: 'Visitar repositorio en GitHub',
                     textColor: Colors.white,

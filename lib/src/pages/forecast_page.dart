@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:http/http.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:preferences/preference_service.dart';
 
 import 'package:cuba_weather_dart/cuba_weather_dart.dart';
 
@@ -18,39 +17,24 @@ class ForecastPage extends StatefulWidget {
         super(key: key);
 
   @override
-  _ForecastPageState createState() => _ForecastPageState();
+  ForecastPageState createState() => ForecastPageState();
 }
 
-class _ForecastPageState extends State<ForecastPage> {
-  InsmetForecastModel _forecast;
-  var client = Client();
+class ForecastPageState extends State<ForecastPage> {
+  InsmetForecastModel forecast;
+  String errorMessage;
   bool showImage = false;
   bool error = false;
-  String errorMessage;
-
-  Future<bool> recoverValueShowImage() async {
-    var prefs = await SharedPreferences.getInstance();
-    var value = prefs.getBool(Constants.showImageForecastPage) ?? false;
-    this.showImage = value;
-    return value;
-  }
-
-  Future<void> setValueShowImage(bool newValue) async {
-    var prefs = await SharedPreferences.getInstance();
-    prefs.setBool(Constants.showImageForecastPage, newValue);
-    this.showImage = newValue;
-  }
 
   @override
   Widget build(BuildContext context) {
-    var darkMode = Provider.of<AppStateNotifier>(context).isDarkModeOn;
-    recoverValueShowImage();
-    if (_forecast == null && !error) {
+    showImage = PrefService.getBool(Constants.showImageForecastPage) ?? false;
+    if (forecast == null && !error) {
       switch (widget.forecastType) {
         case 'today':
           CubaWeather().getInsmetTodayForecast().then((onValue) {
             setState(() {
-              _forecast = onValue;
+              forecast = onValue;
             });
           }).catchError((onError) {
             setState(() {
@@ -67,7 +51,7 @@ class _ForecastPageState extends State<ForecastPage> {
         case 'tomorrow':
           CubaWeather().getInsmetTomorrowForecast().then((onValue) {
             setState(() {
-              _forecast = onValue;
+              forecast = onValue;
             });
           }).catchError((onError) {
             setState(() {
@@ -87,7 +71,7 @@ class _ForecastPageState extends State<ForecastPage> {
         case 'perspectives':
           CubaWeather().getInsmetPerspectiveForecast().then((onValue) {
             setState(() {
-              _forecast = onValue;
+              forecast = onValue;
             });
           }).catchError((onError) {
             setState(() {
@@ -120,7 +104,7 @@ class _ForecastPageState extends State<ForecastPage> {
                   margin: EdgeInsets.all(10),
                   child: Icon(
                     Icons.error_outline,
-                    color: darkMode ? Colors.white : Colors.blue,
+                    color: Colors.blue,
                     size: 150,
                   ),
                 ),
@@ -128,7 +112,7 @@ class _ForecastPageState extends State<ForecastPage> {
                   Constants.errorMessage,
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    color: darkMode ? Colors.white : Colors.blue,
+                    color: Colors.blue,
                     fontWeight: FontWeight.bold,
                     fontSize: 30,
                   ),
@@ -141,7 +125,7 @@ class _ForecastPageState extends State<ForecastPage> {
                       errorMessage,
                       textAlign: TextAlign.justify,
                       style: TextStyle(
-                        color: darkMode ? Colors.white : Colors.blue,
+                        color: Colors.blue,
                         fontWeight: FontWeight.w600,
                         fontSize: 20,
                       ),
@@ -150,7 +134,7 @@ class _ForecastPageState extends State<ForecastPage> {
                 ),
               ],
             )
-          : _forecast == null
+          : forecast == null
               ? Center(
                   child: CircularProgressIndicator(
                     backgroundColor: Colors.white,
@@ -168,54 +152,50 @@ class _ForecastPageState extends State<ForecastPage> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  _forecast.centerName,
+                                  forecast.centerName,
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
-                                    color:
-                                        darkMode ? Colors.white : Colors.blue,
+                                    color: Colors.blue,
                                   ),
                                 ),
                                 Text(
-                                  _forecast.forecastName,
+                                  forecast.forecastName,
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
-                                    color:
-                                        darkMode ? Colors.white : Colors.blue,
+                                    color: Colors.blue,
                                   ),
                                 ),
                                 Text(
-                                  _forecast.forecastDate,
+                                  forecast.forecastDate,
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
-                                    color:
-                                        darkMode ? Colors.white : Colors.blue,
+                                    color: Colors.blue,
                                   ),
                                 ),
                                 Padding(
                                   padding: EdgeInsets.all(5),
                                 ),
                                 Divider(),
-                                _forecast.forecastTitle != ""
+                                forecast.forecastTitle != ""
                                     ? SizedBox(height: 5.0)
                                     : Container(),
-                                _forecast.forecastTitle != ""
+                                forecast.forecastTitle != ""
                                     ? Text(
-                                        _forecast.forecastTitle,
+                                        forecast.forecastTitle,
                                         style: TextStyle(
                                           fontStyle: FontStyle.italic,
                                           color: Colors.grey,
                                         ),
                                       )
                                     : Container(),
-                                _forecast.forecastTitle != ""
+                                forecast.forecastTitle != ""
                                     ? SizedBox(height: 8.0)
                                     : Container(),
                                 Text(
-                                  _forecast.forecastText,
+                                  forecast.forecastText,
                                   textAlign: TextAlign.justify,
                                   style: TextStyle(
-                                    color:
-                                        darkMode ? Colors.white : Colors.blue,
+                                    color: Colors.blue,
                                   ),
                                 ),
                               ],
@@ -234,8 +214,7 @@ class _ForecastPageState extends State<ForecastPage> {
                                   'Autores',
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
-                                    color:
-                                        darkMode ? Colors.white : Colors.blue,
+                                    color: Colors.blue,
                                   ),
                                 ),
                               ),
@@ -243,14 +222,14 @@ class _ForecastPageState extends State<ForecastPage> {
                                 child: Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceAround,
-                                  children: _buildAuthors(),
+                                  children: buildAuthors(),
                                 ),
                               ),
                               Padding(
                                 padding: const EdgeInsets.all(10.0),
                                 child: Center(
                                   child: Text(
-                                    'Fuente: ${_forecast.dataSource}',
+                                    'Fuente: ${forecast.dataSource}',
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                       fontWeight: FontWeight.w200,
@@ -262,37 +241,35 @@ class _ForecastPageState extends State<ForecastPage> {
                             ],
                           ),
                         ),
-                        _forecast.imageUrl != null
+                        forecast.imageUrl != null
                             ? Row(
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: <Widget>[
                                   Text('Mostrar imagen',
                                       style: TextStyle(
-                                        color: darkMode
-                                            ? Colors.white
-                                            : Colors.blue,
+                                        color: Colors.blue,
                                       )),
                                   Switch(
                                     value: showImage,
                                     onChanged: (value) {
                                       setState(() {
-                                        setValueShowImage(value);
+                                        PrefService.setBool(
+                                            Constants.showImageForecastPage,
+                                            value);
+                                        showImage = value;
                                       });
                                     },
-                                    activeTrackColor: darkMode
-                                        ? Colors.white
-                                        : Colors.lightBlueAccent,
-                                    activeColor:
-                                        darkMode ? Colors.white : Colors.blue,
+                                    activeTrackColor: Colors.lightBlueAccent,
+                                    activeColor: Colors.blue,
                                   ),
                                 ],
                               )
                             : Container(),
-                        _forecast.imageUrl != null
+                        forecast.imageUrl != null
                             ? showImage
                                 ? FadeInImage.assetNetwork(
                                     placeholder: Constants.loadingPlaceholder,
-                                    image: _forecast.imageUrl,
+                                    image: forecast.imageUrl,
                                   )
                                 : Container()
                             : Container()
@@ -303,20 +280,19 @@ class _ForecastPageState extends State<ForecastPage> {
     );
   }
 
-  List<Widget> _buildAuthors() {
-    var darkMode = Provider.of<AppStateNotifier>(context).isDarkModeOn;
-    return _forecast.authors[0] != ""
+  List<Widget> buildAuthors() {
+    return forecast.authors[0] != ""
         ? [
             Padding(
               padding: const EdgeInsets.all(15),
               child: Column(
                 children: [
-                  _forecast.authors[0] != ""
+                  forecast.authors[0] != ""
                       ? CircleAvatar(
                           backgroundImage:
-                              meteorologistImg(_forecast.authors[0]) != null
+                              meteorologistImg(forecast.authors[0]) != null
                                   ? NetworkImage(
-                                      meteorologistImg(_forecast.authors[0]))
+                                      meteorologistImg(forecast.authors[0]))
                                   : ExactAssetImage(Constants
                                       .authorsPlaceHolderImageAssetURL),
                           radius: 30.0,
@@ -325,10 +301,10 @@ class _ForecastPageState extends State<ForecastPage> {
                   Padding(
                     padding: const EdgeInsets.only(top: 8.0),
                     child: Text(
-                      _forecast.authors[0],
+                      forecast.authors[0],
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        color: darkMode ? Colors.white : Colors.blue,
+                        color: Colors.blue,
                       ),
                     ),
                   ),
@@ -340,9 +316,9 @@ class _ForecastPageState extends State<ForecastPage> {
               child: Column(
                 children: [
                   CircleAvatar(
-                    backgroundImage: meteorologistImg(_forecast.authors[1]) !=
+                    backgroundImage: meteorologistImg(forecast.authors[1]) !=
                             null
-                        ? NetworkImage(meteorologistImg(_forecast.authors[1]))
+                        ? NetworkImage(meteorologistImg(forecast.authors[1]))
                         : ExactAssetImage(
                             Constants.authorsPlaceHolderImageAssetURL),
                     radius: 30.0,
@@ -350,10 +326,10 @@ class _ForecastPageState extends State<ForecastPage> {
                   Padding(
                     padding: const EdgeInsets.only(top: 8.0),
                     child: Text(
-                      _forecast.authors[1],
+                      forecast.authors[1],
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        color: darkMode ? Colors.white : Colors.blue,
+                        color: Colors.blue,
                       ),
                     ),
                   ),
@@ -367,9 +343,9 @@ class _ForecastPageState extends State<ForecastPage> {
               child: Column(
                 children: [
                   CircleAvatar(
-                    backgroundImage: meteorologistImg(_forecast.authors[1]) !=
+                    backgroundImage: meteorologistImg(forecast.authors[1]) !=
                             null
-                        ? NetworkImage(meteorologistImg(_forecast.authors[1]))
+                        ? NetworkImage(meteorologistImg(forecast.authors[1]))
                         : ExactAssetImage(
                             Constants.authorsPlaceHolderImageAssetURL),
                     radius: 30.0,
@@ -377,7 +353,7 @@ class _ForecastPageState extends State<ForecastPage> {
                   Padding(
                     padding: const EdgeInsets.only(top: 8.0),
                     child: Text(
-                      _forecast.authors[1],
+                      forecast.authors[1],
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                       ),

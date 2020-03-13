@@ -1,7 +1,13 @@
+export 'donate_page.dart';
+export 'donors_page.dart';
 export 'forecast_page.dart';
 export 'home_page.dart';
+export 'information_page.dart';
 export 'intro_page.dart';
+export 'main_page.dart';
 export 'marine_forecast_page.dart';
+export 'municipality_selection_page.dart';
+export 'municipality_list_page.dart';
 export 'onboarding_page.dart';
-export 'preferences_page.dart';
+export 'settings_page.dart';
 export 'splash_page.dart';
