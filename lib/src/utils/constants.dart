@@ -25,7 +25,7 @@ class Constants {
   static final String insmetUrlMarineForecast = 'http://www.insmet.cu/asp/genesis.asp?TB0=PLANTILLAS&TB1=MAR&TB2=/Pronostico/Marady.txt';
 
   // SharedPreferences
-  static String isOnBoard = 'isOnboard';
+  static String carouselWasSeen = 'carouselWasSeen';
   static String municipality = 'municipality';
   static String showImageForecastPage = 'showImageForecastPage';
   static String themeMode = 'themeMode';
