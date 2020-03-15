@@ -14,7 +14,7 @@ class MunicipalityListPageState extends State<MunicipalityListPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blue,
+      backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
         elevation: 0,
         title: Text('Municipios'),

@@ -5,9 +5,7 @@ class WeatherLoadingWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: CircularProgressIndicator(
-        backgroundColor: Colors.white,
-      ),
+      child: CircularProgressIndicator(),
     );
   }
 }

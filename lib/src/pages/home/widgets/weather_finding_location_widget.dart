@@ -29,9 +29,7 @@ class WeatherFindingLocationWidget extends StatelessWidget {
                     horizontal: 20,
                     vertical: 10,
                   ),
-                  child: CircularProgressIndicator(
-                    backgroundColor: Colors.white,
-                  ),
+                  child: CircularProgressIndicator(),
                 ),
               ],
             ),

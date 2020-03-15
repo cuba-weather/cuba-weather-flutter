@@ -33,9 +33,10 @@ class _ListPageState extends State<ListPage> {
 
   @override
   Widget build(BuildContext context) {
+    var color = Theme.of(context).accentColor;
     Widget makeTrailing(Donor donor) {
       return donor.url != null
-          ? Icon(getSocialIcon(donor.url), color: Colors.blue)
+          ? Icon(getSocialIcon(donor.url), color: color)
           : Container();
     }
 
@@ -44,7 +45,7 @@ class _ListPageState extends State<ListPage> {
           title: Text(
             donor.name,
             style: TextStyle(
-              color: Colors.blue,
+              color: color,
               fontWeight: FontWeight.bold,
               fontSize: 20,
             ),
@@ -52,7 +53,7 @@ class _ListPageState extends State<ListPage> {
           subtitle: Text(
             donor.value,
             style: TextStyle(
-              color: Colors.blue,
+              color: color,
               fontWeight: FontWeight.normal,
               fontSize: 15,
             ),
@@ -67,7 +68,7 @@ class _ListPageState extends State<ListPage> {
           },
         );
 
-    Card makeCard(Donor donor) => Card(
+    Widget makeCard(Donor donor) => Container(
           margin: EdgeInsets.symmetric(
             horizontal: 10.0,
             vertical: 6.0,

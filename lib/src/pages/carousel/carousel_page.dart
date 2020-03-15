@@ -48,7 +48,7 @@ class CarouselPageState extends State<CarouselPage> {
   Widget build(BuildContext context) {
     size = ResponsiveScreen(MediaQuery.of(context).size);
     return Scaffold(
-        backgroundColor: Colors.blue,
+        backgroundColor: Theme.of(context).backgroundColor,
         body: SafeArea(
           child: Stack(
             children: <Widget>[

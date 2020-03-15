@@ -27,7 +27,7 @@ class SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     size = ResponsiveScreen(MediaQuery.of(context).size);
     return Scaffold(
-      backgroundColor: Colors.blue,
+      backgroundColor: Theme.of(context).backgroundColor,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

@@ -55,7 +55,7 @@ class _MarineForecastPageState extends State<MarineForecastPage> {
     }
 
     return Scaffold(
-      backgroundColor: Colors.blue,
+      backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
         elevation: 0,
         title: Text(
@@ -102,9 +102,7 @@ class _MarineForecastPageState extends State<MarineForecastPage> {
             )
           : _forecast == null
               ? Center(
-                  child: CircularProgressIndicator(
-                    backgroundColor: Colors.white,
-                  ),
+                  child: CircularProgressIndicator(),
                 )
               : SingleChildScrollView(
                   child: Padding(

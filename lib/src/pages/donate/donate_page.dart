@@ -28,9 +28,10 @@ class DonatePageState extends State<DonatePage> {
 
   @override
   Widget build(BuildContext context) {
+    var color = Theme.of(context).primaryColor;
     return Scaffold(
       key: _scaffoldKey,
-      backgroundColor: Colors.blue,
+      backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
         elevation: 0,
         centerTitle: true,
@@ -330,12 +331,12 @@ class DonatePageState extends State<DonatePage> {
         animatedIcon: AnimatedIcons.menu_close,
         animatedIconTheme: IconThemeData(size: 22),
         backgroundColor: Colors.white,
-        foregroundColor: Colors.blue,
+        foregroundColor: color,
         children: [
           SpeedDialChild(
             child: Icon(Icons.content_copy),
             backgroundColor: Colors.white,
-            foregroundColor: Colors.blue,
+            foregroundColor: color,
             onTap: () {
               Clipboard.setData(new ClipboardData(text: '9224959879396073'));
               _showSnackBar('Cuenta bancaria copiada');
@@ -343,7 +344,7 @@ class DonatePageState extends State<DonatePage> {
             label: 'Copiar cuenta bancaria',
             labelStyle: TextStyle(
               fontWeight: FontWeight.w500,
-              color: Colors.blue,
+              color: color,
               fontSize: 16.0,
             ),
             labelBackgroundColor: Colors.white,
@@ -351,7 +352,7 @@ class DonatePageState extends State<DonatePage> {
           SpeedDialChild(
             child: Icon(Icons.content_copy),
             backgroundColor: Colors.white,
-            foregroundColor: Colors.blue,
+            foregroundColor: color,
             onTap: () {
               Clipboard.setData(new ClipboardData(text: 'lgutierrez95'));
               _showSnackBar('Usuario de Enzona copiado');
@@ -359,7 +360,7 @@ class DonatePageState extends State<DonatePage> {
             label: 'Copiar usuario de Enzona',
             labelStyle: TextStyle(
               fontWeight: FontWeight.w500,
-              color: Colors.blue,
+              color: color,
               fontSize: 16.0,
             ),
             labelBackgroundColor: Colors.white,
@@ -367,7 +368,7 @@ class DonatePageState extends State<DonatePage> {
           SpeedDialChild(
             child: Icon(Icons.content_copy),
             backgroundColor: Colors.white,
-            foregroundColor: Colors.blue,
+            foregroundColor: color,
             onTap: () {
               Clipboard.setData(new ClipboardData(text: '+5353478301'));
               _showSnackBar('Número de teléfono copiado');
@@ -375,7 +376,7 @@ class DonatePageState extends State<DonatePage> {
             label: 'Copiar número de teléfono',
             labelStyle: TextStyle(
               fontWeight: FontWeight.w500,
-              color: Colors.blue,
+              color: color,
               fontSize: 16.0,
             ),
             labelBackgroundColor: Colors.white,

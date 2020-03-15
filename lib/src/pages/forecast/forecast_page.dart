@@ -92,7 +92,7 @@ class ForecastPageState extends State<ForecastPage> {
     }
 
     return Scaffold(
-      backgroundColor: Colors.blue,
+      backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
         elevation: 0,
         title: Text(
@@ -140,8 +140,8 @@ class ForecastPageState extends State<ForecastPage> {
           : forecast == null
               ? Center(
                   child: CircularProgressIndicator(
-                    backgroundColor: Colors.white,
-                  ),
+//                    backgroundColor: Colors.white,
+                      ),
                 )
               : SingleChildScrollView(
                   child: Padding(

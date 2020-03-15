@@ -54,7 +54,7 @@ class MainWidgetState extends State<MainWidget> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     hour = new DateTime.now().hour;
     return Scaffold(
-      backgroundColor: Colors.blue,
+      backgroundColor: Theme.of(context).backgroundColor,
       extendBodyBehindAppBar: true,
       drawer: Drawer(
         child: ListView(
@@ -116,7 +116,7 @@ class MainWidgetState extends State<MainWidget> with TickerProviderStateMixin {
         child: Container(
           constraints: BoxConstraints.expand(),
           decoration: BoxDecoration(
-            color: Colors.blue,
+            color: Theme.of(context).backgroundColor,
           ),
           child: FadeTransition(
             opacity: fadeAnimation,
@@ -148,6 +148,8 @@ class MainWidgetState extends State<MainWidget> with TickerProviderStateMixin {
                   if (state is WeatherLoaded) {
                     return Container(
                       child: RefreshIndicator(
+                        color: Theme.of(context).primaryColor,
+                        backgroundColor: Colors.white,
                         displacement: 80,
                         onRefresh: () {
                           BlocProvider.of<WeatherBloc>(context).add(

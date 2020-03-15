@@ -26,9 +26,9 @@ class MunicipalitySelectionPageState extends State<MunicipalitySelectionPage> {
   Widget build(BuildContext context) {
     FocusScope.of(context).autofocus(focusNode);
     return Scaffold(
-      backgroundColor: Colors.blue,
+      backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
-        backgroundColor: Colors.blue,
+        backgroundColor: Theme.of(context).backgroundColor,
         elevation: 0,
         title: Text('Seleccionar municipio'),
         centerTitle: true,
@@ -70,7 +70,7 @@ class MunicipalitySelectionPageState extends State<MunicipalitySelectionPage> {
                         hintText: 'Inserte aquí el municipio deseado',
                       ),
                       style: TextStyle(
-                        color: Colors.blue,
+                        color: Theme.of(context).primaryColor,
                         fontWeight: FontWeight.bold,
                       ),
                       clearOnSubmit: false,

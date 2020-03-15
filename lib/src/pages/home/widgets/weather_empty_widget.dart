@@ -67,7 +67,7 @@ class WeatherEmptyWidget extends StatelessWidget {
             },
           ),
         ),
-        Card(
+        Container(
           margin: EdgeInsets.symmetric(
             horizontal: 20,
             vertical: 50,
@@ -83,7 +83,7 @@ class WeatherEmptyWidget extends StatelessWidget {
               'encuentra realmente.',
               textAlign: TextAlign.left,
               style: TextStyle(
-                color: Colors.blue,
+                color: Colors.white,
                 fontWeight: FontWeight.w600,
                 fontSize: 15,
               ),

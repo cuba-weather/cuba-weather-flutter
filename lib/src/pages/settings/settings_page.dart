@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:preferences/preferences.dart';
 
 import 'package:cuba_weather/src/utils/utils.dart';
+import 'package:provider/provider.dart';
 
 class SettingsPage extends StatefulWidget {
   SettingsPage({Key key}) : super(key: key);
@@ -17,7 +18,7 @@ class SettingsPageState extends State<SettingsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blue,
+      backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
         elevation: 0,
         title: Text('Configuración'),
@@ -59,9 +60,7 @@ class SettingsPageState extends State<SettingsPage> {
   }
 
   void updateTheme(String themeMode) {
-    // var window = WidgetsBinding.instance.window;
-    // var isDarkSystem = window.platformBrightness == Brightness.dark;
-    // var _new = themeMode == 'system' ? isDarkSystem : themeMode == 'dark';
-    // Provider.of<AppStateNotifier>(context, listen: false).updateTheme(_new);
+    Provider.of<AppStateNotifier>(context, listen: false)
+        .updateTheme(themeMode);
   }
 }

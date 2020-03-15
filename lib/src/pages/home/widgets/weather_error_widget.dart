@@ -29,7 +29,7 @@ class WeatherErrorWidget extends StatelessWidget {
             fontSize: 30,
           ),
         ),
-        Card(
+        Container(
           margin: EdgeInsets.all(20),
           child: Container(
             padding: EdgeInsets.all(10),
@@ -37,7 +37,7 @@ class WeatherErrorWidget extends StatelessWidget {
               errorMessage,
               textAlign: TextAlign.left,
               style: TextStyle(
-                color: Colors.blue,
+                color: Colors.white,
                 fontWeight: FontWeight.w600,
                 fontSize: 16,
               ),
