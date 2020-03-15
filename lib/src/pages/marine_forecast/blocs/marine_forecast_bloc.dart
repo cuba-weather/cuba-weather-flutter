@@ -9,7 +9,8 @@ import 'package:cuba_weather_dart/cuba_weather_dart.dart';
 import 'package:cuba_weather/src/pages/marine_forecast/blocs/blocs.dart';
 import 'package:cuba_weather/src/utils/utils.dart';
 
-class MarineForecastBloc extends Bloc<MarineForecastEvent, MarineForecastState> {
+class MarineForecastBloc
+    extends Bloc<MarineForecastEvent, MarineForecastState> {
   final CubaWeather api;
 
   MarineForecastBloc({@required this.api}) : assert(api != null);
@@ -18,7 +19,8 @@ class MarineForecastBloc extends Bloc<MarineForecastEvent, MarineForecastState> 
   MarineForecastState get initialState => MarineForecastInitial();
 
   @override
-  Stream<MarineForecastState> mapEventToState(MarineForecastEvent event) async* {
+  Stream<MarineForecastState> mapEventToState(
+      MarineForecastEvent event) async* {
     if (event is FetchMarineForecast) {
       yield MarineForecastLoading();
       try {
