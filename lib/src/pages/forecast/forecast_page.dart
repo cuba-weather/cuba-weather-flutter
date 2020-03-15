@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:preferences/preference_service.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:cuba_weather_dart/cuba_weather_dart.dart';
 
+import 'package:cuba_weather/src/pages/forecast/blocs/blocs.dart';
 import 'package:cuba_weather/src/utils/utils.dart';
+import 'package:cuba_weather/src/widgets/widgets.dart';
 
 class ForecastPage extends StatefulWidget {
   final String forecastType;
@@ -20,271 +22,246 @@ class ForecastPage extends StatefulWidget {
   ForecastPageState createState() => ForecastPageState();
 }
 
-class ForecastPageState extends State<ForecastPage> {
-  InsmetForecastModel forecast;
-  String errorMessage;
-  bool showImage = false;
-  bool error = false;
+class ForecastPageState extends State<ForecastPage>
+    with TickerProviderStateMixin {
+  AnimationController fadeController;
+  Animation<double> fadeAnimation;
+
+  @override
+  void initState() {
+    super.initState();
+    fadeController = AnimationController(
+      duration: const Duration(milliseconds: 1000),
+      vsync: this,
+    );
+    fadeAnimation = CurvedAnimation(
+      parent: fadeController,
+      curve: Curves.easeIn,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
-    showImage = PrefService.getBool(Constants.showImageForecastPage) ?? false;
-    if (forecast == null && !error) {
-      switch (widget.forecastType) {
-        case 'today':
-          CubaWeather().getInsmetTodayForecast().then((onValue) {
-            setState(() {
-              forecast = onValue;
-            });
-          }).catchError((onError) {
-            setState(() {
-              if (onError is BadRequestException) {
-                errorMessage = Constants.errorMessageBadRequestException;
-                error = true;
-              } else {
-                errorMessage = onError.toString();
-                error = true;
-              }
-            });
-          });
-          break;
-        case 'tomorrow':
-          CubaWeather().getInsmetTomorrowForecast().then((onValue) {
-            setState(() {
-              forecast = onValue;
-            });
-          }).catchError((onError) {
-            setState(() {
-              if (onError is BadRequestException) {
-                errorMessage = Constants.errorMessageBadRequestException;
-                error = true;
-              } else if (onError is ParseException) {
-                errorMessage = Constants.errorMessageParseException;
-                error = true;
-              } else {
-                errorMessage = onError.toString();
-                error = true;
-              }
-            });
-          });
-          break;
-        case 'perspectives':
-          CubaWeather().getInsmetPerspectiveForecast().then((onValue) {
-            setState(() {
-              forecast = onValue;
-            });
-          }).catchError((onError) {
-            setState(() {
-              if (onError is BadRequestException) {
-                errorMessage = Constants.errorMessageBadRequestException;
-                error = true;
-              } else if (onError is ParseException) {
-                errorMessage = Constants.errorMessageParseException;
-                error = true;
-              } else {
-                errorMessage = onError.toString();
-                error = true;
-              }
-            });
-          });
-          break;
-      }
-    }
-
-    return Scaffold(
-      backgroundColor: Theme.of(context).backgroundColor,
-      appBar: AppBar(
-        elevation: 0,
-        title: Text(
-          widget.pageTitle,
-        ),
-        centerTitle: true,
-      ),
-      body: error
-          ? ListView(
-              children: <Widget>[
-                Container(
-                  margin: EdgeInsets.all(10),
-                  child: Icon(
-                    Icons.error_outline,
-                    color: Colors.white,
-                    size: 150,
-                  ),
-                ),
-                Text(
-                  Constants.errorMessage,
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 30,
-                  ),
-                ),
-                Container(
-                  margin: EdgeInsets.all(20),
-                  child: Container(
-                    padding: EdgeInsets.all(10),
-                    child: Text(
-                      errorMessage,
-                      textAlign: TextAlign.justify,
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w600,
-                        fontSize: 20,
+    return BlocProvider(
+        create: (context) => ForecastBloc(api: CubaWeather()),
+        child: Scaffold(
+          backgroundColor: Theme.of(context).backgroundColor,
+          appBar: AppBar(
+            elevation: 0,
+            title: Text(widget.pageTitle),
+            centerTitle: true,
+          ),
+          body: FadeTransition(
+            opacity: fadeAnimation,
+            child: BlocBuilder<ForecastBloc, ForecastState>(
+              builder: (context, state) {
+                if (state is ForecastInitial) {
+                  fadeController.reset();
+                  fadeController.forward();
+                  BlocProvider.of<ForecastBloc>(context).add(FetchForecast(
+                    widget.forecastType,
+                  ));
+                }
+                if (state is ForecastLoading) {
+                  if (state.showAnimation) {
+                    fadeController.reset();
+                    fadeController.forward();
+                  }
+                  return Center(child: CircularProgressIndicator());
+                }
+                if (state is ForecastError) {
+                  fadeController.reset();
+                  fadeController.forward();
+                  return ListView(
+                    children: <Widget>[
+                      Container(
+                        margin: EdgeInsets.all(10),
+                        child: Icon(
+                          Icons.error_outline,
+                          color: Colors.white,
+                          size: 150,
+                        ),
                       ),
-                    ),
-                  ),
-                ),
-              ],
-            )
-          : forecast == null
-              ? Center(
-                  child: CircularProgressIndicator(
-//                    backgroundColor: Colors.white,
+                      Text(
+                        Constants.errorMessage,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 30,
+                        ),
                       ),
-                )
-              : SingleChildScrollView(
-                  child: Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Column(
-                      children: [
-                        Container(
-                          child: Padding(
-                            padding: const EdgeInsets.all(10.0),
+                      Container(
+                        margin: EdgeInsets.all(20),
+                        child: Container(
+                          padding: EdgeInsets.all(10),
+                          child: Text(
+                            state.errorMessage,
+                            textAlign: TextAlign.justify,
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.w600,
+                              fontSize: 20,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  );
+                }
+                if (state is ForecastLoaded) {
+                  if (state.showAnimation) {
+                    fadeController.reset();
+                    fadeController.forward();
+                  }
+                  return SingleChildScrollView(
+                    child: Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Column(
+                        children: [
+                          Container(
+                            child: Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    state.forecast.centerName,
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                  Text(
+                                    state.forecast.forecastName,
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                  Text(
+                                    state.forecast.forecastDate,
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.all(5),
+                                  ),
+                                  Divider(),
+                                  state.forecast.forecastTitle != ""
+                                      ? SizedBox(height: 5.0)
+                                      : Container(),
+                                  state.forecast.forecastTitle != ""
+                                      ? Text(
+                                          state.forecast.forecastTitle,
+                                          style: TextStyle(
+                                            fontStyle: FontStyle.italic,
+                                            color: Colors.white,
+                                          ),
+                                        )
+                                      : Container(),
+                                  state.forecast.forecastTitle != ""
+                                      ? SizedBox(height: 8.0)
+                                      : Container(),
+                                  Text(
+                                    state.forecast.forecastText,
+                                    textAlign: TextAlign.justify,
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          Container(
+                            padding: EdgeInsets.only(top: 10),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(
-                                  forecast.centerName,
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white,
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      vertical: 5, horizontal: 10),
+                                  child: Text(
+                                    'Autores',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white,
+                                    ),
                                   ),
                                 ),
-                                Text(
-                                  forecast.forecastName,
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                                Text(
-                                  forecast.forecastDate,
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white,
+                                Container(
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceAround,
+                                    children: buildAuthors(state.forecast),
                                   ),
                                 ),
                                 Padding(
-                                  padding: EdgeInsets.all(5),
-                                ),
-                                Divider(),
-                                forecast.forecastTitle != ""
-                                    ? SizedBox(height: 5.0)
-                                    : Container(),
-                                forecast.forecastTitle != ""
-                                    ? Text(
-                                        forecast.forecastTitle,
-                                        style: TextStyle(
-                                          fontStyle: FontStyle.italic,
-                                          color: Colors.white,
-                                        ),
-                                      )
-                                    : Container(),
-                                forecast.forecastTitle != ""
-                                    ? SizedBox(height: 8.0)
-                                    : Container(),
-                                Text(
-                                  forecast.forecastText,
-                                  textAlign: TextAlign.justify,
-                                  style: TextStyle(
-                                    color: Colors.white,
+                                  padding: const EdgeInsets.all(10.0),
+                                  child: Center(
+                                    child: Text(
+                                      'Fuente: ${state.forecast.dataSource}',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w200,
+                                        fontSize: 13,
+                                        color: Colors.white,
+                                      ),
+                                    ),
                                   ),
                                 ),
                               ],
                             ),
                           ),
-                        ),
-                        Container(
-                          padding: EdgeInsets.only(top: 10),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    vertical: 5, horizontal: 10),
-                                child: Text(
-                                  'Autores',
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                              ),
-                              Container(
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
-                                  children: buildAuthors(),
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(10.0),
-                                child: Center(
-                                  child: Text(
-                                    'Fuente: ${forecast.dataSource}',
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.w200,
-                                      fontSize: 13,
-                                      color: Colors.white,
+                          state.forecast.imageUrl != null
+                              ? Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: <Widget>[
+                                    Text('Mostrar imagen',
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                        )),
+                                    Switch(
+                                      value: state.showImage,
+                                      onChanged: (value) {
+                                        BlocProvider.of<ForecastBloc>(context)
+                                            .add(
+                                          SetShowImageForecast(
+                                            forecast: state.forecast,
+                                            showImage: value,
+                                          ),
+                                        );
+                                      },
+                                      activeTrackColor: Colors.lightBlueAccent,
+                                      activeColor: Colors.white,
                                     ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        forecast.imageUrl != null
-                            ? Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: <Widget>[
-                                  Text('Mostrar imagen',
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                      )),
-                                  Switch(
-                                    value: showImage,
-                                    onChanged: (value) {
-                                      setState(() {
-                                        PrefService.setBool(
-                                            Constants.showImageForecastPage,
-                                            value);
-                                        showImage = value;
-                                      });
-                                    },
-                                    activeTrackColor: Colors.lightBlueAccent,
-                                    activeColor: Colors.white,
-                                  ),
-                                ],
-                              )
-                            : Container(),
-                        forecast.imageUrl != null
-                            ? showImage
-                                ? FadeInImage.assetNetwork(
-                                    placeholder: Constants.loadingPlaceholder,
-                                    image: forecast.imageUrl,
-                                  )
-                                : Container()
-                            : Container()
-                      ],
+                                  ],
+                                )
+                              : Container(),
+                          state.forecast.imageUrl != null
+                              ? state.showImage
+                                  ? FadeInImage.assetNetwork(
+                                      placeholder: Constants.loadingPlaceholder,
+                                      image: state.forecast.imageUrl,
+                                    )
+                                  : Container()
+                              : Container()
+                        ],
+                      ),
                     ),
-                  ),
-                ),
-    );
+                  );
+                }
+                return EmptyWidget();
+              },
+            ),
+          ),
+        ));
   }
 
-  List<Widget> buildAuthors() {
+  static List<Widget> buildAuthors(InsmetForecastModel forecast) {
     return forecast.authors[0] != ""
         ? [
             Padding(
@@ -369,7 +346,7 @@ class ForecastPageState extends State<ForecastPage> {
           ];
   }
 
-  String meteorologistImg(String name) {
+  static String meteorologistImg(String name) {
     name = name.replaceAll(' ', '');
     name = name.replaceAll('.', '');
     String url = Constants.insmetUrlAuthorsImg;
