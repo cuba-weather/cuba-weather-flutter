@@ -34,3 +34,5 @@ flutter:
 
   assets:
     - images/
+    - images/radar/
+    - images/satellite/

@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:developer';
 
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -342,6 +343,21 @@ class MainWidgetState extends State<MainWidget> with TickerProviderStateMixin {
                 builder: (context) => ForecastPage(
                   forecastType: 'perspectives',
                   pageTitle: 'Perspectivas del Tiempo',
+                ),
+              ),
+            );
+          },
+        ),
+        createDrawerItem(
+          context,
+          icon: Icons.satellite,
+          text: 'Satélite',
+          onTap: () {
+            Navigator.of(context).pop();
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => SatelliteListPage(
                 ),
               ),
             );
