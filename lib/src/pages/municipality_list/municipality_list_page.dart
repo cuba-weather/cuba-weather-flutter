@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:cuba_weather/src/pages/municipality_list/blocs/blocs.dart';
+import 'package:cuba_weather/src/pages/municipality_record/municipality_record_page.dart';
 import 'package:cuba_weather/src/pages/municipality_selection/municipality_selection_page.dart';
 import 'package:cuba_weather/src/utils/utils.dart';
 
@@ -32,6 +33,22 @@ class MunicipalityListPageState extends State<MunicipalityListPage> {
                   context,
                   MaterialPageRoute(
                     builder: (context) => MunicipalitySelectionPage(),
+                  ),
+                );
+                if (municipality != null) {
+                  setState(() {
+                    Navigator.pop(context, municipality);
+                  });
+                }
+              },
+            ),
+            IconButton(
+              icon: Icon(Icons.history),
+              onPressed: () async {
+                final municipality = await Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => MunicipalityRecordPage(),
                   ),
                 );
                 if (municipality != null) {
@@ -113,6 +130,7 @@ class MunicipalityListPageState extends State<MunicipalityListPage> {
                     ),
                     onPressed: () {
                       setState(() {
+                        updateRecords(state.municipalities[index].name);
                         Navigator.pop(
                             context, state.municipalities[index].name);
                       });
