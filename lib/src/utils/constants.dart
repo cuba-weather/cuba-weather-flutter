@@ -36,4 +36,6 @@ class Constants {
   static String municipality = 'municipality';
   static String showImageForecastPage = 'showImageForecastPage';
   static String themeMode = 'themeMode';
+  static String municipalityRecord = 'municipalityRecord';
+  static int municipalityRecordSize = 10;
 }

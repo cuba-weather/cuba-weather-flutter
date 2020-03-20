@@ -2,23 +2,23 @@ import 'package:cuba_weather/src/widgets/empty_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'package:cuba_weather/src/pages/municipality_list/blocs/blocs.dart';
-import 'package:cuba_weather/src/pages/municipality_record/municipality_record_page.dart';
+import 'package:cuba_weather/src/pages/municipality_record/blocs/blocs.dart';
 import 'package:cuba_weather/src/pages/municipality_selection/municipality_selection_page.dart';
+import 'package:cuba_weather/src/pages/municipality_list/municipality_list_page.dart';
 import 'package:cuba_weather/src/utils/utils.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class MunicipalityListPage extends StatefulWidget {
+class MunicipalityRecordPage extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => MunicipalityListPageState();
+  State<StatefulWidget> createState() => MunicipalityRecordPageState();
 }
 
-class MunicipalityListPageState extends State<MunicipalityListPage> {
+class MunicipalityRecordPageState extends State<MunicipalityRecordPage> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => MunicipalityListBloc(),
+      create: (context) => MunicipalityRecordBloc(),
       child: Scaffold(
         backgroundColor: Theme.of(context).backgroundColor,
         appBar: AppBar(
@@ -43,12 +43,12 @@ class MunicipalityListPageState extends State<MunicipalityListPage> {
               },
             ),
             IconButton(
-              icon: Icon(Icons.history),
+              icon: Icon(Icons.format_list_bulleted),
               onPressed: () async {
                 final municipality = await Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => MunicipalityRecordPage(),
+                    builder: (context) => MunicipalityListPage(),
                   ),
                 );
                 if (municipality != null) {
@@ -60,16 +60,16 @@ class MunicipalityListPageState extends State<MunicipalityListPage> {
             ),
           ],
         ),
-        body: BlocBuilder<MunicipalityListBloc, MunicipalityListState>(
+        body: BlocBuilder<MunicipalityRecordBloc, MunicipalityRecordState>(
           builder: (context, state) {
-            if (state is MunicipalityListInitial) {
-              BlocProvider.of<MunicipalityListBloc>(context)
-                  .add(FetchMunicipalityListEvent());
+            if (state is MunicipalityRecordInitial) {
+              BlocProvider.of<MunicipalityRecordBloc>(context)
+                  .add(FetchMunicipalityRecordEvent());
             }
-            if (state is MunicipalityListLoading) {
+            if (state is MunicipalityRecordLoading) {
               return Center(child: CircularProgressIndicator());
             }
-            if (state is MunicipalityListError) {
+            if (state is MunicipalityRecordError) {
               return ListView(
                 children: <Widget>[
                   Container(
@@ -107,7 +107,22 @@ class MunicipalityListPageState extends State<MunicipalityListPage> {
                 ],
               );
             }
-            if (state is MunicipalityListLoaded) {
+            if (state is MunicipalityRecordLoaded) {
+              if(state.municipalities.length == 0) {
+                return ListView(
+                  children: <Widget>[
+                    Text(
+                      "No hay Historial",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: Colors.blueGrey,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 30,
+                      ),
+                    ),
+                  ],
+                );
+              }
               return ListView.separated(
                 itemBuilder: (context, index) {
                   var p = 10.0;
@@ -121,7 +136,7 @@ class MunicipalityListPageState extends State<MunicipalityListPage> {
                                   left: p, right: p, bottom: p * 2, top: p)
                               : EdgeInsets.all(p),
                       child: Text(
-                        state.municipalities[index].name,
+                        state.municipalities[index],
                         style: TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
@@ -130,9 +145,9 @@ class MunicipalityListPageState extends State<MunicipalityListPage> {
                     ),
                     onPressed: () {
                       setState(() {
-                        updateRecords(state.municipalities[index].name);
+                        updateRecords(state.municipalities[index]);
                         Navigator.pop(
-                            context, state.municipalities[index].name);
+                            context, state.municipalities[index]);
                       });
                     },
                   );
