@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:cuba_weather_dart/cuba_weather_dart.dart';
 
 import 'package:cuba_weather/src/pages/pages.dart';
+import 'package:cuba_weather/src/utils/utils.dart';
 
 class MunicipalitySelectionPage extends StatefulWidget {
   @override
@@ -49,6 +50,22 @@ class MunicipalitySelectionPageState extends State<MunicipalitySelectionPage> {
               }
             },
           ),
+          IconButton(
+            icon: Icon(Icons.history),
+            onPressed: () async {
+              final municipality = await Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => MunicipalityRecordPage(),
+                ),
+              );
+              if (municipality != null) {
+                setState(() {
+                  Navigator.pop(context, municipality);
+                });
+              }
+            },
+          ),
         ],
       ),
       body: Column(
@@ -75,6 +92,7 @@ class MunicipalitySelectionPageState extends State<MunicipalitySelectionPage> {
                       ),
                       clearOnSubmit: false,
                       textSubmitted: (text) => setState(() {
+                        updateRecords(text);
                         Navigator.pop(context, text);
                       }),
                     ),
