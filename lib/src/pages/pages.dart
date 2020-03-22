@@ -9,6 +9,7 @@ export 'marine_forecast/marine_forecast_page.dart';
 export 'municipality_selection/municipality_selection_page.dart';
 export 'municipality_record/municipality_record_page.dart';
 export 'municipality_list/municipality_list_page.dart';
+
 export 'radar_list/radar_list_page.dart';
 export 'radar/radar_page.dart';
 export 'satellite_list/satellite_list_page.dart';
