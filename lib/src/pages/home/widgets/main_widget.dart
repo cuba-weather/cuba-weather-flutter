@@ -347,6 +347,34 @@ class MainWidgetState extends State<MainWidget> with TickerProviderStateMixin {
             );
           },
         ),
+        createDrawerItem(
+          context,
+          icon: Icons.satellite,
+          text: 'Satélite',
+          onTap: () {
+            Navigator.of(context).pop();
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => SatelliteListPage(),
+              ),
+            );
+          },
+        ),
+        createDrawerItem(
+          context,
+          icon: Icons.settings_input_antenna,
+          text: 'Radares',
+          onTap: () {
+            Navigator.of(context).pop();
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => RadarListPage(),
+              ),
+            );
+          },
+        ),
       ],
     );
   }

@@ -1,4 +1,3 @@
-import 'package:cuba_weather_dart/cuba_weather_dart.dart';
 import 'package:meta/meta.dart';
 import 'package:equatable/equatable.dart';
 
