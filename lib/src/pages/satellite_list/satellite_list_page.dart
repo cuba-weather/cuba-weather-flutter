@@ -103,27 +103,27 @@ class SatelliteListPageState extends State<SatelliteListPage> {
           source: 'University of Wisconsin-Madison',
           sourceUrl: 'http://www.ssec.wisc.edu/',
           image: 'latest_eastir.jpg',
-          description: 'N/A'),
+          description: 'Atlántico - Canal infrarrojo'),
       SatelliteList(
           source: 'University of Wisconsin-Madison',
           sourceUrl: 'http://www.ssec.wisc.edu/',
           image: 'latest_eastvis.jpg',
-          description: 'N/A'),
+          description: 'Mosaico - Canal visible'),
       SatelliteList(
           source: 'University of Wisconsin-Madison',
           sourceUrl: 'http://www.ssec.wisc.edu/',
           image: 'goes.gsfc.nasa.gov.jpg',
-          description: 'N/A'),
+          description: 'Cono - Canal visible'),
       SatelliteList(
           source: 'George C. Marshall Space Flight Center',
           sourceUrl: 'https://weather.msfc.nasa.gov/GOES/',
           image: 'cuba-g16.jpg',
-          description: 'N/A'),
+          description: 'Caribe - Canal visible'),
       SatelliteList(
           source: 'Weather Underground - Intellicast',
           sourceUrl: 'http://images.intellicast.com',
           image: 'www.intellicast.com.jpg',
-          description: 'N/A'),
+          description: 'Cuba - Canal visible'),
     ];
   }
 }
