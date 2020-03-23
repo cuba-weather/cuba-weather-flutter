@@ -8,7 +8,12 @@
 
 3. Fork this repository and clone your fork.
 
-4. Run the project using your IDE or the Flutter CLI:
+4. Install all dependencies
+   ```
+   flutter pub get
+   ```
+
+5. Run the project using your IDE or the Flutter CLI:
    ```
    flutter run
    ```
