@@ -1,6 +1,10 @@
 import 'dart:async';
 
+import 'package:cuba_weather/src/pages/whats_new/show_whats_new.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_whatsnew/flutter_whatsnew.dart';
+import 'package:getflutter/getflutter.dart';
+import 'package:package_info/package_info.dart';
 import 'package:preferences/preferences.dart';
 
 import 'package:cuba_weather/src/pages/pages.dart';
@@ -14,12 +18,22 @@ class SplashScreen extends StatefulWidget {
 
 class SplashScreenState extends State<SplashScreen> {
   ResponsiveScreen size;
+  String version = '';
+  final double textScaleFactor = 1.0;
 
   @override
   initState() {
     super.initState();
+    start();
     Timer(Duration(seconds: 2), () {
       navigateFromSplash();
+    });
+  }
+
+  void start() async {
+    var packageInfo = await PackageInfo.fromPlatform();
+    setState(() {
+      version = packageInfo.version;
     });
   }
 
@@ -57,6 +71,24 @@ class SplashScreenState extends State<SplashScreen> {
               ),
               textAlign: TextAlign.center,
             ),
+            Padding(padding: EdgeInsets.all(10)),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15.0),
+              child: GFButton(
+                  text: 'Comenzar',
+                  textColor: Colors.white,
+                  color: Colors.white,
+                  size: GFSize.large,
+                  shape: GFButtonShape.pills,
+                  type: GFButtonType.outline2x,
+                  fullWidthButton: true,
+                  onPressed: () {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (context) => HomePage()),
+                    );
+                  }),
+            )
           ],
         ),
       ),
@@ -65,10 +97,19 @@ class SplashScreenState extends State<SplashScreen> {
 
   Future navigateFromSplash() async {
     var isOnBoard = PrefService.getBool(Constants.carouselWasSeen) ?? false;
-    var page = isOnBoard ? HomePage() : CarouselPage();
-    Navigator.pushReplacement(
+    var lastVersion = int.parse((PrefService.getString(Constants.lastVersion) ?? "-1").replaceAll('.', ''));
+    int versionNumber = int.parse(version.replaceAll('.', ''));
+    var showWhatsNew1 = versionNumber > lastVersion;
+
+    var page = isOnBoard
+        ? showWhatsNew1
+            ? WhatsNew().showWhatsNewPage(context, version)
+            : HomePage()
+        : CarouselPage();
+    Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => page),
+      MaterialPageRoute(
+          builder: (context) => page, fullscreenDialog: showWhatsNew1),
     );
   }
 }

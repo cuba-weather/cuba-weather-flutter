@@ -1,9 +1,9 @@
 import 'dart:async';
 import 'dart:developer';
 
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_whatsnew/flutter_whatsnew.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:package_info/package_info.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -27,6 +27,7 @@ class MainWidgetState extends State<MainWidget> with TickerProviderStateMixin {
   String appName = '';
   String version = '';
   int hour;
+  final double textScaleFactor = 1.0;
 
   @override
   void initState() {
@@ -578,7 +579,35 @@ class MainWidgetState extends State<MainWidget> with TickerProviderStateMixin {
         textAlign: TextAlign.right,
         style: TextStyle(fontSize: 10),
       ),
-      onTap: () {},
+      onTap: () {
+        Navigator.of(context).pop();
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => Scaffold(
+              body: WhatsNewPage.changelog(
+                title: Text(
+                  "Historial de cambios",
+                  textScaleFactor: textScaleFactor,
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                      fontSize: 22.0,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white),
+                ),
+                buttonText: Text(
+                  'Cerrar',
+                  textScaleFactor: textScaleFactor,
+                  style: TextStyle(color: Theme.of(context).backgroundColor),
+                ),
+                buttonColor: Colors.white,
+                backgroundColor: Theme.of(context).backgroundColor,
+              ),
+            ),
+            fullscreenDialog: true,
+          ),
+        );
+      },
     );
   }
 }
