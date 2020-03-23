@@ -33,6 +33,7 @@ class Constants {
 
   // SharedPreferences
   static String carouselWasSeen = 'carouselWasSeen';
+  static String lastVersion = 'lastVersion';
   static String municipality = 'municipality';
   static String showImageForecastPage = 'showImageForecastPage';
   static String themeMode = 'themeMode';
