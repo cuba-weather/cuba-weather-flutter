@@ -9,7 +9,7 @@
 * Name of days in weather forecast
 * History of the locations consulted
 * View last information consulted if offline
-* Changelog
+* What's new
 
 ### Changed
 * Home page elements position
