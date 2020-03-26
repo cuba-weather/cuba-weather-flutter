@@ -243,7 +243,7 @@ class ForecastPageState extends State<ForecastPage>
                               : Container(),
                           state.forecast.imageUrl != null
                               ? state.showImage
-                                  ? FadeInImage.assetNetwork(
+                                  ?  FadeInImage.assetNetwork(
                                       placeholder: Constants.loadingPlaceholder,
                                       image: state.forecast.imageUrl,
                                     )

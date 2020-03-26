@@ -71,7 +71,7 @@ class CarouselItemWidget extends StatelessWidget {
               text: 'Comenzar',
               textColor: Colors.white,
               color: Colors.white,
-              size: GFSize.large,
+              size: GFSize.LARGE,
               shape: GFButtonShape.pills,
               type: GFButtonType.outline2x,
               fullWidthButton: true,

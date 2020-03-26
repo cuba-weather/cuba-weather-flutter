@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:cuba_weather/src/pages/whats_new/show_whats_new.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_whatsnew/flutter_whatsnew.dart';
 import 'package:getflutter/getflutter.dart';
 import 'package:package_info/package_info.dart';
 import 'package:preferences/preferences.dart';
@@ -78,7 +77,7 @@ class SplashScreenState extends State<SplashScreen> {
                   text: 'Comenzar',
                   textColor: Colors.white,
                   color: Colors.white,
-                  size: GFSize.large,
+                  size: GFSize.LARGE,
                   shape: GFButtonShape.pills,
                   type: GFButtonType.outline2x,
                   fullWidthButton: true,
