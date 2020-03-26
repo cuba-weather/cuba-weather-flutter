@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:getflutter/getflutter.dart';
 
 import '../satellite/satellite_page.dart';
 import 'models/models.dart';
@@ -31,9 +32,7 @@ class SatelliteListPageState extends State<SatelliteListPage> {
             child: ListView.builder(
           itemCount: sources.length,
           itemBuilder: (context, index) {
-            return Card(
-              elevation: 5,
-              child: InkWell(
+            return InkWell(
                 onTap: () {
                   Navigator.push(
                     context,
@@ -44,55 +43,28 @@ class SatelliteListPageState extends State<SatelliteListPage> {
                     ),
                   );
                 },
-                child: Container(
-                  height: 100.0,
-                  child: Row(
-                    children: <Widget>[
-                      Container(
-                        height: 100.0,
-                        width: 120.0,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.only(
-                                bottomLeft: Radius.circular(5),
-                                topLeft: Radius.circular(5)),
-                            image: DecorationImage(
-                                fit: BoxFit.cover,
-                                image: AssetImage(
-                                    'images/satellite/${sources[index].image}'))),
-                      ),
-                      Container(
-                        height: 100,
-                        child: Padding(
-                          padding: EdgeInsets.fromLTRB(10, 2, 0, 0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              Text(
-                                sources[index].source,
-                                style: TextStyle(fontWeight: FontWeight.bold),
-                              ),
-                              Padding(
-                                padding: EdgeInsets.fromLTRB(0, 5, 0, 2),
-                                child: Container(
-                                  width: 260,
-                                  child: Text(
-                                    sources[index].description,
-                                    style: TextStyle(
-                                      fontSize: 15,
-                                    ),
-                                  ),
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                      )
-                    ],
+                child: GFListTile(
+                  avatar: Container(
+                    height: 100.0,
+                    width: 130.0,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.only(
+                            bottomLeft: Radius.circular(5),
+                            topLeft: Radius.circular(5),
+                            bottomRight: Radius.circular(5),
+                            topRight: Radius.circular(5),
+                            ),
+                        image: DecorationImage(
+                            fit: BoxFit.cover,
+                            image: AssetImage(
+                                'images/satellite/${sources[index].image}'))),
                   ),
-                ),
-              ),
-            );
+                  titleText: sources[index].source,
+                  subtitleText: sources[index].description,
+                  icon: Icon(Icons.arrow_right),
+                  color: Colors.white,
+                  margin: EdgeInsets.all(5),
+                ));
           },
         )));
   }

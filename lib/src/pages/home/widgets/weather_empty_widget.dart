@@ -56,7 +56,7 @@ class WeatherEmptyWidget extends StatelessWidget {
             text: 'BUSCAR MUNICIPIO ACTUAL',
             textColor: Colors.white,
             color: Colors.white,
-            size: GFSize.large,
+            size: GFSize.LARGE,
             shape: GFButtonShape.pills,
             type: GFButtonType.outline2x,
             fullWidthButton: true,
