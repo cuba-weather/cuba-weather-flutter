@@ -39,4 +39,8 @@ class Constants {
   static String themeMode = 'themeMode';
   static String municipalityRecord = 'municipalityRecord';
   static int municipalityRecordSize = 10;
+
+  // Donate apk package names
+  static String transfermovil = 'cu.etecsa.cubacel.tr.tm';
+  static String enzona = 'cu.xetid.apk.enzona';
 }

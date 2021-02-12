@@ -1,6 +1,8 @@
 import 'dart:developer';
 import 'dart:ui';
 
+import 'package:cuba_weather/src/utils/utils.dart';
+import 'package:device_apps/device_apps.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
@@ -340,6 +342,7 @@ class DonatePageState extends State<DonatePage> {
             onTap: () {
               Clipboard.setData(new ClipboardData(text: '9224959879396073'));
               _showSnackBar('Cuenta bancaria copiada');
+              _launchApp(Constants.transfermovil);
             },
             label: 'Copiar cuenta bancaria',
             labelStyle: TextStyle(
@@ -356,6 +359,7 @@ class DonatePageState extends State<DonatePage> {
             onTap: () {
               Clipboard.setData(new ClipboardData(text: 'lgutierrez95'));
               _showSnackBar('Usuario de Enzona copiado');
+              _launchApp(Constants.enzona);
             },
             label: 'Copiar usuario de Enzona',
             labelStyle: TextStyle(
@@ -384,5 +388,14 @@ class DonatePageState extends State<DonatePage> {
         ],
       ),
     );
+  }
+
+  void _launchApp(String packageName) async {
+    bool isInstalled = await DeviceApps.isAppInstalled(packageName);
+    if (isInstalled)
+      DeviceApps.openApp(packageName);
+    else {
+      return;
+    }
   }
 }
